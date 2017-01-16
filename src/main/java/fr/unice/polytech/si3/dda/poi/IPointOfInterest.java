@@ -1,4 +1,4 @@
-package fr.unice.polytech.dda.poi;
+package fr.unice.polytech.si3.dda.poi;
 
 /**
  * Interface IPointOfInterest

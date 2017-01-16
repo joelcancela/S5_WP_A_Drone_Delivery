@@ -1,4 +1,4 @@
-package fr.unice.polytech.dda;
+package fr.unice.polytech.si3.dda.poi;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import fr.unice.polytech.dda.poi.DeliveryPoint;
+import fr.unice.polytech.si3.dda.Order;
+import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
 
 public class DeliveryPointTest {
 	private DeliveryPoint deliveryPoint;

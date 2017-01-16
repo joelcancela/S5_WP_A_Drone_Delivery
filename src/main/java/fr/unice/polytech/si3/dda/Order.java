@@ -1,4 +1,4 @@
-package fr.unice.polytech.dda;
+package fr.unice.polytech.si3.dda;
 
 import java.util.HashMap;
 import java.util.Map;
