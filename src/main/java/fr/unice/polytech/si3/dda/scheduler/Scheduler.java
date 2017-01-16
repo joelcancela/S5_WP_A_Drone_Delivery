@@ -7,6 +7,7 @@ import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Class Scheduler
@@ -29,14 +30,20 @@ public class Scheduler {
 
 	public void schedule() throws IOException {
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		IInstruction currentInstruction = new WaitInstruction(0,1);
-		fw.write(currentInstruction.toString());
+		for (int i = 0; i <= ctx.getMaxDrones(); i++) {
+			fw.write(new WaitInstruction(i, 1).toString());
+			fw.write("\n");
+		}
 		fw.close();
 		generateMapCsv();
 	}
 
 	public void generateMapCsv() throws IOException {
 		FileWriter fw = new FileWriter(mapOutFile);
+		Map map = ctx.getMap().getMapping();
+//		for(String key : map.keySet()) {
+//			map.keySet()
+//		}
 		fw.write(",W0,,");
 		fw.write("\t");
 		fw.close();

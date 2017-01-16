@@ -19,6 +19,6 @@ public class WaitInstruction implements IInstruction {
 
 	@Override
 	public String toString() {
-		return droneNumber + "" + "W" + turns;
+		return droneNumber + " " + "W" + " " + turns;
 	}
 }
