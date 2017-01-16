@@ -16,11 +16,22 @@ import java.util.List;
  */
 public class PathFinder {
 
-    public int distance(List<PointOfInterest> pois){
-       int distance = 0;
-       int index = 0;
-       PointOfInterest poi = pois.get(index);
-       return distance;
+    /**
+     * Return the sum of the distance between the pois in the order of the list.
+     *
+     * @param pois the lists of pois.
+     * @return the distance.
+     */
+    public static int getCost(List<PointOfInterest> pois) {
+        int distance = 0;
+        PointOfInterest poi;
+        PointOfInterest next;
+        for (int i = 0; i < pois.size() - 1; i++) {
+            poi = pois.get(i);
+            next = pois.get(i + 1);
+            distance += poi.distance(next);
+        }
+        return distance;
     }
     
     public static Pair<Integer, List<PointOfInterest>> getMinimalCost(List<PointOfInterest> pois){
