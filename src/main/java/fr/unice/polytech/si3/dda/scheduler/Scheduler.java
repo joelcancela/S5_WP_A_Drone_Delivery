@@ -1,11 +1,10 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.Context;
-import fr.unice.polytech.si3.dda.Mapping;
 import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
-import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
-import fr.unice.polytech.si3.dda.poi.Warehouse;
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
+import fr.unice.polytech.si3.dda.mapping.Mapping;
+import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
+import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.io.File;
@@ -48,16 +47,16 @@ public class Scheduler {
 		int deliveryPoints = 0;
 
 		for (int i = 0; i < map.getRows(); i++) {
-			for (int j = 0; j < map.getCols() ; j++) {
-				PointOfInterest poi = map.getPointOfInterest(new Coordinates(i,j));
-				if(poi==null){
+			for (int j = 0; j < map.getCols(); j++) {
+				PointOfInterest poi = map.getPointOfInterest(new Coordinates(i, j));
+				if (poi == null) {
 					fw.write(";");
 				}
-				if(poi instanceof Warehouse){
-					fw.write("W"+(warehouses++)+";");
+				if (poi instanceof Warehouse) {
+					fw.write("W" + (warehouses++) + ";");
 				}
-				if(poi instanceof DeliveryPoint){
-					fw.write("O"+(deliveryPoints++)+";");
+				if (poi instanceof DeliveryPoint) {
+					fw.write("O" + (deliveryPoints++) + ";");
 				}
 			}
 			fw.write("\n");
