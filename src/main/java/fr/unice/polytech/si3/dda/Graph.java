@@ -38,7 +38,10 @@ public class Graph {
 
 
     public int distance(List<PointOfInterest> pois){
-       return 0;
+       int distance = 0;
+       int index = 0;
+       PointOfInterest poi = pois.get(index);
+       return distance;
     }
 
     private class Edge {
