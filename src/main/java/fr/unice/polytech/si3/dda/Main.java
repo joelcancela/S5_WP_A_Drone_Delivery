@@ -1,12 +1,8 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
+import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.scheduler.Scheduler;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import fr.unice.polytech.si3.dda.util.Parser;
 
 /**
  * Main class
@@ -18,12 +14,10 @@ import java.io.IOException;
  */
 public class Main {
 	public static void main(String[] args) {
-		OptionParser parser = new OptionParser("i:");
-		OptionSet options = parser.parse(args);
 
-		if(options.has("i")){
+		if (args.length > 0) {
 			try {
-				Context ctx = new Parser((String) options.valueOf("i")).parse();
+				Context ctx = new Parser(args[0]).parse();
 				new Scheduler(ctx).schedule();
 			} catch (Exception e) {
 				e.printStackTrace();

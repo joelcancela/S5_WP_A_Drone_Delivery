@@ -1,7 +1,6 @@
-package fr.unice.polytech.si3.dda.poi;
+package fr.unice.polytech.si3.dda.mapping;
 
-import fr.unice.polytech.si3.dda.Order;
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
+import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
@@ -14,38 +13,40 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
  */
 public class DeliveryPoint extends PointOfInterest {
 	private Order order;
-	
+
 	/**
 	 * Default constructor of DeliveryPoint
 	 */
-	public DeliveryPoint(){
+	public DeliveryPoint() {
 		this(null);
 	}
-	
+
 	/**
 	 * Normal constructor of DeliveryPoint
+	 *
 	 * @param order Order of the DeliveryPoint
 	 * @throws IllegalArgumentException if the order is null
 	 */
-	public DeliveryPoint(Order order){
+	public DeliveryPoint(Order order) {
 		this(order, null);
 	}
-	
+
 	/**
 	 * Normal constructor of DeliveryPoint
-	 * @param order Order of the DeliveryPoint
+	 *
+	 * @param order       Order of the DeliveryPoint
 	 * @param coordinates Coordinates of the deliveryPoint
 	 * @throws IllegalArgumentException if the order is null
 	 */
-	public DeliveryPoint(Order order, Coordinates coordinates){
+	public DeliveryPoint(Order order, Coordinates coordinates) {
 		super(coordinates);
-		
-		if(order==null)
+
+		if (order == null)
 			throw new IllegalArgumentException("Argument passed \"order\" is null.");
 		else
-			this.order =  order;
+			this.order = order;
 	}
-	
+
 	@Override
 	/*
 	 * (non-Javadoc)
@@ -58,12 +59,13 @@ public class DeliveryPoint extends PointOfInterest {
 
 	/**
 	 * Getter of order
+	 *
 	 * @return Order of the DeliveryPoint
 	 */
-	public Order getOrder(){
+	public Order getOrder() {
 		return order;
 	}
-	
+
 	@Override
 	/**
 	 * Inherited method

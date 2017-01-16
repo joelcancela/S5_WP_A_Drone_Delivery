@@ -1,11 +1,10 @@
-package fr.unice.polytech.si3.dda;
+package fr.unice.polytech.si3.dda.mapping;
+
+import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
-import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Class Product
@@ -23,6 +22,7 @@ public class Mapping {
 
 	/**
 	 * Instantiates a new mapping.
+	 *
 	 * @param rows lines' number
 	 * @param cols columns' number
 	 */
@@ -44,19 +44,26 @@ public class Mapping {
 	/**
 	 * Gets a point of interest.
 	 *
-	 * @param coor
-	 *            the coor
+	 * @param coor the coor
 	 * @return the point of interest
 	 */
 	public PointOfInterest getPointOfInterest(Coordinates coor) {
 		return map.get(coor);
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+
 	/**
 	 * Adds a point of interest.
 	 *
-	 * @param coor            the coor of the poi
-	 * @param poi            the poi to add
+	 * @param coor the coor of the mapping
+	 * @param poi  the mapping to add
 	 * @throws NonValidCoordinatesException the non valid coordinates exception
 	 */
 	public void addPointOfInterest(Coordinates coor, PointOfInterest poi) throws NonValidCoordinatesException {

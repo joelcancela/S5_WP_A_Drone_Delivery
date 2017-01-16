@@ -8,5 +8,5 @@ public class Utils {
 			res[i] = Integer.parseInt(strings[i]);
 		return res;
 	}
-	
+
 }

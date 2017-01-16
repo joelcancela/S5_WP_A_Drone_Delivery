@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda;
+package fr.unice.polytech.si3.dda.order;
 
 import java.util.HashMap;
 import java.util.Map;
