@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda;
+package fr.unice.polytech.si3.dda.scheduler;
 
 import fr.unice.polytech.si3.dda.poi.PointOfInterest;
 import fr.unice.polytech.si3.dda.util.Pair;

@@ -1,7 +1,9 @@
-package fr.unice.polytech.si3.dda;
+package fr.unice.polytech.si3.dda.scheduler;
 
+import fr.unice.polytech.si3.dda.Order;
 import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
 import fr.unice.polytech.si3.dda.poi.PointOfInterest;
+import fr.unice.polytech.si3.dda.scheduler.PathFinder;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import fr.unice.polytech.si3.dda.util.Pair;
 
