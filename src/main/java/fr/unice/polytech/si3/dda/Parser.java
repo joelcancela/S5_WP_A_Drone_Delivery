@@ -24,7 +24,6 @@ public class Parser {
 	}
 	
 	public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException {
-		
 		// Parse the first line
 		ContextBuilder cb = parseFirstLine();
 		// Parse products
@@ -39,7 +38,7 @@ public class Parser {
 		return cb.build();
 	}
 
-	private ContextBuilder parseFirstLine() throws EmptyFileException, IOException {
+	ContextBuilder parseFirstLine() throws EmptyFileException, IOException {
 		String line = br.readLine();
 		if (line == null)
 			throw new EmptyFileException();
@@ -47,7 +46,7 @@ public class Parser {
 		return new Context.ContextBuilder(firstArgs[0], firstArgs[1], firstArgs[2], firstArgs[3], firstArgs[4]);
 	}
 	
-	private List<Product> parseProducts() throws IOException {
+	List<Product> parseProducts() throws IOException {
 		List<Product> products = new ArrayList<>();
 		String line = br.readLine();
 		// Use of the number of products ?
@@ -57,7 +56,7 @@ public class Parser {
 		return products;
 	}
 	
-	private Map<Coordinates, int[]> parseWarehouses() throws IOException {
+	Map<Coordinates, int[]> parseWarehouses() throws IOException {
 		Map<Coordinates, int[]> products = new HashMap<>();
 		String line = br.readLine();
 		int numWarehouse = Integer.parseInt(line);
@@ -72,7 +71,7 @@ public class Parser {
 		return products;
 	}
 	
-	private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException {
+	Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException {
 		Map<Coordinates, Order> orders = new HashMap<>();
 		String line = br.readLine();
 		int numOrder = Integer.parseInt(line);
