@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.unice.polytech.si3.dda.Context.ContextBuilder;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
@@ -20,22 +22,43 @@ public class Parser {
 		br = new BufferedReader(new FileReader(filename));
 	}
 	
-	public Context parse() throws IOException, NonValidCoordinatesException {
-		List<Product> products = new ArrayList<>();
+	public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException {
 		
 		// Parse the first line
+		ContextBuilder cb = parseFirstLine();
+		// Parse products
+		List<Product> products = parseProducts();
+		cb.products(products);
+		// Parse warehouses
+		for(Map.Entry<Coordinates, int[]> entry: parseWarehouses().entrySet())
+			cb.addWarehouse(entry.getKey(), entry.getValue());
+		// Parse order
+		for(Map.Entry<Coordinates, Order> entry: parseOrders(products).entrySet())
+			cb.addDeliveryPoint(entry.getKey(), entry.getValue());
+		return cb.build();
+	}
+
+	private ContextBuilder parseFirstLine() throws EmptyFileException, IOException {
 		String line = br.readLine();
+		if (line == null)
+			throw new EmptyFileException();
 		int[] firstArgs = Utils.stringArrayToIntArray(line.split(" "));
-		ContextBuilder cb = new Context.ContextBuilder(firstArgs[0], firstArgs[1], firstArgs[2], firstArgs[3], firstArgs[4]);
-		// Parse the products
-		line = br.readLine();
+		return new Context.ContextBuilder(firstArgs[0], firstArgs[1], firstArgs[2], firstArgs[3], firstArgs[4]);
+	}
+	
+	private List<Product> parseProducts() throws IOException {
+		List<Product> products = new ArrayList<>();
+		String line = br.readLine();
 		// Use of the number of products ?
 		line = br.readLine();
 		for (String product: line.split(" "))
 			products.add(new Product(Integer.parseInt(product)));
-		cb.products(products);
-		// Parse warehouses
-		line = br.readLine();
+		return products;
+	}
+	
+	private Map<Coordinates, int[]> parseWarehouses() throws IOException {
+		Map<Coordinates, int[]> products = new HashMap<>();
+		String line = br.readLine();
 		int numWarehouse = Integer.parseInt(line);
 		line = br.readLine();
 		for (int i=0; i<numWarehouse; i++) {
@@ -43,10 +66,14 @@ public class Parser {
 			Coordinates coor = new Coordinates(coorInt[0], coorInt[1]);
 			line = br.readLine();
 			int[] stock = Utils.stringArrayToIntArray(line.split(" "));
-			cb.addWarehouse(coor, stock);
+			products.put(coor, stock);
 		}
-		// Parse order
-		line = br.readLine();
+		return products;
+	}
+	
+	private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException {
+		Map<Coordinates, Order> orders = new HashMap<>();
+		String line = br.readLine();
 		int numOrder = Integer.parseInt(line);
 		for (int i=0; i<numOrder; i++) {
 			line = br.readLine();
@@ -58,8 +85,9 @@ public class Parser {
 			line = br.readLine();
 			for(int type: Utils.stringArrayToIntArray(line.split(" ")))
 				o.addProduct(products.get(type), 1);
+			orders.put(coor, o);
 		}
-		return cb.build();
+		return orders;
 	}
 	
 }
