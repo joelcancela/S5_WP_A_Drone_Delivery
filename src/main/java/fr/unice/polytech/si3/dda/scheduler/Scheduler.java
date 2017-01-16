@@ -24,12 +24,22 @@ public class Scheduler {
 	File scheduleOutFile;
 	File mapOutFile;
 
+	/**
+	 * Scheduler constructor
+	 *
+	 * @param context is the context to be used by the scheduler
+	 */
 	public Scheduler(Context context) {
 		this.ctx = context;
 		this.scheduleOutFile = new File("scheduler.out");
 		this.mapOutFile = new File("map.csv");
 	}
 
+	/**
+	 * Launches algorithm and writes the instructions to the output file "scheduler.out"
+	 *
+	 * @throws IOException if you can't write on the output file
+	 */
 	public void schedule() throws IOException {
 		FileWriter fw = new FileWriter(scheduleOutFile);
 		for (int i = 0; i < ctx.getMaxDrones(); i++) {
@@ -40,6 +50,11 @@ public class Scheduler {
 		generateMapCsv();
 	}
 
+	/**
+	 * Generate the current map to csv file
+	 *
+	 * @throws IOException if you can't write on the output file
+	 */
 	public void generateMapCsv() throws IOException {
 		FileWriter fw = new FileWriter(mapOutFile);
 		Mapping map = ctx.getMap();

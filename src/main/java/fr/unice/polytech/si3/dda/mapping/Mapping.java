@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class Product
+ * Class Mapping
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
@@ -51,10 +51,20 @@ public class Mapping {
 		return map.get(coor);
 	}
 
+	/**
+	 * Getter for the rows of the map
+	 *
+	 * @return the rows of the map (x)
+	 */
 	public int getRows() {
 		return rows;
 	}
 
+	/**
+	 * Getter for the columns of the map
+	 *
+	 * @return the columns of the map (y)
+	 */
 	public int getCols() {
 		return cols;
 	}

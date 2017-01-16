@@ -99,11 +99,10 @@ public class Coordinates {
 		return "(" + x + ", " + y + ")";
 	}
 
-	/**
-	 * Test if two Coordinates have the same value.
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @param obj the obj
-	 * @return true if the two Coordinates are equivalent
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(final Object obj) {
@@ -168,7 +167,7 @@ public class Coordinates {
 	}
 
 	/**
-	 * Distance.
+	 * Returns the distance between two Coordinates
 	 *
 	 * @param other the other
 	 * @return the double

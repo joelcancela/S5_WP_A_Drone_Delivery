@@ -32,11 +32,10 @@ public class Product {
 		return weight;
 	}
 
-	/**
-	 * equals method
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @param o object to compare the order with
-	 * @return true if the current instance and o are equals, else false
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -50,20 +49,20 @@ public class Product {
 		return weight == product.weight;
 	}
 
-	/**
-	 * hashCode method
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @return the hashcode of the current instance
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		return weight;
 	}
 
-	/**
-	 * toString method
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @return the representation of the product
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {

@@ -17,7 +17,7 @@ public class Drone {
 	private int maxPayload;
 	private int usedPayload;
 
-	private Coordinates coordonates;
+	private Coordinates coordinates;
 	private List<Product> loadedProducts;
 
 	/**
@@ -28,7 +28,7 @@ public class Drone {
 	 */
 	public Drone(int maxPayload, Coordinates coordinates) {
 		this.maxPayload = maxPayload;
-		this.coordonates = coordinates;
+		this.coordinates = coordinates;
 		this.usedPayload = 0;
 		loadedProducts = new ArrayList<>();
 	}
@@ -39,7 +39,7 @@ public class Drone {
 	 * @param newCoordinates the new coordinates of the drone.
 	 */
 	public void move(Coordinates newCoordinates) {
-		coordonates = newCoordinates;
+		coordinates = newCoordinates;
 	}
 
 	/**
@@ -91,8 +91,8 @@ public class Drone {
 	 *
 	 * @return the current coordinates of the drone.
 	 */
-	public Coordinates getCoordonates() {
-		return coordonates;
+	public Coordinates getCoordinates() {
+		return coordinates;
 	}
 
 	/**

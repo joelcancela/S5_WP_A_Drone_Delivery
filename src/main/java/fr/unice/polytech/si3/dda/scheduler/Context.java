@@ -10,6 +10,14 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.util.List;
 
+/**
+ * Class Context
+ *
+ * @author Jeremy JUNAC
+ * @author Alexandre HILTCHER
+ * @author Pierre RAINERO
+ * @author Joël CANCELA VAZ
+ */
 public class Context {
 
 	private final Mapping map;
@@ -18,6 +26,11 @@ public class Context {
 	private final int maxPayload;
 	private final List<Product> products;
 
+	/**
+	 * Context constructor
+	 *
+	 * @param builder the context builder
+	 */
 	private Context(ContextBuilder builder) {
 		map = builder.map;
 		maxDrones = builder.maxDrones;
@@ -27,6 +40,8 @@ public class Context {
 	}
 
 	/**
+	 * Getter for the map
+	 *
 	 * @return the map
 	 */
 	public Mapping getMap() {
@@ -34,6 +49,8 @@ public class Context {
 	}
 
 	/**
+	 * Getter for the number of drones
+	 *
 	 * @return the maxDrones
 	 */
 	public int getMaxDrones() {
@@ -41,6 +58,8 @@ public class Context {
 	}
 
 	/**
+	 * Getter for the turns
+	 *
 	 * @return the turns
 	 */
 	public int getTurns() {
@@ -48,6 +67,8 @@ public class Context {
 	}
 
 	/**
+	 * Getter for the max payload
+	 *
 	 * @return the maxPayload
 	 */
 	public int getMaxPayload() {
@@ -61,6 +82,15 @@ public class Context {
 		return products;
 	}
 
+
+	/**
+	 * Class ContextBuilder
+	 *
+	 * @author Jeremy JUNAC
+	 * @author Alexandre HILTCHER
+	 * @author Pierre RAINERO
+	 * @author Joël CANCELA VAZ
+	 */
 	public static class ContextBuilder {
 		private final Mapping map;
 		private final int maxDrones;
@@ -68,6 +98,15 @@ public class Context {
 		private final int maxPayload;
 		private List<Product> products;
 
+		/**
+		 * ContextBuilder constructor
+		 *
+		 * @param rows       the number of rows of the map
+		 * @param cols       the number of columns of the map
+		 * @param maxDrones  the number of drones
+		 * @param turns      the number of maximum turns
+		 * @param maxPayload the maximum payload for each drone
+		 */
 		public ContextBuilder(int rows, int cols, int maxDrones, int turns, int maxPayload) {
 			map = new Mapping(rows, cols);
 			this.maxDrones = maxDrones;
@@ -75,11 +114,25 @@ public class Context {
 			this.maxPayload = maxPayload;
 		}
 
-		public ContextBuilder products(List<Product> products) {
+		/**
+		 * Adds products to the new context
+		 *
+		 * @param products the products list
+		 * @return the context builder instance
+		 */
+		public ContextBuilder addProducts(List<Product> products) {
 			this.products = products;
 			return this;
 		}
 
+		/**
+		 * Adds a warehouse to the new context
+		 *
+		 * @param coor  the coordinates of the warehouse
+		 * @param stock the stock of the warehouse for each product type
+		 * @return the context builder instance
+		 * @throws NonValidCoordinatesException if coordinates are invalid
+		 */
 		public ContextBuilder addWarehouse(Coordinates coor, int... stock) throws NonValidCoordinatesException {
 			Warehouse w = new Warehouse();
 			for (int i = 0; i < products.size(); i++)
@@ -88,11 +141,24 @@ public class Context {
 			return this;
 		}
 
+		/**
+		 * Adds a delivery point to the new context
+		 *
+		 * @param coor the coordinates of the delivery point
+		 * @param o    the order of the delivery point
+		 * @return the context builder instance
+		 * @throws NonValidCoordinatesException if coordinates are invalid
+		 */
 		public ContextBuilder addDeliveryPoint(Coordinates coor, Order o) throws NonValidCoordinatesException {
 			map.addPointOfInterest(coor, new DeliveryPoint(o));
 			return this;
 		}
 
+		/**
+		 * Builds a context from the current ContextBuilder instance
+		 *
+		 * @return a new Context
+		 */
 		public Context build() {
 			return new Context(this);
 		}

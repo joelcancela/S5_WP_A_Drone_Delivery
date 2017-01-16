@@ -31,7 +31,7 @@ public class DroneTest {
 	@Test
 	public void move() throws Exception {
 		drone.move(new Coordinates(1, 1));
-		assertEquals(new Coordinates(1, 1), drone.getCoordonates());
+		assertEquals(new Coordinates(1, 1), drone.getCoordinates());
 	}
 
 	@Test
