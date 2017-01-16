@@ -1,9 +1,12 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import fr.unice.polytech.si3.dda.scheduler.Context;
+import fr.unice.polytech.si3.dda.scheduler.Drone;
 import fr.unice.polytech.si3.dda.scheduler.Fleet;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 
@@ -17,7 +20,7 @@ import fr.unice.polytech.si3.dda.instruction.IInstruction;
  * @author Joël CANCELA VAZ
  *
  */
-public class SingleDroneStrategy {
+public class SingleDroneStrategy implements Strategy{
 	private Context context;
 	private Fleet fleet;
 	
@@ -36,7 +39,13 @@ public class SingleDroneStrategy {
 	 * @return list of all instructions of the strategy
 	 */
 	public List<IInstruction> getInstructions(){
+		Drone doneUsed = fleet.getDrone(0);
+		Map<List<IInstruction>, Integer> instructionsLists = new HashMap<List<IInstruction>, Integer>();
 		
+		
+		
+		return null;
 	}
+
 	
 }
