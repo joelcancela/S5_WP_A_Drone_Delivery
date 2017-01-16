@@ -31,8 +31,11 @@ public class Order {
 	 * @param quantity the number of the products p ordered
 	 */
 	public void addProduct(Product p, int quantity) {
+		if (products.containsKey(p)) {
+			numberOfProducts = numberOfProducts - products.get(p);
+		}
 		products.put(p, quantity);
-		numberOfProducts = numberOfProducts + quantity; //Fixme maybe a problem if the product is already in the hashmap and replaced
+		numberOfProducts = numberOfProducts + quantity;
 	}
 
 	/**
@@ -74,8 +77,10 @@ public class Order {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
 		Order order = (Order) o;
 
@@ -103,5 +108,5 @@ public class Order {
 				"products=" + products +
 				'}';
 	}
-	
+
 }
