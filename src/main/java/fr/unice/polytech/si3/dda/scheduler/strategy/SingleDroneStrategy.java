@@ -1,6 +1,11 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import fr.unice.polytech.si3.dda.scheduler.Context;
+import fr.unice.polytech.si3.dda.scheduler.Fleet;
+
+import java.util.List;
+
+import fr.unice.polytech.si3.dda.instruction.IInstruction;
 
 /**
  * 
@@ -25,4 +30,13 @@ public class SingleDroneStrategy {
 		this.context = context;
 		this.fleet = fleet;
 	}
+	
+	/**
+	 * Return the list of all instructions of the strategy
+	 * @return list of all instructions of the strategy
+	 */
+	public List<IInstruction> getInstructions(){
+		
+	}
+	
 }
