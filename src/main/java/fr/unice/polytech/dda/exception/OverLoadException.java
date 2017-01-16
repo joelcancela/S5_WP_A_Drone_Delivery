@@ -2,6 +2,8 @@ package fr.unice.polytech.dda.exception;
 
 /**
  * Signals when a drone the used payload of a drone exceed the max Payload.
+ * Thrown by <code>Drone</code>.
+ *
  * @author Alexandre Hiltcher
  */
 public class OverLoadException extends Exception {

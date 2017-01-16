@@ -2,6 +2,8 @@ package fr.unice.polytech.dda.exception;
 
 /**
  * Signals that an item is not present when trying to unload it.
+ * Thrown by <code>Drone</code>.
+ *
  * @author Alexandre Hiltcher
  */
 public class ProductNotFoundException extends Exception {

@@ -10,7 +10,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by alexh on 16/01/2017.
+ * Test the class drone.
+ *
+ * @author Alexandre Hiltcher
  */
 public class DroneTest {
     Drone drone;
