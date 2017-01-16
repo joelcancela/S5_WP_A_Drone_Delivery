@@ -52,6 +52,14 @@ public class Mapping {
 		return map.get(coor);
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+
 	/**
 	 * Adds a point of interest.
 	 *
