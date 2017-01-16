@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.dda.poi;
 
 import fr.unice.polytech.si3.dda.Order;
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**

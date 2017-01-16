@@ -1,19 +1,15 @@
 package fr.unice.polytech.si3.dda.poi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import fr.unice.polytech.si3.dda.Product;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import fr.unice.polytech.si3.dda.Product;
-import fr.unice.polytech.si3.dda.poi.Warehouse;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 public class WarehouseTest {
 	private Warehouse warehouse;

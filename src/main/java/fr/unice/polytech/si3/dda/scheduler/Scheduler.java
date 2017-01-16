@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.dda.scheduler;
 
 import fr.unice.polytech.si3.dda.Context;
 import fr.unice.polytech.si3.dda.Mapping;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
 import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
 import fr.unice.polytech.si3.dda.poi.PointOfInterest;
@@ -12,7 +11,6 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Class Scheduler

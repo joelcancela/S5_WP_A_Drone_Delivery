@@ -1,13 +1,11 @@
 package fr.unice.polytech.si3.dda;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
 import fr.unice.polytech.si3.dda.poi.Warehouse;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import java.util.List;
 
 public class Context {
 

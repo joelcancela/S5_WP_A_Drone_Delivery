@@ -1,12 +1,11 @@
 package fr.unice.polytech.si3.dda;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
 import fr.unice.polytech.si3.dda.poi.Warehouse;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+import org.junit.Before;
+import org.junit.Test;
 
 public class MappingTest {
 

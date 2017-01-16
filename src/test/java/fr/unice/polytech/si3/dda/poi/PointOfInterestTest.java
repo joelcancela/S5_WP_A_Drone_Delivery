@@ -1,11 +1,11 @@
 package fr.unice.polytech.si3.dda.poi;
 
-import static org.junit.Assert.*;
-
+import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.si3.dda.util.Coordinates;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 
 public class PointOfInterestTest {

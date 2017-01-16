@@ -1,10 +1,10 @@
 package fr.unice.polytech.si3.dda.poi;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import fr.unice.polytech.si3.dda.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class Warehouse

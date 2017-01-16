@@ -1,5 +1,11 @@
 package fr.unice.polytech.si3.dda;
 
+import fr.unice.polytech.si3.dda.Context.ContextBuilder;
+import fr.unice.polytech.si3.dda.exception.EmptyFileException;
+import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
+import fr.unice.polytech.si3.dda.util.Coordinates;
+import fr.unice.polytech.si3.dda.util.Utils;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,12 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import fr.unice.polytech.si3.dda.Context.ContextBuilder;
-import fr.unice.polytech.si3.dda.exception.EmptyFileException;
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
-import fr.unice.polytech.si3.dda.util.Coordinates;
-import fr.unice.polytech.si3.dda.util.Utils;
 
 public class Parser {
 	

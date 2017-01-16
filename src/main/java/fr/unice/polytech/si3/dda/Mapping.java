@@ -1,11 +1,11 @@
 package fr.unice.polytech.si3.dda;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.poi.PointOfInterest;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class Product

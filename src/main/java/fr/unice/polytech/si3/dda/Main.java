@@ -1,10 +1,6 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.scheduler.Scheduler;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * Main class

@@ -1,11 +1,8 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.Drone;
-import fr.unice.polytech.si3.dda.Product;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.util.Coordinates;
-
 import org.junit.Before;
 import org.junit.Test;
 
