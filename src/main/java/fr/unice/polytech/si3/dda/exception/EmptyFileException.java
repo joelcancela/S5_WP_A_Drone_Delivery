@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda;
+package fr.unice.polytech.si3.dda.exception;
 
 public class EmptyFileException extends Exception {
 
