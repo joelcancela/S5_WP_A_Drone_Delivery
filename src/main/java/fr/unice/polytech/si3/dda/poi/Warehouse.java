@@ -55,7 +55,7 @@ public class Warehouse extends PointOfInterest {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public String toString() {
-		return "Warehouse [stock=" + stock + "]";
+		return "Warehouse : {" + stock.toString() + " , " + super.toString() + "}";
 	}
 
 	/**
