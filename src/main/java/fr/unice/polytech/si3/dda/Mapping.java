@@ -16,18 +16,20 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
  * @author Joël CANCELA VAZ
  */
 public class Mapping {
+	private final int rows;
+	private final int cols;
 
-	public final int rows, cols;
-
-	private Map<Coordinates, IPointOfInterest> mapping;
+	private Map<Coordinates, IPointOfInterest> map;
 
 	/**
 	 * Instantiates a new mapping.
+	 * @param rows lines' number
+	 * @param cols columns' number
 	 */
 	public Mapping(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		mapping = new HashMap<>();
+		map = new HashMap<>();
 	}
 
 	/**
@@ -36,7 +38,7 @@ public class Mapping {
 	 * @return the mapping
 	 */
 	public Map<Coordinates, IPointOfInterest> getMapping() {
-		return new HashMap<>(mapping);
+		return new HashMap<>(map);
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class Mapping {
 	 * @return the point of interest
 	 */
 	public IPointOfInterest getPointOfInterest(Coordinates coor) {
-		return mapping.get(coor);
+		return map.get(coor);
 	}
 
 	/**
@@ -60,7 +62,7 @@ public class Mapping {
 	public void addPointOfInterest(Coordinates coor, IPointOfInterest poi) throws NonValidCoordinatesException {
 		if (!checkCoor(coor))
 			throw new NonValidCoordinatesException();
-		mapping.put(coor, poi);
+		map.put(coor, poi);
 	}
 
 	/**

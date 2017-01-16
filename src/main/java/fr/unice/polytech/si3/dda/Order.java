@@ -56,7 +56,7 @@ public class Order {
 	 *
 	 * @return the products orders list
 	 */
-	public Map getProducts() {
+	public Map<Product, Integer> getProducts() {
 		return products;
 	}
 

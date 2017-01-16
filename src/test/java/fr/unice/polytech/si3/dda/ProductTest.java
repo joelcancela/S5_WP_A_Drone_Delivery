@@ -32,12 +32,12 @@ public class ProductTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateZeroWeightProduct() {
-		Product p1 = new Product(0);
+		new Product(0);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateNegativeWeightProduct() {
-		Product p1 = new Product(-20);
+		new Product(-20);
 	}
 
 	@Test

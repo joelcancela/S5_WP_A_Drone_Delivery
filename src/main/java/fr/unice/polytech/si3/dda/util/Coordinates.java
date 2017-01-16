@@ -181,7 +181,7 @@ public class Coordinates {
 	 * @return the double
 	 */
 	public double distance(final Coordinates other) {
-		return Math.sqrt(Math.pow(x - other.getX(), 2) + Math.pow(y - other.getY(), 2));
+		return Math.sqrt(Math.pow((double)x - other.getX(), 2) + Math.pow((double)y - other.getY(), 2));
 	}
 	
 	
