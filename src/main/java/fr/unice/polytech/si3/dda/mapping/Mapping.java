@@ -1,10 +1,13 @@
 package fr.unice.polytech.si3.dda.mapping;
 
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
-import fr.unice.polytech.si3.dda.util.Coordinates;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
+import fr.unice.polytech.si3.dda.order.Order;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Class Mapping
@@ -23,8 +26,10 @@ public class Mapping {
 	/**
 	 * Instantiates a new mapping.
 	 *
-	 * @param rows lines' number
-	 * @param cols columns' number
+	 * @param rows
+	 *            lines' number
+	 * @param cols
+	 *            columns' number
 	 */
 	public Mapping(int rows, int cols) {
 		this.rows = rows;
@@ -41,10 +46,20 @@ public class Mapping {
 		return new HashMap<>(map);
 	}
 
+	public List<Order> getOrders() {
+		List<Order> res = new ArrayList<>();
+		for (Map.Entry<Coordinates, PointOfInterest> entry : map.entrySet()) {
+			if (entry.getValue().isDeliveryPoint())
+				res.add(((DeliveryPoint) entry.getValue()).getOrder());
+		}
+		return res;
+	}
+
 	/**
 	 * Gets a point of interest.
 	 *
-	 * @param coor the coor
+	 * @param coor
+	 *            the coor
 	 * @return the point of interest
 	 */
 	public PointOfInterest getPointOfInterest(Coordinates coor) {
@@ -72,9 +87,12 @@ public class Mapping {
 	/**
 	 * Adds a point of interest.
 	 *
-	 * @param coor the coor of the mapping
-	 * @param poi  the mapping to add
-	 * @throws NonValidCoordinatesException the non valid coordinates exception
+	 * @param coor
+	 *            the coor of the mapping
+	 * @param poi
+	 *            the mapping to add
+	 * @throws NonValidCoordinatesException
+	 *             the non valid coordinates exception
 	 */
 	public void addPointOfInterest(Coordinates coor, PointOfInterest poi) throws NonValidCoordinatesException {
 		if (!checkCoor(coor))
@@ -85,7 +103,8 @@ public class Mapping {
 	/**
 	 * Check coor.
 	 *
-	 * @param coor the coor to test
+	 * @param coor
+	 *            the coor to test
 	 * @return true, if successful
 	 */
 	private boolean checkCoor(Coordinates coor) {
@@ -94,7 +113,9 @@ public class Mapping {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -107,7 +128,9 @@ public class Mapping {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -131,7 +154,9 @@ public class Mapping {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
