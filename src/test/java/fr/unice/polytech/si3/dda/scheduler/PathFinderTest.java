@@ -1,19 +1,18 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.Order;
-import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
-import fr.unice.polytech.si3.dda.scheduler.PathFinder;
-import fr.unice.polytech.si3.dda.util.Coordinates;
-import fr.unice.polytech.si3.dda.util.Pair;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
+import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
+import fr.unice.polytech.si3.dda.order.Order;
+import fr.unice.polytech.si3.dda.util.Coordinates;
+import fr.unice.polytech.si3.dda.util.Pair;
 
 /**
  * PathFinder test

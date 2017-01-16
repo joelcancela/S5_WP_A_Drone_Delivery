@@ -1,14 +1,17 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.exception.OverLoadException;
-import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
-import fr.unice.polytech.si3.dda.util.Coordinates;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
+import fr.unice.polytech.si3.dda.order.Order;
+import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Test the class drone.

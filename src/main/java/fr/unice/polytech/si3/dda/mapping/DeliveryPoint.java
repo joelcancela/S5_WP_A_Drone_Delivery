@@ -1,6 +1,6 @@
-package fr.unice.polytech.si3.dda.poi;
+package fr.unice.polytech.si3.dda.mapping;
 
-import fr.unice.polytech.si3.dda.Order;
+import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
@@ -31,40 +31,38 @@ public class DeliveryPoint extends PointOfInterest {
         this(order, null);
     }
 
-    /**
-     * Normal constructor of DeliveryPoint
-     *
-     * @param order       Order of the DeliveryPoint
-     * @param coordinates Coordinates of the deliveryPoint
-     * @throws IllegalArgumentException if the order is null
-     */
-    public DeliveryPoint(Order order, Coordinates coordinates) {
-        super(coordinates);
+	/**
+	 * Normal constructor of DeliveryPoint
+	 *
+	 * @param order       Order of the DeliveryPoint
+	 * @param coordinates Coordinates of the deliveryPoint
+	 * @throws IllegalArgumentException if the order is null
+	 */
+	public DeliveryPoint(Order order, Coordinates coordinates) {
+		super(coordinates);
 
-        if (order == null)
-            throw new IllegalArgumentException("Argument passed \"order\" is null.");
-        else
-            this.order = order;
-    }
+		if (order == null)
+			throw new IllegalArgumentException("Argument passed \"order\" is null.");
+		else
+			this.order = order;
+	}
 
+	/**
+	 * Getter of order
+	 *
+	 * @return Order of the DeliveryPoint
+	 */
+	public Order getOrder() {
+		return order;
+	}
 
-
-    /**
-     * Getter of order
-     *
-     * @return Order of the DeliveryPoint
-     */
-    public Order getOrder() {
-        return order;
-    }
-
-    @Override
-    /**
-     * Inherited method
-     */
-    public boolean isWarehouse() {
-        return false;
-    }
+	@Override
+	/**
+	 * Inherited method
+	 */
+	public boolean isWarehouse() {
+		return false;
+	}
 
     @Override
     /**
@@ -78,7 +76,7 @@ public class DeliveryPoint extends PointOfInterest {
     /*
 	 * (non-Javadoc)
 	 *
-	 * @see java.lang.Object#hashCode()
+	 * @see java.lang.Object#toString()
 	 */
     public String toString() {
         return "DeliveryPoint : {" + order.toString() + " , " + super.toString() + "}";

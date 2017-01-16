@@ -1,12 +1,13 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.exception.OverLoadException;
-import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
-import fr.unice.polytech.si3.dda.util.Coordinates;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
+import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * The Drone class describe the characteristics of the Drone.

@@ -7,18 +7,20 @@ package fr.unice.polytech.si3.dda.util;
  */
 public class Coordinates {
 
-	/** The x position */
+	/**
+	 * The x position
+	 */
 	protected int x;
-	/** The y position */
+	/**
+	 * The y position
+	 */
 	protected int y;
-	
+
 	/**
 	 * Default constructor.
 	 *
-	 * @param x
-	 *            the x position
-	 * @param y
-	 *            the y position
+	 * @param x the x position
+	 * @param y the y position
 	 */
 	public Coordinates(final int x, final int y) {
 		this.x = x;
@@ -28,8 +30,7 @@ public class Coordinates {
 	/**
 	 * Instantiates a new coordinates.
 	 *
-	 * @param coor
-	 *            the coor
+	 * @param coor the coor
 	 */
 	public Coordinates(final Coordinates coor) {
 		this(coor.getX(), coor.getY());
@@ -47,8 +48,7 @@ public class Coordinates {
 	/**
 	 * Sets the X.
 	 *
-	 * @param x
-	 *            the x to set
+	 * @param x the x to set
 	 * @return this
 	 */
 	public Coordinates setX(final int x) {
@@ -68,22 +68,19 @@ public class Coordinates {
 	/**
 	 * Sets the Y.
 	 *
-	 * @param y
-	 *            the y to set
+	 * @param y the y to set
 	 * @return this
 	 */
 	public Coordinates setY(final int y) {
 		this.y = y;
 		return this;
 	}
-	
+
 	/**
 	 * Sets the size.
 	 *
-	 * @param x
-	 *            the x
-	 * @param y
-	 *            the y
+	 * @param x the x
+	 * @param y the y
 	 * @return the pair int
 	 */
 	public Coordinates setSize(final int x, final int y) {
@@ -102,12 +99,10 @@ public class Coordinates {
 		return "(" + x + ", " + y + ")";
 	}
 
-	/**
-	 * Test if two Coordinates have the same value.
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @param obj
-	 *            the obj
-	 * @return true if the two Coordinates are equivalent
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(final Object obj) {
@@ -141,8 +136,7 @@ public class Coordinates {
 	/**
 	 * Add the specified coordinates with this coordinates.
 	 *
-	 * @param coor
-	 *            the coordinates to add
+	 * @param coor the coordinates to add
 	 * @return a coordinates that represents the addition of this coordinates and arguments coordinates
 	 */
 	public Coordinates plus(final Coordinates coor) {
@@ -154,8 +148,7 @@ public class Coordinates {
 	/**
 	 * Subtract the specified coordinates with this coordinates.
 	 *
-	 * @param coor
-	 *            the coordinates to subtract
+	 * @param coor the coordinates to subtract
 	 * @return a coordinates that represents the subtraction of this coordinates and arguments coordinates
 	 */
 	public Coordinates minus(final Coordinates coor) {
@@ -163,7 +156,7 @@ public class Coordinates {
 		y -= coor.getY();
 		return this;
 	}
-	
+
 	/**
 	 * Return a copy of this coordinates using the copy-constructor.
 	 *
@@ -174,15 +167,14 @@ public class Coordinates {
 	}
 
 	/**
-	 * Distance.
+	 * Returns the distance between two Coordinates
 	 *
-	 * @param other
-	 *            the other
+	 * @param other the other
 	 * @return the double
 	 */
 	public double distance(final Coordinates other) {
-		return Math.sqrt(Math.pow((double)x - other.getX(), 2) + Math.pow((double)y - other.getY(), 2));
+		return Math.sqrt(Math.pow((double) x - other.getX(), 2) + Math.pow((double) y - other.getY(), 2));
 	}
-	
-	
+
+
 }

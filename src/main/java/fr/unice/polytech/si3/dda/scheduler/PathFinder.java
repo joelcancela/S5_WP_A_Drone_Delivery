@@ -1,10 +1,10 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.poi.PointOfInterest;
-import fr.unice.polytech.si3.dda.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
+import fr.unice.polytech.si3.dda.util.Pair;
 
 /**
  * The Graph class is used to represent the graph of routes between the points of interest.

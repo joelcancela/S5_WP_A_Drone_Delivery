@@ -11,14 +11,15 @@ package fr.unice.polytech.si3.dda.exception;
  */
 public class OverLoadException extends Exception {
 
-    private static final long serialVersionUID = -3290639640695784205L;
-    
-    /**
-     * Default constructor of OverLoadException
-     * @param msg message of this exception
-     */
-    public OverLoadException(String msg){
-    	super(msg);
-    }
+	private static final long serialVersionUID = -3290639640695784205L;
+
+	/**
+	 * Default constructor of OverLoadException
+	 *
+	 * @param msg message of this exception
+	 */
+	public OverLoadException(String msg) {
+		super(msg);
+	}
 
 }

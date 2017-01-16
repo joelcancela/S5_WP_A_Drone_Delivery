@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda;
+package fr.unice.polytech.si3.dda.order;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,11 +69,10 @@ public class Order {
 		return numberOfProducts;
 	}
 
-	/**
-	 * equals method
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @param o object to compare the order with
-	 * @return true if the current instance and o are equals, else false
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object o) {
@@ -87,20 +86,20 @@ public class Order {
 		return products != null ? products.equals(order.products) : order.products == null;
 	}
 
-	/**
-	 * hashCode method
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @return the hashcode of the current instance
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		return products != null ? products.hashCode() : 0;
 	}
 
-	/**
-	 * toString method
+	/*
+	 * (non-Javadoc)
 	 *
-	 * @return the representation of the order
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
