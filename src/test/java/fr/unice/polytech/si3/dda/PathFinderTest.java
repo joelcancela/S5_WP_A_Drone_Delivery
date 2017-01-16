@@ -46,6 +46,9 @@ public class PathFinderTest {
         
         Pair<Integer, List<PointOfInterest>> pair = PathFinder.getMinimalCost(listeOfPois);
         assertEquals((Integer)0, pair.getFirst());
+        listeOfPois = new ArrayList<PointOfInterest>();
+        listeOfPois.add(d1);
+        assertEquals((Integer)0, pair.getFirst());
         
         listeOfPois = new ArrayList<PointOfInterest>();
         listeOfPois.add(d1);
@@ -53,6 +56,29 @@ public class PathFinderTest {
         listeOfPois.add(d3);
         pair = PathFinder.getMinimalCost(listeOfPois);
         assertEquals((Integer)3, pair.getFirst());
+        List<PointOfInterest> listeOfPois2 = new ArrayList<PointOfInterest>();
+        listeOfPois2.add(d1);
+        listeOfPois2.add(d3);
+        listeOfPois2.add(d2);
+        assertEquals(listeOfPois2, pair.getSecond());
+        
+        d1 = new DeliveryPoint(new Order(), new Coordinates(0, 0));
+        d2 = new DeliveryPoint(new Order(), new Coordinates(4, 3));
+        d3 = new DeliveryPoint(new Order(), new Coordinates(0, 2));
+        DeliveryPoint d4 = new DeliveryPoint(new Order(), new Coordinates(3, 0));
+        listeOfPois = new ArrayList<PointOfInterest>();
+        listeOfPois.add(d1);
+        listeOfPois.add(d2);
+        listeOfPois.add(d3);
+        listeOfPois.add(d4);
+        pair = PathFinder.getMinimalCost(listeOfPois);
+        assertEquals((Integer)10, pair.getFirst());
+        listeOfPois2 = new ArrayList<PointOfInterest>();
+        listeOfPois2.add(d1);
+        listeOfPois2.add(d3);
+        listeOfPois2.add(d4);
+        listeOfPois2.add(d2);
+        assertEquals(listeOfPois2, pair.getSecond());
     }
 
 }
