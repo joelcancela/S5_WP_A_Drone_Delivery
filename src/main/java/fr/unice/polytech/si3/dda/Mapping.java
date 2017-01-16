@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
-import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
+import fr.unice.polytech.si3.dda.poi.PointOfInterest;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
@@ -19,7 +19,7 @@ public class Mapping {
 	private final int rows;
 	private final int cols;
 
-	private Map<Coordinates, IPointOfInterest> map;
+	private Map<Coordinates, PointOfInterest> map;
 
 	/**
 	 * Instantiates a new mapping.
@@ -37,7 +37,7 @@ public class Mapping {
 	 *
 	 * @return the mapping
 	 */
-	public Map<Coordinates, IPointOfInterest> getMapping() {
+	public Map<Coordinates, PointOfInterest> getMapping() {
 		return new HashMap<>(map);
 	}
 
@@ -48,7 +48,7 @@ public class Mapping {
 	 *            the coor
 	 * @return the point of interest
 	 */
-	public IPointOfInterest getPointOfInterest(Coordinates coor) {
+	public PointOfInterest getPointOfInterest(Coordinates coor) {
 		return map.get(coor);
 	}
 
@@ -59,7 +59,7 @@ public class Mapping {
 	 * @param poi            the poi to add
 	 * @throws NonValidCoordinatesException the non valid coordinates exception
 	 */
-	public void addPointOfInterest(Coordinates coor, IPointOfInterest poi) throws NonValidCoordinatesException {
+	public void addPointOfInterest(Coordinates coor, PointOfInterest poi) throws NonValidCoordinatesException {
 		if (!checkCoor(coor))
 			throw new NonValidCoordinatesException();
 		map.put(coor, poi);

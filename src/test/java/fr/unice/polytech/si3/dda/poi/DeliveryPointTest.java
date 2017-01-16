@@ -35,4 +35,5 @@ public class DeliveryPointTest {
         
         deliveryPoint = new DeliveryPoint(null);
     }
+    
 }
