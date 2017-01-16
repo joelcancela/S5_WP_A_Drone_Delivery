@@ -12,6 +12,13 @@ import fr.unice.polytech.si3.dda.scheduler.Scheduler;
  * @author Joël CANCELA VAZ
  */
 public class Main {
+	/**
+	 * Main entry of the program
+	 *
+	 * @param args the arguments of the program
+	 *             here we only expect one argument being the name
+	 *             of the file to use in the scheduler
+	 */
 	public static void main(String[] args) {
 
 		if (args.length > 0) {
@@ -19,7 +26,7 @@ public class Main {
 				Context ctx = new Parser(args[0]).parse();
 				new Scheduler(ctx).schedule();
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 	}
