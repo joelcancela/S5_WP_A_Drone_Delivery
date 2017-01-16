@@ -11,7 +11,10 @@ import java.util.List;
 /**
  * The Drone class describe the characteristics of the Drone.
  *
- * @author Alexandre Hiltcher
+ * @author Jeremy JUNAC
+ * @author Alexandre HILTCHER
+ * @author Pierre RAINERO
+ * @author Joël CANCELA VAZ
  */
 public class Drone {
 	private int maxPayload;
