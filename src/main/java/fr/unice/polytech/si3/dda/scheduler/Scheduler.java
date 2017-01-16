@@ -35,7 +35,7 @@ public class Scheduler {
 
 	public void schedule() throws IOException {
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		for (int i = 0; i <= ctx.getMaxDrones(); i++) {
+		for (int i = 0; i < ctx.getMaxDrones(); i++) {
 			fw.write(new WaitInstruction(i, 1).toString());
 			fw.write("\n");
 		}
