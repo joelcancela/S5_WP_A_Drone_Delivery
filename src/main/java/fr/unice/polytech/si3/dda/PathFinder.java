@@ -34,32 +34,39 @@ public class PathFinder {
         return distance;
     }
     
+    /**
+     * 
+     * @param pois
+     * @return
+     */
     public static Pair<Integer, List<PointOfInterest>> getMinimalCost(List<PointOfInterest> pois){
-    	List<PointOfInterest> path = new ArrayList<>();
-    	int totalDistance = 0;
-    	int miniDistance = 0;
+    	
+    	List<PointOfInterest> path =  new ArrayList<PointOfInterest>();
+    	int distance = 0;
     	
     	path.add(pois.get(0));
+    	pois.remove(0);
+    	int mini = 0;
     	
     	for(int i=0; i<pois.size(); i++){
-    		totalDistance += miniDistance;
-    		miniDistance=0;
-    		PointOfInterest tempo = null;
+    		distance += mini;
+    		mini = Integer.MAX_VALUE;
+    		int index = 0;
     		for(int y=0; y<pois.size(); y++){
-    			if(i==y)
-    				continue;
-    			
-    			int currentDistance  = pois.get(i).distance(pois.get(y));
-    			if(miniDistance>currentDistance){
-    				miniDistance=currentDistance;
-    				tempo = pois.get(y);
-    			}
-    		}
-    		
-    		path.add(tempo);
+        		if(i==y)
+        			continue;
+        		
+        		int current = pois.get(i).distance(pois.get(y));
+        		if(current<=mini){
+        			mini = current;
+        			index = y;
+        		}
+        	}
+    		path.add(pois.get(index));
+    		pois.remove(index);
     	}
-    	
-    	return new Pair<Integer, List<PointOfInterest>>(totalDistance, path);
+    	System.out.println(path);
+    	return new Pair<Integer, List<PointOfInterest>>(distance, path);
     }
 
 }
