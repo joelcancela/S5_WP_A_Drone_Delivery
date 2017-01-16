@@ -8,7 +8,10 @@ package fr.unice.polytech.si3.dda.util;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class Utils {
+public final class Utils {
+	
+	private Utils() {
+	}
 
 	/**
 	 * Convert a string array into a int array
