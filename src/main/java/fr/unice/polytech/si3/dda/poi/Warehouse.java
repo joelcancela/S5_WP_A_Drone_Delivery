@@ -35,6 +35,16 @@ public class Warehouse implements IPointOfInterest {
 			this.stock =  stock;
 	}
 	
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public String toString() {
+		return "Warehouse [stock=" + stock + "]";
+	}
+
 	/**
 	 * Allows to add a product at this warehouse
 	 * @param product Product to add

@@ -33,6 +33,16 @@ public class DeliveryPoint implements IPointOfInterest {
 			this.order =  order;
 	}
 	
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public String toString() {
+		return "DeliveryPoint [order=" + order + "]";
+	}
+
 	/**
 	 * Getter of order
 	 * @return Order of the DeliveryPoint
