@@ -1,11 +1,9 @@
 package fr.unice.polytech.dda;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
- * Class x
+ * Class Order
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
@@ -13,18 +11,13 @@ import java.util.List;
  * @author Joël CANCELA VAZ
  */
 public class Order {
-	private List<Product> products = new ArrayList<Product>();
+	private Map<Product,Integer> products = new HashMap<>();
 
 
-	public Order(Product... p) {
-		products = Arrays.asList(p);
+	public Order() {
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
+	public void addProduct(Product p){
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
 	}
 }
