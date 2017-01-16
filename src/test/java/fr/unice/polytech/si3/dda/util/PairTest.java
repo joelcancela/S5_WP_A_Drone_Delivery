@@ -16,20 +16,20 @@ public class PairTest {
         Object o2 = new Object();
 
         assertEquals("Pair [first=" + o1 + ", second=" + o2 + "]",
-                new Pair(o1, o2).toString());
+                new Pair<Object, Object>(o1, o2).toString());
     }
 
     @Test
     public void equals() throws Exception {
         Object object1 = new Object();
         Object object2 = new Object();
-        Pair pair = new Pair(object1, object1);
-        Pair pair1 = new Pair(object1, object2);
-        Pair pair2 = new Pair(object2, object1);
-        Pair pair3 = new Pair(object2, object2);
-        Pair pair4 = new Pair(object1, object1);
-        Pair pair5 = new Pair(null, object1);
-        Pair pair6 = new Pair(object1, null);
+        Pair<Object, Object> pair = new Pair<Object, Object>(object1, object1);
+        Pair<Object, Object> pair1 = new Pair<Object, Object>(object1, object2);
+        Pair<Object, Object> pair2 = new Pair<Object, Object>(object2, object1);
+        Pair<Object, Object> pair3 = new Pair<Object, Object>(object2, object2);
+        Pair<Object, Object> pair4 = new Pair<Object, Object>(object1, object1);
+        Pair<Object, Object> pair5 = new Pair<Object, Object>(null, object1);
+        Pair<Object, Object> pair6 = new Pair<Object, Object>(object1, null);
         assertTrue(pair.equals(pair));
         assertTrue(!pair.equals(pair1));
         assertTrue(!pair.equals(pair2));
