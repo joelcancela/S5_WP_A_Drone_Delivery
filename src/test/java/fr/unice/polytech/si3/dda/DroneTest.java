@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.dda.Drone;
 import fr.unice.polytech.si3.dda.Product;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.util.PairInt;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class DroneTest {
 
     @Before
     public void setUp() throws Exception {
-        drone = new Drone(1000, new PairInt(0, 0));
+        drone = new Drone(1000, new Coordinates(0, 0));
     }
 
     @Test
@@ -32,8 +32,8 @@ public class DroneTest {
 
     @Test
     public void move() throws Exception {
-        drone.move(new PairInt(1, 1));
-        assertEquals(new PairInt(1, 1), drone.getCoordonates());
+        drone.move(new Coordinates(1, 1));
+        assertEquals(new Coordinates(1, 1), drone.getCoordonates());
     }
 
     @Test

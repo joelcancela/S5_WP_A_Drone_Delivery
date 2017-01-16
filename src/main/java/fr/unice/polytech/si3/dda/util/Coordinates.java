@@ -5,7 +5,7 @@ package fr.unice.polytech.si3.dda.util;
  *
  * @author Jeremy Junac
  */
-public class PairInt {
+public class Coordinates {
 
 	/** The x position */
 	protected int x;
@@ -20,7 +20,7 @@ public class PairInt {
 	 * @param y
 	 *            the y position
 	 */
-	public PairInt(final int x, final int y) {
+	public Coordinates(final int x, final int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -31,7 +31,7 @@ public class PairInt {
 	 * @param coor
 	 *            the coor
 	 */
-	public PairInt(final PairInt coor) {
+	public Coordinates(final Coordinates coor) {
 		this(coor.getX(), coor.getY());
 	}
 
@@ -51,7 +51,7 @@ public class PairInt {
 	 *            the x to set
 	 * @return this
 	 */
-	public PairInt setX(final int x) {
+	public Coordinates setX(final int x) {
 		this.x = x;
 		return this;
 	}
@@ -72,7 +72,7 @@ public class PairInt {
 	 *            the y to set
 	 * @return this
 	 */
-	public PairInt setY(final int y) {
+	public Coordinates setY(final int y) {
 		this.y = y;
 		return this;
 	}
@@ -86,7 +86,7 @@ public class PairInt {
 	 *            the y
 	 * @return the pair int
 	 */
-	public PairInt setSize(final int x, final int y) {
+	public Coordinates setSize(final int x, final int y) {
 		setX(x);
 		setY(y);
 		return this;
@@ -117,7 +117,7 @@ public class PairInt {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final PairInt other = (PairInt) obj;
+		final Coordinates other = (Coordinates) obj;
 		if (x != other.x)
 			return false;
 		if (y != other.y)
@@ -145,7 +145,7 @@ public class PairInt {
 	 *            the coordinates to add
 	 * @return a coordinates that represents the addition of this coordinates and arguments coordinates
 	 */
-	public PairInt plus(final PairInt coor) {
+	public Coordinates plus(final Coordinates coor) {
 		x += coor.getX();
 		y += coor.getY();
 		return this;
@@ -158,7 +158,7 @@ public class PairInt {
 	 *            the coordinates to subtract
 	 * @return a coordinates that represents the subtraction of this coordinates and arguments coordinates
 	 */
-	public PairInt minus(final PairInt coor) {
+	public Coordinates minus(final Coordinates coor) {
 		x -= coor.getX();
 		y -= coor.getY();
 		return this;
@@ -169,8 +169,8 @@ public class PairInt {
 	 *
 	 * @return the copy of this coordinates
 	 */
-	public PairInt copy() {
-		return new PairInt(this);
+	public Coordinates copy() {
+		return new Coordinates(this);
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class PairInt {
 	 *            the other
 	 * @return the double
 	 */
-	public double distance(final PairInt other) {
+	public double distance(final Coordinates other) {
 		return Math.sqrt(Math.pow(x - other.getX(), 2) + Math.pow(y - other.getY(), 2));
 	}
 	

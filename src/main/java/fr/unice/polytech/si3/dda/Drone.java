@@ -2,7 +2,7 @@ package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.util.PairInt;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Drone {
     private int maxPayload;
     private int usedPayload;
 
-    private PairInt coordonates;
+    private Coordinates coordonates;
     private List<Product> loadedProducts;
 
     /**
@@ -25,7 +25,7 @@ public class Drone {
      * @param maxPayload  the max payload of the drone.
      * @param coordinates the coordinates of the drone.
      */
-    public Drone(int maxPayload, PairInt coordinates) {
+    public Drone(int maxPayload, Coordinates coordinates) {
         this.maxPayload = maxPayload;
         this.coordonates = coordinates;
         this.usedPayload = 0;
@@ -37,7 +37,7 @@ public class Drone {
      *
      * @param newCoordinates the new coordinates of the drone.
      */
-    public void move(PairInt newCoordinates) {
+    public void move(Coordinates newCoordinates) {
         coordonates = newCoordinates;
     }
 
@@ -90,7 +90,7 @@ public class Drone {
      *
      * @return the current coordinates of the drone.
      */
-    public PairInt getCoordonates() {
+    public Coordinates getCoordonates() {
         return coordonates;
     }
 

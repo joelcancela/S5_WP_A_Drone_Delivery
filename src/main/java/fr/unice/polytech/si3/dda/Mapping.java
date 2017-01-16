@@ -5,7 +5,7 @@ import java.util.Map;
 
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
-import fr.unice.polytech.si3.dda.util.PairInt;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Class Product
@@ -19,7 +19,7 @@ public class Mapping {
 
 	public final int rows, cols;
 
-	private Map<PairInt, IPointOfInterest> mapping;
+	private Map<Coordinates, IPointOfInterest> mapping;
 
 	/**
 	 * Instantiates a new mapping.
@@ -35,7 +35,7 @@ public class Mapping {
 	 *
 	 * @return the mapping
 	 */
-	public Map<PairInt, IPointOfInterest> getMapping() {
+	public Map<Coordinates, IPointOfInterest> getMapping() {
 		return new HashMap<>(mapping);
 	}
 
@@ -46,7 +46,7 @@ public class Mapping {
 	 *            the coor
 	 * @return the point of interest
 	 */
-	public IPointOfInterest getPointOfInterest(PairInt coor) {
+	public IPointOfInterest getPointOfInterest(Coordinates coor) {
 		return mapping.get(coor);
 	}
 
@@ -57,7 +57,7 @@ public class Mapping {
 	 * @param poi            the poi to add
 	 * @throws NonValidCoordinatesException the non valid coordinates exception
 	 */
-	public void addPointOfInterest(PairInt coor, IPointOfInterest poi) throws NonValidCoordinatesException {
+	public void addPointOfInterest(Coordinates coor, IPointOfInterest poi) throws NonValidCoordinatesException {
 		if (!checkCoor(coor))
 			throw new NonValidCoordinatesException();
 		mapping.put(coor, poi);
@@ -69,7 +69,7 @@ public class Mapping {
 	 * @param coor the coor to test
 	 * @return true, if successful
 	 */
-	private boolean checkCoor(PairInt coor) {
+	private boolean checkCoor(Coordinates coor) {
 		if (coor.getX() >= 0 && coor.getY() >= 0 && coor.getX() < cols && coor.getY() < rows)
 			return true;
 		return false;
