@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fr.unice.polytech.si3.dda.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Class Warehouse
@@ -13,7 +14,7 @@ import fr.unice.polytech.si3.dda.Product;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class Warehouse implements IPointOfInterest {
+public class Warehouse extends PointOfInterest {
 	private Map<Product, Integer> stock;
 	
 	/**
@@ -29,6 +30,18 @@ public class Warehouse implements IPointOfInterest {
 	 * @throws IllegalArgumentException if the stock is null
 	 */
 	public Warehouse(Map<Product, Integer> stock){
+		this(stock, null);
+	}
+	
+	/**
+	 * Normal constructor of Warehouse
+	 * @param stock Map which contains all of products at this warehouse
+	 * @param coordinates Coordinates of the warehouse
+	 * @throws IllegalArgumentException if the stock is null
+	 */
+	public Warehouse(Map<Product, Integer> stock, Coordinates coordinates){
+		super(coordinates);
+		
 		if(stock==null)
 			throw new IllegalArgumentException("Argument passed \"stock\" is null.");
 		else

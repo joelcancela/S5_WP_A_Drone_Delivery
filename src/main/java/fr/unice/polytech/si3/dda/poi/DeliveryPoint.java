@@ -1,7 +1,8 @@
 package fr.unice.polytech.si3.dda.poi;
 
 import fr.unice.polytech.si3.dda.Order;
-import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
+import fr.unice.polytech.si3.dda.poi.PointOfInterest;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Class DeliveryPoint
@@ -11,7 +12,7 @@ import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class DeliveryPoint implements IPointOfInterest {
+public class DeliveryPoint extends PointOfInterest {
 	private Order order;
 	
 	/**
@@ -27,6 +28,18 @@ public class DeliveryPoint implements IPointOfInterest {
 	 * @throws IllegalArgumentException if the order is null
 	 */
 	public DeliveryPoint(Order order){
+		this(order, null);
+	}
+	
+	/**
+	 * Normal constructor of DeliveryPoint
+	 * @param order Order of the DeliveryPoint
+	 * @param coordinates Coordinates of the deliveryPoint
+	 * @throws IllegalArgumentException if the order is null
+	 */
+	public DeliveryPoint(Order order, Coordinates coordinates){
+		super(coordinates);
+		
 		if(order==null)
 			throw new IllegalArgumentException("Argument passed \"order\" is null.");
 		else
