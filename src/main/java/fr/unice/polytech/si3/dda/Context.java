@@ -30,18 +30,17 @@ public class Context {
 		private final int maxDrones;
 		private final int turns;
 		private final int maxPayload;
-		private final List<Product> products;
+		private List<Product> products;
 		
 		public ContextBuilder(int rows, int cols, int maxDrones, int turns, int maxPayload) {
 			map = new Mapping(rows, cols);
 			this.maxDrones = maxDrones;
 			this.turns = turns;
 			this.maxPayload = maxPayload;
-			products = new ArrayList<>();
 		}
 		
-		public ContextBuilder addProduct(Product p) {
-			products.add(p);
+		public ContextBuilder products(List<Product> products) {
+			this.products = products;
 			return this;
 		}
 		
