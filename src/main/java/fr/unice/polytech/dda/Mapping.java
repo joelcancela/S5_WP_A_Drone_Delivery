@@ -22,7 +22,7 @@ public class Mapping {
 	 * @return the mapping
 	 */
 	public Map<PairInt, IPointOfInterest> getMapping() {
-		return mapping;
+		return new HashMap<>(mapping);
 	}
 	
 	/**
