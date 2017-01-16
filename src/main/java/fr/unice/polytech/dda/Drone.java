@@ -95,15 +95,6 @@ public class Drone {
     }
 
     /**
-     * Set the new coordinates of the drone.
-     *
-     * @param coordinates the new coordinates of the drone.
-     */
-    public void setCoordonates(PairInt coordinates) {
-        this.coordonates = coordinates;
-    }
-
-    /**
      * Return the list of products loaded in the drone.
      *
      * @return the products loaded in the drone.

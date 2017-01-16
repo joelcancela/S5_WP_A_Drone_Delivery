@@ -21,6 +21,11 @@ public class DroneTest {
     }
 
     @Test
+    public void getMaxPayload() throws Exception {
+        assertEquals(1000, drone.getMaxPayload());
+    }
+
+    @Test
     public void move() throws Exception {
         drone.move(new PairInt(1, 1));
         assertEquals(new PairInt(1, 1), drone.getCoordonates());
