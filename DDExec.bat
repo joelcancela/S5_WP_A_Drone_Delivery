@@ -1,0 +1,1 @@
+mvn -q exec:java -Dexec.mainClass="fr.unice.polytech.si3.dda.Main" -Dexec.args="contextDemo.in"
