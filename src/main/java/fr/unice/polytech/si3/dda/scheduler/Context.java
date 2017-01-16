@@ -108,7 +108,7 @@ public class Context {
         private final int turns;
         private final int maxPayload;
         private List<Product> products;
-        private boolean first;
+        private boolean first = true;
         private Warehouse firstWarehouse;
 
         /**
