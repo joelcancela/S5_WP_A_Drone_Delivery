@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.Drone;
-import fr.unice.polytech.si3.dda.Product;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.util.Coordinates;
@@ -33,7 +31,7 @@ public class DroneTest {
     @Test
     public void move() throws Exception {
         drone.move(new Coordinates(1, 1));
-        assertEquals(new Coordinates(1, 1), drone.getCoordonates());
+        assertEquals(new Coordinates(1, 1), drone.getCoordinates());
     }
 
     @Test
