@@ -16,6 +16,10 @@ import java.util.List;
 public class Graph {
     private List<Node> nodes;
 
+    /**
+     * Constructs a default graph from a list of pois.
+     * @param pois
+     */
     public Graph(List<PointOfInterest> pois) {
         nodes = new ArrayList<>();
 
@@ -30,6 +34,11 @@ public class Graph {
 
             nodes.add(node);
         }
+    }
+
+
+    public int distance(List<PointOfInterest> pois){
+       return 0;
     }
 
     private class Edge {
