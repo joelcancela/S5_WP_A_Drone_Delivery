@@ -3,6 +3,7 @@ package fr.unice.polytech.dda;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.dda.poi.IPointOfInterest;
 import fr.unice.polytech.dda.util.PairInt;
 
 /**
