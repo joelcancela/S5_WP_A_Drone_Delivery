@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.poi.PointOfInterest;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.util.ArrayList;
@@ -35,13 +36,17 @@ public class Drone {
         loadedProducts = new ArrayList<>();
     }
 
-    /**
-     * Move the drone by changing its coordinates.
-     *
-     * @param newCoordinates the new coordinates of the drone.
-     */
-    public void move(Coordinates newCoordinates) {
+    private void move(Coordinates newCoordinates) {
         coordinates = newCoordinates;
+    }
+
+    /**
+     * Move the drone to the coordinate of the point of interest.
+     *
+     * @param poi the point to move the drone.
+     */
+    public void moveTo(PointOfInterest poi) {
+        move(poi.getCoordinates());
     }
 
     /**
