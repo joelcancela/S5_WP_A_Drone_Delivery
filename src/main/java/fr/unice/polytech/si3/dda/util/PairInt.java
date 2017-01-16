@@ -174,46 +174,6 @@ public class PairInt {
 	}
 
 	/**
-	 * Increment the x.
-	 *
-	 * @return this Coordinates
-	 */
-	public PairInt incX() {
-		x++;
-		return this;
-	}
-
-	/**
-	 * Decrement the x.
-	 *
-	 * @return this Coordinates
-	 */
-	public PairInt decX() {
-		x--;
-		return this;
-	}
-
-	/**
-	 * Increment the y.
-	 *
-	 * @return this Coordinates
-	 */
-	public PairInt incY() {
-		y++;
-		return this;
-	}
-
-	/**
-	 * Decrement the y.
-	 *
-	 * @return this Coordinates
-	 */
-	public PairInt decY() {
-		y--;
-		return this;
-	}
-
-	/**
 	 * Distance.
 	 *
 	 * @param other
@@ -224,28 +184,5 @@ public class PairInt {
 		return Math.sqrt(Math.pow(x - other.getX(), 2) + Math.pow(y - other.getY(), 2));
 	}
 	
-	public PairInt multiply(int a) {
-		x *= a;
-		y *= a;
-		return this;
-	}
-	
-	public PairInt divide(int a) {
-		x /= a;
-		y /= a;
-		return this;
-	}
-	
-	public PairInt projectionOn(PairInt v) {
-		return v.copy().multiply(scalar(v)).divide(v.norm());
-	}
-	
-	public int scalar(PairInt v) {
-		return x*v.x + y*v.y;
-	}
-	
-	public int norm() {
-		return scalar(this);
-	}
 	
 }

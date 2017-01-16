@@ -17,7 +17,7 @@ public class DeliveryPoint implements IPointOfInterest {
 	/**
 	 * Default constructor of DeliveryPoint
 	 */
-	public DeliveryPoint() throws IllegalArgumentException{
+	public DeliveryPoint(){
 		this(null);
 	}
 	
@@ -26,11 +26,11 @@ public class DeliveryPoint implements IPointOfInterest {
 	 * @param order Order of the DeliveryPoint
 	 * @throws IllegalArgumentException if the order is null
 	 */
-	public DeliveryPoint(Order order) throws IllegalArgumentException{
+	public DeliveryPoint(Order order){
 		if(order==null)
 			throw new IllegalArgumentException("Argument passed \"order\" is null.");
-		
-		 this.order =  order;
+		else
+			this.order =  order;
 	}
 	
 	/**
@@ -41,6 +41,7 @@ public class DeliveryPoint implements IPointOfInterest {
 		return order;
 	}
 	
+	@Override
 	/**
 	 * Inherited method
 	 */
@@ -48,6 +49,7 @@ public class DeliveryPoint implements IPointOfInterest {
 		return false;
 	}
 
+	@Override
 	/**
 	 * Inherited method
 	 */
