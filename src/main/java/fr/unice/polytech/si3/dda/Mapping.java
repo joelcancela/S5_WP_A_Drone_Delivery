@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.dda;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
 import fr.unice.polytech.si3.dda.util.PairInt;
 
@@ -52,13 +53,13 @@ public class Mapping {
 	/**
 	 * Adds a point of interest.
 	 *
-	 * @param coor
-	 *            the coor of the poi
-	 * @param poi
-	 *            the poi to add
+	 * @param coor            the coor of the poi
+	 * @param poi            the poi to add
+	 * @throws NonValidCoordinatesException the non valid coordinates exception
 	 */
-	public void addPointOfInterest(PairInt coor, IPointOfInterest poi) {
-		checkCoor(coor);
+	public void addPointOfInterest(PairInt coor, IPointOfInterest poi) throws NonValidCoordinatesException {
+		if (!checkCoor(coor))
+			throw new NonValidCoordinatesException();
 		mapping.put(coor, poi);
 	}
 
@@ -69,7 +70,7 @@ public class Mapping {
 	 * @return true, if successful
 	 */
 	private boolean checkCoor(PairInt coor) {
-		if (coor.getX() >= 0 && coor.getY() > 0 && coor.getX() < cols && coor.getY() < rows)
+		if (coor.getX() >= 0 && coor.getY() >= 0 && coor.getX() < cols && coor.getY() < rows)
 			return true;
 		return false;
 	}
