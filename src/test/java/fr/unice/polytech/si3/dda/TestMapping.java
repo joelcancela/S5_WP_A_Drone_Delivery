@@ -1,11 +1,11 @@
-package fr.unice.polytech.dda;
+package fr.unice.polytech.si3.dda;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.unice.polytech.dda.util.PairInt;
+import fr.unice.polytech.si3.dda.util.PairInt;
 
 public class TestMapping {
 
