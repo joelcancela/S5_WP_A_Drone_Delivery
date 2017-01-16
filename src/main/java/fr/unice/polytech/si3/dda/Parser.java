@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.unice.polytech.si3.dda.Context.ContextBuilder;
+import fr.unice.polytech.si3.dda.exception.EmptyFileException;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import fr.unice.polytech.si3.dda.util.Utils;
