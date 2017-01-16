@@ -20,7 +20,7 @@ public class Warehouse implements IPointOfInterest {
 	 * Default constructor of Warehouse
 	 */
 	public Warehouse(){
-		stock = new HashMap<Product, Integer>();
+		stock = new HashMap<>();
 	}
 	
 	/**
@@ -28,13 +28,23 @@ public class Warehouse implements IPointOfInterest {
 	 * @param stock Map which contains all of products at this warehouse
 	 * @throws IllegalArgumentException if the stock is null
 	 */
-	public Warehouse(Map<Product, Integer> stock) throws IllegalArgumentException{
+	public Warehouse(Map<Product, Integer> stock){
 		if(stock==null)
 			throw new IllegalArgumentException("Argument passed \"stock\" is null.");
-			
-		this.stock =  stock;
+		else
+			this.stock =  stock;
 	}
 	
+	@Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	public String toString() {
+		return "Warehouse [stock=" + stock + "]";
+	}
+
 	/**
 	 * Allows to add a product at this warehouse
 	 * @param product Product to add
@@ -66,6 +76,7 @@ public class Warehouse implements IPointOfInterest {
 			return 0;
 	}
 
+	@Override
 	/**
 	 * Inherited method
 	 */
@@ -73,6 +84,7 @@ public class Warehouse implements IPointOfInterest {
 		return true;
 	}
 
+	@Override
 	/**
 	 * Inherited method
 	 */

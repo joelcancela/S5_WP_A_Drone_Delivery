@@ -57,7 +57,7 @@ public class WarehouseTest {
     }
     
     @Test
-    public void createAFullWarehouse() throws IllegalArgumentException{
+    public void createAFullWarehouse(){
     	Map<Product, Integer> stock =  new HashMap<Product, Integer>();
     	Product product1 = new Product(200);
     	Product product2 = new Product(150);
