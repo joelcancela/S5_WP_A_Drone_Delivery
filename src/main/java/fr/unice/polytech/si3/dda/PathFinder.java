@@ -15,6 +15,13 @@ import java.util.List;
  * @author Joël CANCELA VAZ
  */
 public class PathFinder {
+	
+	/**
+	 * To hide the public one
+	 */
+	private PathFinder(){
+		
+	}
 
     /**
      * Return the sum of the distance between the pois in the order of the list.
@@ -41,9 +48,9 @@ public class PathFinder {
      */
     public static Pair<Integer, List<PointOfInterest>> getMinimalCost(List<PointOfInterest> pois){
     	
-    	List<PointOfInterest> path =  new ArrayList<PointOfInterest>();
+    	List<PointOfInterest> path =  new ArrayList<>();
     	int distance = 0;
-    	int mini = 0;
+    	int mini;
     	boolean firstIteration = true;
     	
     	while(pois.size()>1){
@@ -71,7 +78,7 @@ public class PathFinder {
     	
     	distance = distance + path.get(path.size()-1).distance(pois.get(pois.size()-1));
     	
-    	return new Pair<Integer, List<PointOfInterest>>(distance, path);
+    	return new Pair<>(distance, path);
     }
 
 }
