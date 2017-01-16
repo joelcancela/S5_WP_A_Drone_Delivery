@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.exception.EmptyFileException;
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
@@ -47,8 +48,9 @@ public class Parser {
 	 * @throws IOException                  if you can't read the file
 	 * @throws NonValidCoordinatesException if the coordinates are invalid
 	 * @throws EmptyFileException           if the file is empty
+	 * @throws MalformedContextException 	if the file is malformed
 	 */
-	public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException {
+	public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException, MalformedContextException {
 		// Parse the first line
 		ContextBuilder cb = parseFirstLine();
 		// Parse products
@@ -64,18 +66,28 @@ public class Parser {
 	}
 
 	/**
-	 * Parses first line of the file and creates a context
+	 * Parses first line of the file and creates a context.
 	 *
 	 * @return ContextBuilder instance
 	 * @throws EmptyFileException if the file is empty
 	 * @throws IOException        if you can't read the file
+	 * @throws MalformedContextException if the context is malformed
 	 */
-	private ContextBuilder parseFirstLine() throws EmptyFileException, IOException {
-		String line = br.readLine();
-		if (line == null)
-			throw new EmptyFileException();
-		int[] firstArgs = Utils.stringArrayToIntArray(line.split(" "));
-		return new Context.ContextBuilder(firstArgs[0], firstArgs[1], firstArgs[2], firstArgs[3], firstArgs[4]);
+	private ContextBuilder parseFirstLine() throws EmptyFileException, IOException, MalformedContextException {
+		try {
+			String line = br.readLine();
+			if (line == null)
+				throw new EmptyFileException();
+			int[] firstArgs = Utils.stringArrayToIntArray(line.split(" "));
+			if (firstArgs.length == 5) {
+				try {
+					return new Context.ContextBuilder(firstArgs[0], firstArgs[1], firstArgs[2], firstArgs[3], firstArgs[4]);
+				} catch (IndexOutOfBoundsException e) {
+				}
+			}
+		} catch (NumberFormatException | NullPointerException e) {
+		}
+		throw new MalformedContextException();
 	}
 
 	/**
@@ -83,15 +95,21 @@ public class Parser {
 	 *
 	 * @return ArrayList of the products
 	 * @throws IOException if you can't read the file
+	 * @throws MalformedContextException if the context is malformed
 	 */
-	private List<Product> parseProducts() throws IOException {
-		List<Product> products = new ArrayList<>();
-		String line = br.readLine();
-		// Use of the number of products ?
-		line = br.readLine();
-		for (String product : line.split(" "))
-			products.add(new Product(Integer.parseInt(product)));
-		return products;
+	private List<Product> parseProducts() throws IOException, MalformedContextException {
+		try {
+			List<Product> products = new ArrayList<>();
+			String line = br.readLine();
+			int numProducts = Integer.parseInt(line);
+			line = br.readLine();
+			for (String product : line.split(" "))
+				products.add(new Product(Integer.parseInt(product)));
+			if (products.size() == numProducts)
+				return products;
+		} catch (NumberFormatException | NullPointerException e) {
+		}
+		throw new MalformedContextException();
 	}
 
 	/**
@@ -99,20 +117,26 @@ public class Parser {
 	 *
 	 * @return HashMap of coordinates and int array (stock)
 	 * @throws IOException if you can't read the file
+	 * @throws MalformedContextException if the context is malformed
 	 */
-	private Map<Coordinates, int[]> parseWarehouses() throws IOException {
-		Map<Coordinates, int[]> products = new HashMap<>();
-		String line = br.readLine();
-		int numWarehouse = Integer.parseInt(line);
-		line = br.readLine();
-		for (int i = 0; i < numWarehouse; i++) {
-			int[] coorInt = Utils.stringArrayToIntArray(line.split(" "));
-			Coordinates coor = new Coordinates(coorInt[0], coorInt[1]);
+	private Map<Coordinates, int[]> parseWarehouses() throws IOException, MalformedContextException {
+		try {
+			Map<Coordinates, int[]> warehouses = new HashMap<>();
+			String line = br.readLine();
+			int numWarehouse = Integer.parseInt(line);
 			line = br.readLine();
-			int[] stock = Utils.stringArrayToIntArray(line.split(" "));
-			products.put(coor, stock);
+			for (int i = 0; i < numWarehouse; i++) {
+				int[] coorInt = Utils.stringArrayToIntArray(line.split(" "));
+				Coordinates coor = new Coordinates(coorInt[0], coorInt[1]);
+				line = br.readLine();
+				int[] stock = Utils.stringArrayToIntArray(line.split(" "));
+				warehouses.put(coor, stock);
+			}
+			if (numWarehouse == warehouses.size())
+				return warehouses;
+		} catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
 		}
-		return products;
+		throw new MalformedContextException();
 	}
 
 	/**
@@ -121,24 +145,31 @@ public class Parser {
 	 * @param products the list of products
 	 * @return HashMap of coordinates and orders
 	 * @throws IOException if you can't read the file
+	 * @throws MalformedContextException if the context is malformed
 	 */
-	private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException {
-		Map<Coordinates, Order> orders = new HashMap<>();
-		String line = br.readLine();
-		int numOrder = Integer.parseInt(line);
-		for (int i = 0; i < numOrder; i++) {
-			line = br.readLine();
-			Order o = new Order();
-			int[] coorInt = Utils.stringArrayToIntArray(line.split(" "));
-			Coordinates coor = new Coordinates(coorInt[0], coorInt[1]);
-			line = br.readLine();
-			int numProduct = Integer.parseInt(line);
-			line = br.readLine();
-			for (int type : Utils.stringArrayToIntArray(line.split(" ")))
-				o.addProduct(products.get(type), 1);
-			orders.put(coor, o);
+	private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException, MalformedContextException {
+		try {
+			Map<Coordinates, Order> orders = new HashMap<>();
+			String line = br.readLine();
+			int numOrder = Integer.parseInt(line);
+			for (int i = 0; i < numOrder; i++) {
+				line = br.readLine();
+				Order o = new Order();
+				int[] coorInt = Utils.stringArrayToIntArray(line.split(" "));
+				Coordinates coor = new Coordinates(coorInt[0], coorInt[1]);
+				line = br.readLine();
+				int numProduct = Integer.parseInt(line);
+				line = br.readLine();
+				for (int type : Utils.stringArrayToIntArray(line.split(" ")))
+					o.addProduct(products.get(type), 1);
+				orders.put(coor, o);
+				if (o.getNumberOfProducts() != numProduct)
+					throw new MalformedContextException();
+			}
+			return orders;
+		} catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
+			throw new MalformedContextException();
 		}
-		return orders;
 	}
 
 }

@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.dda;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -30,10 +31,11 @@ public class ParserTest {
 
     String FILE_NAME = "new-file.txt";
     Parser p;
+    File file;
 	
 	@Before
 	public void setUp() throws Exception {
-		File file = new File(temp.getRoot(), FILE_NAME);
+		file = new File(temp.getRoot(), FILE_NAME);
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
 		wrt.write("7 5 2 25 500\n"
 				+ "3\n"
@@ -75,6 +77,53 @@ public class ParserTest {
 		assertEquals(products, ctx.getProducts());
 		//TODO: Why ??
 		//assertEquals(map, ctx.getMap());
+	}
+	
+	@Test(expected=MalformedContextException.class)
+	public void testParseMalformed() throws Exception {
+		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
+		wrt.write("7 5 2 25 500a\n"
+				+ "3\n"
+				+ "100 5 450\n"
+				+ "1\n"
+				+ "0 0\n"
+				+ "5 1 0\n"
+				+ "1\n"
+				+ "1 1\n"
+				+ "2\n"
+				+ "2 0\n");
+		wrt.close();
+		Context ctx = p.parse();
+	}
+	
+	@Test(expected=MalformedContextException.class)
+	public void testParseMalformed2() throws Exception {
+		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
+		wrt.write("7 5 2 25 500a\n"
+				+ "3\n"
+				+ "100 5 450\n"
+				+ "1\n"
+				+ "0 0\n"
+				+ "5 1 0\n"
+				+ "1\n"
+				+ "1 1\n"
+				+ "2\n"
+				+ "2\n");
+		wrt.close();
+		Context ctx = p.parse();
+	}
+	
+	@Test(expected=MalformedContextException.class)
+	public void testParseMalformed3() throws Exception {
+		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
+		wrt.write("7 5 2 25 500a\n"
+				+ "3\n"
+				+ "100 5 450\n"
+				+ "1\n"
+				+ "0 0\n"
+				+ "5 1 0\n");
+		wrt.close();
+		Context ctx = p.parse();
 	}
 
 }
