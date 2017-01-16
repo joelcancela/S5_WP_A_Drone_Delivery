@@ -1,8 +1,8 @@
-package fr.unice.polytech.dda;
+package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.dda.exception.OverLoadException;
-import fr.unice.polytech.dda.util.PairInt;
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.util.PairInt;
 
 import java.util.ArrayList;
 import java.util.List;

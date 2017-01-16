@@ -1,4 +1,4 @@
-package fr.unice.polytech.dda;
+package fr.unice.polytech.si3.dda.poi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,7 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import fr.unice.polytech.dda.poi.Warehouse;
+import fr.unice.polytech.si3.dda.Product;
+import fr.unice.polytech.si3.dda.poi.Warehouse;
 
 public class WarehouseTest {
 	private Warehouse warehouse;

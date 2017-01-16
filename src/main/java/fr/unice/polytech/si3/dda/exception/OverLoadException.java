@@ -1,4 +1,4 @@
-package fr.unice.polytech.dda.exception;
+package fr.unice.polytech.si3.dda.exception;
 
 /**
  * Signals when a drone the used payload of a drone exceed the max Payload.

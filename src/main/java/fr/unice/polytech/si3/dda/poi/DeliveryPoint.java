@@ -1,7 +1,7 @@
-package fr.unice.polytech.dda.poi;
+package fr.unice.polytech.si3.dda.poi;
 
-import fr.unice.polytech.dda.Order;
-import fr.unice.polytech.dda.poi.IPointOfInterest;
+import fr.unice.polytech.si3.dda.Order;
+import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
 
 /**
  * Class DeliveryPoint

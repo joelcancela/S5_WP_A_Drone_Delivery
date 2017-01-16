@@ -1,4 +1,4 @@
-package fr.unice.polytech.dda.util;
+package fr.unice.polytech.si3.dda.util;
 
 /**
  * The coordinates class represents the coordinates of a point.

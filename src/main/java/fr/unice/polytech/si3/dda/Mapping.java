@@ -1,10 +1,10 @@
-package fr.unice.polytech.dda;
+package fr.unice.polytech.si3.dda;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.unice.polytech.dda.poi.IPointOfInterest;
-import fr.unice.polytech.dda.util.PairInt;
+import fr.unice.polytech.si3.dda.poi.IPointOfInterest;
+import fr.unice.polytech.si3.dda.util.PairInt;
 
 public class Mapping {
 

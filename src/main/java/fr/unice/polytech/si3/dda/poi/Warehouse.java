@@ -1,9 +1,9 @@
-package fr.unice.polytech.dda.poi;
+package fr.unice.polytech.si3.dda.poi;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.unice.polytech.dda.Product;
+import fr.unice.polytech.si3.dda.Product;
 
 /**
  * Class Warehouse
