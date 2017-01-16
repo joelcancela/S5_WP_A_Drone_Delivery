@@ -1,11 +1,10 @@
 package fr.unice.polytech.si3.dda;
 
-import static org.junit.Assert.*;
-import java.io.BufferedReader;
+import static org.junit.Assert.assertEquals;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +15,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import fr.unice.polytech.si3.dda.Context.ContextBuilder;
-import fr.unice.polytech.si3.dda.poi.DeliveryPoint;
-import fr.unice.polytech.si3.dda.poi.Warehouse;
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
+import fr.unice.polytech.si3.dda.mapping.Mapping;
+import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.order.Order;
+import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 public class ParserTest {

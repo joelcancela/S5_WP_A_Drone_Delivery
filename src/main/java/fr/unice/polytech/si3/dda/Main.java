@@ -2,7 +2,6 @@ package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.scheduler.Scheduler;
-import fr.unice.polytech.si3.dda.util.Parser;
 
 /**
  * Main class

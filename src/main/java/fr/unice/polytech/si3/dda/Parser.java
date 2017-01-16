@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda.util;
+package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.exception.EmptyFileException;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
@@ -6,6 +6,8 @@ import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.scheduler.Context.ContextBuilder;
+import fr.unice.polytech.si3.dda.util.Coordinates;
+import fr.unice.polytech.si3.dda.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
