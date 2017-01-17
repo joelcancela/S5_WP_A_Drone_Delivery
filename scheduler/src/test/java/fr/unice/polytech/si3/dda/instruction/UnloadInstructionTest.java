@@ -54,9 +54,13 @@ public class UnloadInstructionTest {
 		Warehouse w = ctx.getMap().getWarehouse(0);
 		d.move(new Coordinates(1,0));
 		d.load(new Product(100, 0));
+		assertEquals(1, d.getLoadedProducts().size());
+		assertEquals(5, w.howManyProduct(new Product(100, 0)));
 		inst = new UnloadInstruction(0, 0, 0, 1);
 		assertEquals(2, inst.execute(ctx));
 		assertEquals(new Coordinates(0,0), d.getCoordinates());
+		assertEquals(0, d.getLoadedProducts().size());
+		assertEquals(6, w.howManyProduct(new Product(100, 0)));
 	}
 	
 	@Test(expected=ProductNotFoundException.class)

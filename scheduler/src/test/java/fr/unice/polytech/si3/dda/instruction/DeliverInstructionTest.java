@@ -42,8 +42,8 @@ public class DeliverInstructionTest {
 				+ "5 1 0\n"
 				+ "1\n"
 				+ "1 1\n"
-				+ "2\n"
-				+ "2 0\n");
+				+ "1\n"
+				+ "0\n");
 		wrt.close();
 		ctx = new ContextParser(file.getAbsolutePath()).parse();
 		
@@ -54,9 +54,11 @@ public class DeliverInstructionTest {
 		Drone d = ctx.getFleet().getDrone(0);
 		d.load(new Product(100, 0));
 		d.move(new Coordinates(1,0));
+		assertEquals(1, ctx.getMap().getOrders().get(0).getRemaining().size());
 		inst = new DeliverInstruction(0, 0, 0, 1);
 		assertEquals(2, inst.execute(ctx));
 		assertEquals(new Coordinates(1,1), d.getCoordinates());
+		assertEquals(0, ctx.getMap().getOrders().get(0).getRemaining().size());
 	}
 	
 	@Test(expected=ProductNotFoundException.class)
