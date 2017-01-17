@@ -18,31 +18,31 @@ public class ProductTest {
 
 	@Test
 	public void testCreateTwoIdenticalProducts() {
-		Product p1 = new Product(10);
-		Product p2 = new Product(10);
+		Product p1 = new Product(10, 0);
+		Product p2 = new Product(10, 0);
 		assertEquals(p2, p1);
 	}
 
 	@Test
 	public void testCreateTwoDifferentProducts() {
-		Product p1 = new Product(10);
-		Product p2 = new Product(20);
+		Product p1 = new Product(10, 0);
+		Product p2 = new Product(20, 0);
 		assertNotEquals(p2, p1);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateZeroWeightProduct() {
-		new Product(0);
+		new Product(0, 0);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateNegativeWeightProduct() {
-		new Product(-20);
+		new Product(-20, 0);
 	}
 
 	@Test
 	public void testDisplayProduct() {
-		Product p1 = new Product(100);
+		Product p1 = new Product(100, 0);
 		assertEquals("Product{weight=100}", p1.toString());
 	}
 

@@ -14,17 +14,17 @@ import static org.junit.Assert.assertEquals;
  */
 public class OrderTest {
 
-	@Test
-	public void testCreateEmptyOrder() {
-		Order o = new Order();
-		assertEquals(o.getNumberOfProducts(), 0);
-	}
+    @Test
+    public void testCreateEmptyOrder() {
+        Order o = new Order();
+        assertEquals(o.getNumberOfProducts(), 0);
+    }
 
-	@Test
-	public void testAddProductToOrder() {
-		Order o = new Order();
-		Product p = new Product(20);
-		o.addProduct(p, 2);
-		assertEquals(2, o.getNumberOfProducts());
-	}
+    @Test
+    public void testAddProductToOrder() {
+        Order o = new Order();
+        Product p = new Product(20, 0);
+        o.addProduct(p, 2);
+        assertEquals(2, o.getNumberOfProducts());
+    }
 }

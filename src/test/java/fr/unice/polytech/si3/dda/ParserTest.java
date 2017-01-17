@@ -57,9 +57,9 @@ public class ParserTest {
 		Context ctx = p.parse();
 		Mapping map = new Mapping(7, 5);
 		List<Product> products = Arrays.asList(new Product[]{
-				new Product(100),
-				new Product(5),
-				new Product(450)
+				new Product(100, 0),
+				new Product(5, 1),
+				new Product(450, 2)
 		});
 		Map<Product, Integer> stock = new HashMap<>();
 		stock.put(products.get(0), 5);
@@ -69,7 +69,7 @@ public class ParserTest {
 		Order o = new Order();
 		o.addProduct(products.get(2), 1);
 		o.addProduct(products.get(0), 1);
-		map.addDeliveryPoint(new Coordinates(1, 1), new DeliveryPoint(o));
+		map.addDeliveryPoint(new Coordinates(1, 1), new DeliveryPoint(o, 0));
 		
 		assertEquals(2, ctx.getMaxDrones());
 		assertEquals(25, ctx.getTurns());
