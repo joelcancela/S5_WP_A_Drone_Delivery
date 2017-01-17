@@ -109,4 +109,5 @@ public class Warehouse extends PointOfInterest {
 	public boolean isDeliveryPoint() {
 		return false;
 	}
+
 }

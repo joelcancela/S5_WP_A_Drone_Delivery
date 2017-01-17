@@ -154,7 +154,7 @@ public class Context {
             }
             for (int i = 0; i < products.size(); i++)
                 w.addProduct(products.get(i), stock[i]);
-            map.addPointOfInterest(coor, w);
+            map.addWarehouse(coor, w);
             return this;
         }
 
@@ -167,7 +167,7 @@ public class Context {
          * @throws NonValidCoordinatesException if coordinates are invalid
          */
         public ContextBuilder addDeliveryPoint(Coordinates coor, Order o) throws NonValidCoordinatesException {
-            map.addPointOfInterest(coor, new DeliveryPoint(o));
+            map.addDeliveryPoint(coor, new DeliveryPoint(o));
             return this;
         }
 
