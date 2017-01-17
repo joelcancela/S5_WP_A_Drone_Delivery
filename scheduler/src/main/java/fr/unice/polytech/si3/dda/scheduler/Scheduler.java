@@ -53,14 +53,14 @@ public class Scheduler {
 	 * @throws IOException if you can't write on the output file
 	 * @throws StrategyException 
 	 */
-	public void schedule() throws IOException, StrategyException {
+	public void schedule() throws IOException, StrategyException, CloneNotSupportedException {
 		List<Strategy> strategys =  new ArrayList<>();
 		if (forceWait) {
 			strategys.add(new BasicStrategy(ctx));
 		}
 		else {
-			strategys.add(new MultipleDroneStrategy(ctx));
-			strategys.add(new SingleDroneStrategy(ctx));
+			strategys.add(new MultipleDroneStrategy(new Context(ctx)));
+			strategys.add(new SingleDroneStrategy(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
 		List<IInstruction> minInstructions = null;
