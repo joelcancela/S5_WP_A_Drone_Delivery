@@ -12,7 +12,6 @@ import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -138,15 +137,20 @@ public class SingleDroneStrategyTest {
     	ctx = p.parse();
     	
     	List<IInstruction> expected = new ArrayList<IInstruction>();
-    	expected.add(new LoadInstruction(0, 0, 1, 1));
+    	expected.add(new LoadInstruction(0, 0, 1, 2));
     	expected.add(new LoadInstruction(0, 0, 0, 1));
-    	expected.add(new DeliverInstruction(0, 0, 0, 1));
     	expected.add(new DeliverInstruction(0, 0, 1, 1));
+    	expected.add(new DeliverInstruction(0, 0, 0, 1));
+    	expected.add(new DeliverInstruction(0, 2, 1, 1));
+    	expected.add(new LoadInstruction(0, 1, 1, 2));
+    	expected.add(new DeliverInstruction(0, 2, 1, 2));
+    	expected.add(new LoadInstruction(0, 2, 2, 1));
+    	expected.add(new DeliverInstruction(0, 1, 2, 1));
     	
     	singleDroneStrategy = new SingleDroneStrategy(ctx);
     	List<IInstruction> get = singleDroneStrategy.getInstructions();
     	
-    	System.out.println(get);
+    	assertEquals(expected, get);
     }
 
 

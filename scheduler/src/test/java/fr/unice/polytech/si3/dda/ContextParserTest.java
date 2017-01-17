@@ -97,7 +97,7 @@ public class ContextParserTest {
 		Context ctx = p.parse();
 	}
 	
-	@Test(expected=MalformedContextBodyException.class)
+	@Test(expected=MalformedContextException.class)
 	public void testParseMalformed2() throws Exception {
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
 		wrt.write("7 5 2 25 500\n"
@@ -114,7 +114,7 @@ public class ContextParserTest {
 		Context ctx = p.parse();
 	}
 	
-	@Test(expected=MalformedContextBodyException.class)
+	@Test(expected=MalformedContextException.class)
 	public void testParseMalformed3() throws Exception {
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
 		wrt.write("7 5 2 25 500\n"
