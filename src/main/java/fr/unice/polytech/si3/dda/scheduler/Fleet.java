@@ -3,6 +3,8 @@ package fr.unice.polytech.si3.dda.scheduler;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.unice.polytech.si3.dda.mapping.Warehouse;
+
 /**
  * The Fleet class handle the fleet of drones. All drones are store in a list.
  *
@@ -19,11 +21,11 @@ public class Fleet {
      *
      * @param context the context of execution.
      */
-    public Fleet(Context context) {
+    public Fleet(int maxDrones, int maxPayload, Warehouse firstWarehouse) {
         register = new ArrayList<>();
 
-        for (int i = 0; i < context.getMaxDrones(); i++) {
-            register.add(new Drone(context.getMaxPayload(), context.getFirstWarehouse().getCoordinates()));
+        for (int i = 0; i < maxDrones; i++) {
+            register.add(new Drone(maxPayload, firstWarehouse.getCoordinates()));
         }
     }
 
