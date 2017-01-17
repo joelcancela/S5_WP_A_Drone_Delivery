@@ -70,4 +70,8 @@ public class Product {
 				"weight=" + weight +
 				'}';
 	}
+	
+	public Product copie(){
+		return new Product(weight);
+	}
 }

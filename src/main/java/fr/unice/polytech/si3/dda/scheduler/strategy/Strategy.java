@@ -17,5 +17,5 @@ import fr.unice.polytech.si3.dda.instruction.IInstruction;
 public interface Strategy {
 
 	
-	public List<IInstruction> getInstructions();
+	public List<IInstruction> getInstructions() throws Exception;
 }

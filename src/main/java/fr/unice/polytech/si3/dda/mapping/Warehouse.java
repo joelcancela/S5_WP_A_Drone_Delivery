@@ -109,4 +109,14 @@ public class Warehouse extends PointOfInterest {
 	public boolean isDeliveryPoint() {
 		return false;
 	}
+	
+	public Warehouse copie(){
+		Warehouse nwWarehouse = new Warehouse();
+		nwWarehouse.setCoordinates(coordinates);
+		for(Map.Entry<Product, Integer> entry : stock.entrySet()){
+			nwWarehouse.addProduct(entry.getKey().copie(), entry.getValue());
+		}
+		
+		return nwWarehouse;
+	}
 }
