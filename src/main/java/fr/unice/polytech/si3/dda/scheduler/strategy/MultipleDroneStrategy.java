@@ -42,7 +42,7 @@ public class MultipleDroneStrategy implements Strategy {
                 Set<Product> neededProducts = products.keySet();
                 for (Product product : neededProducts) {
                         warehouse.pullOutProduct(product);
-                    instructionList.add(new LoadInstruction(i, 0, product.));
+//                    instructionList.add(new LoadInstruction(i, 0, product.));
                 }
 
 
