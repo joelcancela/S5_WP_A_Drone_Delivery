@@ -69,7 +69,7 @@ public class MultipleDroneStrategy implements Strategy {
                 }
                 droneIndex++;
 
-                if (droneIndex == numberOfDrones - 1) droneIndex = 0;
+                if (droneIndex == numberOfDrones) droneIndex = 0;
             }
         }
 

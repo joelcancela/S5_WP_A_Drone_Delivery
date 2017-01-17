@@ -48,7 +48,7 @@ public class UnloadInstruction implements IInstruction {
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
 		d.move(w.getCoordinates());
-		return distance+2;
+		return distance+1;
 	}
 	
 	/*

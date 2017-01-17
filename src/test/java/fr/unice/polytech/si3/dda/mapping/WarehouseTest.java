@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.mapping;
 
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.order.Product;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +31,7 @@ public class WarehouseTest {
 	}
 
 	@Test
-	public void howManyProduct() {
+	public void howManyProduct() throws ProductNotFoundException {
 		Product product1 = new Product(200, 0);
 		Product product2 = new Product(150, 1);
 		warehouse.addProduct(product1, 3);

@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
@@ -28,7 +28,6 @@ public class MultipleDroneStrategyTest {
     private Mapping mapping;
     private Fleet fleet;
     private List<Product> products;
-    private List<Product> products2;
     private Order order;
     private Order order1;
 
@@ -37,10 +36,9 @@ public class MultipleDroneStrategyTest {
     public void setUp() throws Exception {
         products = Arrays.asList(
                 new Product(100, 0),
-                new Product(100, 0),
                 new Product(120, 1),
-                new Product(90, 2));
-        products2 = Arrays.asList(new Product(10, 3));
+                new Product(90, 2),
+                new Product(10, 3));
 
         order = new Order();
         order.addProduct(products.get(0), 2);
@@ -51,9 +49,8 @@ public class MultipleDroneStrategyTest {
 
         context = new Context.ContextBuilder(4, 4, 3, 25, 150)
                 .addProducts(products)
-                .addWarehouse(new Coordinates(0, 0), 1, 1, 1, 1)
-                .addProducts(products2)
-                .addWarehouse(new Coordinates(1, 3), 1)
+                .addWarehouse(new Coordinates(0, 0), 2, 1, 1, 0)
+                .addWarehouse(new Coordinates(1, 3), 0, 0, 0, 1)
                 .addDeliveryPoint(new Coordinates(1, 1), order)
                 .addDeliveryPoint(new Coordinates(0, 3), order1)
                 .build();
@@ -66,21 +63,19 @@ public class MultipleDroneStrategyTest {
     @Test
     public void getInstructions() throws Exception {
         List<IInstruction> list = strategy.getInstructions();
-        //[0 L 0 0 1,
-        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
-        // 0 D 0 0 1,
-        // 1 L 0 0 1,
-        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
-        // 1 D 0 0 1,
-        // 0 L 0 0 1,
-        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
-        // 0 D 1 0 1,
-        // 1 L 0 1 1,
-        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
-        // 1 D 1 1 1,
-        // 0 L 0 2 1,
-        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
-        // 0 D 1 2 1]
+        List<IInstruction> expect = Arrays.asList(
+                new LoadInstruction(0, 0, 0, 1),
+                new DeliverInstruction(0, 0, 0, 1),
+                new LoadInstruction(1, 0, 0, 1),
+                new DeliverInstruction(1, 0, 0, 1),
+                new LoadInstruction(2, 0, 1, 1),
+                new DeliverInstruction(2, 1, 1, 1),
+                new LoadInstruction(0, 0, 2, 1),
+                new DeliverInstruction(0, 1, 2, 1),
+                new LoadInstruction(1, 1, 3, 1),
+                new DeliverInstruction(1, 1, 3, 1)
+        );
+        assertEquals(expect, list);
     }
 
     @Test
@@ -104,12 +99,12 @@ public class MultipleDroneStrategyTest {
     @Test
     public void searchForItem() throws Exception {
         fleet.getDrone(0).move(new Coordinates(0, 0));
-        strategy.searchForItem(0, products2.get(0), mapping.getWarehouse(new Coordinates(0, 0)));
+        strategy.searchForItem(0, products.get(3), mapping.getWarehouse(new Coordinates(0, 0)));
         assertEquals(new Coordinates(1, 3), fleet.getDrone(0).getCoordinates());
         assertTrue(!fleet.getDrone(0).isEmpty());
     }
 
-    @Test (expected = ProductNotFoundException.class)
+    @Test(expected = ProductNotFoundException.class)
     public void loadProductError() throws Exception {
         strategy.loadFromWarehouse(0, new Product(12, 12), mapping.getWarehouse(0));
     }
