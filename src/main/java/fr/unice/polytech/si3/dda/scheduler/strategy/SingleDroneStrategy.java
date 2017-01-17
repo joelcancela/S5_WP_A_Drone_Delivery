@@ -38,6 +38,7 @@ public class SingleDroneStrategy implements Strategy{
 	 * Return the list of all instructions of the strategy
 	 * @return list of all instructions of the strategy
 	 */
+	@Override
 	public List<IInstruction> getInstructions(){
 		Drone doneUsed = fleet.getDrone(0);
 		Map<List<IInstruction>, Integer> instructionsLists = new HashMap<List<IInstruction>, Integer>();

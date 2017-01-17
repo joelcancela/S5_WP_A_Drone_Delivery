@@ -46,6 +46,11 @@ public class Mapping {
 		return new HashMap<>(map);
 	}
 
+	/**
+	 * Gets orders.
+	 *
+	 * @return orders
+	 */
 	public List<Order> getOrders() {
 		List<Order> res = new ArrayList<>();
 		for (Map.Entry<Coordinates, PointOfInterest> entry : map.entrySet()) {

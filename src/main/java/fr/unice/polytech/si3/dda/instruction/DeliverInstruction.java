@@ -14,6 +14,14 @@ public class DeliverInstruction implements IInstruction {
 	int productType;
 	int numberOfProducts;
 
+	/**
+	 * Instantiates a new deliver instruction.
+	 *
+	 * @param droneNumber the drone number
+	 * @param orderNumber the order number
+	 * @param productType the product type
+	 * @param numberOfProducts the number of products
+	 */
 	public DeliverInstruction(int droneNumber, int orderNumber, int productType, int numberOfProducts) {
 		this.droneNumber = droneNumber;
 		this.orderNumber = orderNumber;
