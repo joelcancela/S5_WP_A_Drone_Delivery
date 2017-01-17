@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
 import fr.unice.polytech.si3.dda.exception.*;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
+import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -55,7 +55,7 @@ public class Scheduler {
 	public void schedule() throws IOException, StrategyException {
 		List<Strategy> strategies =  new ArrayList<>();
 		if (forceWait) {
-			strategies.add(new BasicStrategy(ctx));
+			strategies.add(new BasicStrategy(new Context(ctx)));
 		}
 		else {
 			strategies.add(new MultipleDroneStrategy(new Context(ctx)));

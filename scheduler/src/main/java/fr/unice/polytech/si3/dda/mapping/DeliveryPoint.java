@@ -49,6 +49,10 @@ public class DeliveryPoint extends PointOfInterest {
 		else
 			this.order = order;
 	}
+	
+	public DeliveryPoint(DeliveryPoint dp) {
+		this(dp.order.copy(), dp.coordinates, dp.id);
+	}
 
 	/**
 	 * Getter of order
@@ -99,6 +103,10 @@ public class DeliveryPoint extends PointOfInterest {
      */
     public void removeThisProduct(Product product){
     	order.removeThisProduct(product);
+    }
+    
+    public DeliveryPoint copy() {
+    	return new DeliveryPoint(this);
     }
 
 }

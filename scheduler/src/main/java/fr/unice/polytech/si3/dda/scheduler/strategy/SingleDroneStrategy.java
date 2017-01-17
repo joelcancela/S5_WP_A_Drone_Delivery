@@ -61,8 +61,12 @@ public class SingleDroneStrategy implements Strategy{
 		Warehouse warehouse = context.getFirstWarehouse();
 		List<Map<Product, Integer>> takens = new ArrayList<>();
 		
+		System.out.println(orders);
 		while(!isOrdersCompleted(orders)){
+			System.out.println("mynew warehouse:"+warehouse);
 			System.out.println(instructionsLists);
+			System.out.println("------------------------");
+			System.out.println(orders);
 			loadOrderFromAWarehouse(orders, warehouse, droneUsed, takens);
 
 			Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pairOfPath = getPathForThoseProducts(takens, warehouse);
@@ -168,6 +172,7 @@ public class SingleDroneStrategy implements Strategy{
 		double distance = Double.MAX_VALUE;
 		Warehouse nextWareHouse =  null;
 		for(Map.Entry<Coordinates, Warehouse> entry : warhouses.entrySet()){
+			System.out.println("je look ce warehouse : "+entry.getValue());
 			for(int i=0; i<orders.size(); i++){
 				for(Map.Entry<Product, Integer> prodcuts: orders.get(i).getProducts().entrySet()){
 					double currentDistance = droneUsed.getCoordinates().distance(entry.getKey());
@@ -244,6 +249,8 @@ public class SingleDroneStrategy implements Strategy{
 
 		for(int i=1;i<firstTravel.getSecond().size();i++){
 			for(Map.Entry<Product, Integer> entry : pair.getFirst().get(firstTravel.getSecond().get(i)).entrySet()){
+				System.out.println(firstTravel.getSecond().get(i).getId()+":");
+				System.out.println(firstTravel.getSecond().get(i));
 				instructionsLists.add(new DeliverInstruction(0, firstTravel.getSecond().get(i).getId(), entry.getKey().getId(), entry.getValue()));
 				droneUsed.unload(entry.getKey());
 				for(Map.Entry<Coordinates, DeliveryPoint> dps : context.getMap().getDeliveryPoints().entrySet()){

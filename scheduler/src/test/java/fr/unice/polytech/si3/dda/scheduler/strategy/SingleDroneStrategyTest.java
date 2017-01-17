@@ -131,7 +131,6 @@ public class SingleDroneStrategyTest {
     	assertEquals(expected, get);
     }
 
-    @Ignore
     @Test
     public void essaiContextFromFileCompleteExample() throws Exception{
     	file = new File("../examples/contextFoncManyOrders.in");

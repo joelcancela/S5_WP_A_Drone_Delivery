@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -131,7 +132,7 @@ public class ContextParser {
      */
     private Map<Coordinates, int[]> parseWarehouses() throws IOException, MalformedContextException {
         try {
-            Map<Coordinates, int[]> warehouses = new HashMap<>();
+            Map<Coordinates, int[]> warehouses = new LinkedHashMap<>();
             String line = br.readLine();
             int numWarehouse = Integer.parseInt(line);
             for (int i = 0; i < numWarehouse; i++) {
@@ -159,7 +160,7 @@ public class ContextParser {
      */
     private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException, MalformedContextException {
         try {
-            Map<Coordinates, Order> orders = new HashMap<>();
+            Map<Coordinates, Order> orders = new LinkedHashMap<>();
             String line = br.readLine();
             int numOrder = Integer.parseInt(line);
             for (int i = 0; i < numOrder; i++) {
