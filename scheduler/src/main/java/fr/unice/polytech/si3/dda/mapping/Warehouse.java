@@ -80,6 +80,8 @@ public class Warehouse extends PointOfInterest {
     public void addProduct(Product product, int numberOf) {
         if (!stock.containsKey(product))
             stock.put(product, numberOf);
+        else
+        	stock.put(product, stock.get(product) + numberOf);
     }
 
     /**
