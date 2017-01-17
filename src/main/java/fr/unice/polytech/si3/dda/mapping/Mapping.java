@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.dda.mapping;
 
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
@@ -93,8 +94,14 @@ public class Mapping {
      * @param coor the coordinates.
      * @return the warehouse.
      */
-    public Warehouse getWarehouse(Coordinates coor){
+    public Warehouse getWarehouse(Coordinates coor) {
         return warehouses.get(coor);
+    }
+
+    public Warehouse getWarehouse(int id) throws WrongIdException {
+        for (Warehouse warehouse : warehouses.values())
+            if (warehouse.getId() == id) return warehouse;
+        throw new WrongIdException("Wrong id : " + id);
     }
 
     /**
@@ -103,7 +110,7 @@ public class Mapping {
      * @param coor the coordinates
      * @return the delivery point
      */
-    public DeliveryPoint getDeliveryPoint(Coordinates coor){
+    public DeliveryPoint getDeliveryPoint(Coordinates coor) {
         return deliveryPoints.get(coor);
     }
 
