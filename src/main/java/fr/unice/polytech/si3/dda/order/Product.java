@@ -25,14 +25,14 @@ public class Product {
         this.id = id;
     }
 
-    /**
-     * Returns the weight of a wanted product
-     *
-     * @return weight the weight of the current product
-     */
-    public int getWeight() {
-        return weight;
-    }
+	/**
+	 * Returns the weight of a wanted product
+	 *
+	 * @return weight the weight of the current product
+	 */
+	public int getWeight() {
+		return weight;
+	}
 
     /**
      * Returns the if of the product.
@@ -55,30 +55,34 @@ public class Product {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        Product product = (Product) o;
+		Product product = (Product) o;
 
         return weight == product.weight && id == product.id;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return weight;
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return weight;
+	}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "Product{" +
-                "weight=" + weight +
-                '}';
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Product{" +
+				"weight=" + weight +
+				'}';
+	}
+
+	public Product copie(){
+		return new Product(weight);
+	}
 }

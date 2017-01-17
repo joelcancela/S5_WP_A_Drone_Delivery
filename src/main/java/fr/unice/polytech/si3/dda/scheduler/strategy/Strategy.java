@@ -23,5 +23,6 @@ public interface Strategy {
 	 *
 	 * @return instructions
 	 */
-	public List<IInstruction> getInstructions() throws OverLoadException, Exception;
+	public List<IInstruction> getInstructions() throws Exception;
+
 }
