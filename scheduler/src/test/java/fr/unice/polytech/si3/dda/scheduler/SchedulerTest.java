@@ -4,6 +4,7 @@ import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Test;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class SchedulerTest {
     @Test
-    public void computeSrat() throws Exception {
+    public void computeStrat() throws Exception {
 
     }
 
@@ -31,6 +32,7 @@ public class SchedulerTest {
         Scheduler scheduler = new Scheduler(context, true);
         scheduler.schedule();
         List<String> str = Files.readAllLines(Paths.get("scheduler.out"));
+        new File("scheduler.out").delete();
 
         assertEquals("0 W 25", str.get(0));
         assertEquals("1 W 25", str.get(1));
