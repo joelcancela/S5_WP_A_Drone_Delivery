@@ -63,14 +63,19 @@ public class LoadInstruction implements IInstruction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof LoadInstruction)) return false;
+		if (this == o) 
+			return true;
+		if (!(o instanceof LoadInstruction)) 
+			return false;
 
 		LoadInstruction that = (LoadInstruction) o;
 
-		if (droneNumber != that.droneNumber) return false;
-		if (idWarehouse != that.idWarehouse) return false;
-		if (productType != that.productType) return false;
+		if (droneNumber != that.droneNumber) 
+			return false;
+		if (idWarehouse != that.idWarehouse) 
+			return false;
+		if (productType != that.productType) 
+			return false;
 		return numberOfProducts == that.numberOfProducts;
 	}
 

@@ -85,7 +85,7 @@ public class Mapping {
      * @return the map containing the delivery points.
      */
     public Map<Coordinates, DeliveryPoint> getDeliveryPoints() {
-        return new LinkedHashMap<Coordinates, DeliveryPoint>(deliveryPoints);
+        return new LinkedHashMap<>(deliveryPoints);
     }
 
     /**
@@ -98,15 +98,29 @@ public class Mapping {
         return warehouses.get(coor);
     }
 
+    /**
+     * Get a warehouse fom a id
+     * @param id Id of warehouse searched
+     * @return The warehouse found
+     * @throws WrongIdException
+     */
     public Warehouse getWarehouse(int id) throws WrongIdException {
         for (Warehouse warehouse : warehouses.values())
-            if (warehouse.getId() == id) return warehouse;
+            if (warehouse.getId() == id) 
+            	return warehouse;
         throw new WrongIdException("Wrong id : " + id);
     }
 
+    /**
+     * Get a DeliveryPoint fom a id
+     * @param id Id of DeliveryPoint searched
+     * @return The DeliveryPoint found
+     * @throws WrongIdException
+     */
     public DeliveryPoint getDeliveryPoint(int id) throws WrongIdException {
         for (DeliveryPoint deliveryPoint : deliveryPoints.values())
-            if (deliveryPoint.getId() == id) return deliveryPoint;
+            if (deliveryPoint.getId() == id) 
+            	return deliveryPoint;
         throw new WrongIdException("Wrong id : " + id);
     }
 

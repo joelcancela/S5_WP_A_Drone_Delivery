@@ -1,8 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.exception.OverLoadException;
-import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.exception.StrategyException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
@@ -43,11 +41,9 @@ public class Scheduler {
 	 * Launches algorithm and writes the instructions to the output file "scheduler.out"
 	 *
 	 * @throws IOException if you can't write on the output file
-	 * @throws ProductNotFoundException 
-	 * @throws OverLoadException 
-	 * @throws WrongIdException 
+	 * @throws StrategyException 
 	 */
-	public void schedule() throws IOException, WrongIdException, OverLoadException, ProductNotFoundException {
+	public void schedule() throws IOException, StrategyException {
 		FileWriter fw = new FileWriter(scheduleOutFile);
 		Strategy strategy = new SingleDroneStrategy(ctx);
 		for(IInstruction instruction: strategy.getInstructions()){

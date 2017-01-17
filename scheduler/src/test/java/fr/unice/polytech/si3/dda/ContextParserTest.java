@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
 import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
