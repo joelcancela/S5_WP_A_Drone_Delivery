@@ -147,7 +147,8 @@ public class SingleDroneStrategy implements Strategy{
 						break;
 					}
 				}else{
-					System.out.println("warehouse:"+warehouse);
+					if(warehouse.equals(null))
+						throw new ProductNotFoundException("Product : " + entry.getKey());
 					if(entry.getValue() > 0 
 							&& warehouse.howManyProduct(entry.getKey())!=0
 							&& entry.getKey().getWeight() <= droneUsed.getMaxPayload()-droneUsed.getUsedPayload()){
