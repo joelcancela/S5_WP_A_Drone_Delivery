@@ -65,11 +65,11 @@ public class ParserTest {
 		stock.put(products.get(0), 5);
 		stock.put(products.get(1), 1);
 		stock.put(products.get(2), 0);
-		map.addPointOfInterest(new Coordinates(0, 0), new Warehouse(stock));
+		map.addWarehouse(new Coordinates(0, 0), new Warehouse(stock));
 		Order o = new Order();
 		o.addProduct(products.get(2), 1);
 		o.addProduct(products.get(0), 1);
-		map.addPointOfInterest(new Coordinates(1, 1), new DeliveryPoint(o));
+		map.addDeliveryPoint(new Coordinates(1, 1), new DeliveryPoint(o));
 		
 		assertEquals(2, ctx.getMaxDrones());
 		assertEquals(25, ctx.getTurns());
