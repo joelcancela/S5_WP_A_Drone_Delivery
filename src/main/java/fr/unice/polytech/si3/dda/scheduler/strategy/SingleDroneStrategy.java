@@ -101,7 +101,7 @@ public class SingleDroneStrategy implements Strategy{
 		return true;
 	}
 	
-	private void loadOrderFromAWarehouse(List<Order> orders, Warehouse warehouse, Drone droneUsed, List<Map<Product, Integer>> takens) throws OverLoadException{	
+	private void loadOrderFromAWarehouse(List<Order> orders, Warehouse warehouse, Drone droneUsed, List<Map<Product, Integer>> takens) throws OverLoadException, ProductNotFoundException{	
 		boolean restart = false;
 		int indexToRestart = 0;
 		int i =0;
@@ -147,7 +147,7 @@ public class SingleDroneStrategy implements Strategy{
 						break;
 					}
 				}else{
-					if(warehouse.equals(null))
+					if(warehouse==null)
 						throw new ProductNotFoundException("Product : " + entry.getKey());
 					if(entry.getValue() > 0 
 							&& warehouse.howManyProduct(entry.getKey())!=0
