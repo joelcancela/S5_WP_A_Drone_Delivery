@@ -5,6 +5,7 @@ import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
 import fr.unice.polytech.si3.dda.util.Coordinates;
@@ -25,16 +26,18 @@ public class Scheduler {
 	Context ctx;
 	File scheduleOutFile;
 	File mapOutFile;
+	private boolean forceWait;
 
 	/**
 	 * Scheduler constructor
 	 *
 	 * @param context is the context to be used by the scheduler
 	 */
-	public Scheduler(Context context) {
+	public Scheduler(Context context, boolean forceWait) {
 		this.ctx = context;
 		this.scheduleOutFile = new File("scheduler.out");
 		this.mapOutFile = new File("map.csv");
+		this.forceWait = forceWait;
 	}
 
 	/**
@@ -44,8 +47,14 @@ public class Scheduler {
 	 * @throws StrategyException 
 	 */
 	public void schedule() throws IOException, StrategyException {
+		Strategy strategy;
+		if (forceWait) {
+			strategy = new BasicStrategy(ctx);
+		}
+		else {
+			strategy = new SingleDroneStrategy(ctx);
+		}
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		Strategy strategy = new SingleDroneStrategy(ctx);
 		for(IInstruction instruction: strategy.getInstructions()){
 			fw.write(instruction.toString());
 			fw.write("\n");
