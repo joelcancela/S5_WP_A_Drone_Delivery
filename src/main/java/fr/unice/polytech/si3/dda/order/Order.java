@@ -57,7 +57,7 @@ public class Order {
      * @return the products orders list
      */
     public Map<Product, Integer> getProducts() {
-        return new LinkedHashMap(products);
+        return new LinkedHashMap<>(products);
     }
 
     /**
