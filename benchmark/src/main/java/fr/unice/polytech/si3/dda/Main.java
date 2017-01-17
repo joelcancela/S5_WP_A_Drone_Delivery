@@ -1,5 +1,7 @@
+package fr.unice.polytech.si3.dda;
+
 /**
- * Class Main
+ * Class x
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
@@ -7,7 +9,4 @@
  * @author Joël CANCELA VAZ
  */
 public class Main {
-	public static void main(String[] args) {
-
-	}
 }
