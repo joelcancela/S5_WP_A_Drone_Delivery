@@ -14,6 +14,14 @@ public class LoadInstruction implements IInstruction {
 	int productType;
 	int numberOfProducts;
 
+	/**
+	 * Instantiates a new load instruction.
+	 *
+	 * @param droneNumber the drone number
+	 * @param idWarehouse the id warehouse
+	 * @param productType the product type
+	 * @param numberOfProducts the number of products
+	 */
 	public LoadInstruction(int droneNumber, int idWarehouse, int productType, int numberOfProducts) {
 		this.droneNumber = droneNumber;
 		this.idWarehouse = idWarehouse;

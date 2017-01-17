@@ -147,7 +147,7 @@ public class Context {
          * @throws NonValidCoordinatesException if coordinates are invalid
          */
         public ContextBuilder addWarehouse(Coordinates coor, int... stock) throws NonValidCoordinatesException {
-            Warehouse w = new Warehouse();
+            Warehouse w = new Warehouse(coor);
             if (first) {
                 firstWarehouse = w;
                 first = false;
@@ -167,7 +167,7 @@ public class Context {
          * @throws NonValidCoordinatesException if coordinates are invalid
          */
         public ContextBuilder addDeliveryPoint(Coordinates coor, Order o) throws NonValidCoordinatesException {
-            map.addDeliveryPoint(coor, new DeliveryPoint(o));
+            map.addDeliveryPoint(coor, new DeliveryPoint(o, coor));
             return this;
         }
 
