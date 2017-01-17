@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
 import fr.unice.polytech.si3.dda.exception.*;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;

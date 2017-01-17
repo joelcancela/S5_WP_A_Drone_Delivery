@@ -119,8 +119,6 @@ public class MultipleDroneStrategyTest {
 
         MultipleDroneStrategy strategy = new MultipleDroneStrategy(ctx);
         List<Instruction> list = strategy.getInstructions();
-
-        System.out.println(list);
         assertTrue(list.contains(new LoadInstruction(0,0,1,1)));
         assertTrue(list.contains(new DeliverInstruction(0,0,1,1)));
         assertTrue(list.contains(new LoadInstruction(1,0,0,1)));
