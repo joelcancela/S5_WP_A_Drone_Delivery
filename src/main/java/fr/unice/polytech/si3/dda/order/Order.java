@@ -87,6 +87,10 @@ public class Order {
 	public void deliver(Product p) {
 		remaining.remove(p);
 	}
+	
+	public void removeThisProduct(Product p){
+		products.put(p, products.get(p)-1);
+	}
 
 	/*
      * (non-Javadoc)

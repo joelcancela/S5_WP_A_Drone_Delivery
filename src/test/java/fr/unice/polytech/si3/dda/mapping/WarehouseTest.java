@@ -64,12 +64,4 @@ public class WarehouseTest {
 		assertEquals(3, warehouse.howManyProduct(product1));
 		assertEquals(2, warehouse.howManyProduct(product2));
 	}
-
-	@Test
-	public void nullStock() {
-		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Argument passed \"stock\" is null.");
-
-		warehouse = new Warehouse(null);
-	}
 }

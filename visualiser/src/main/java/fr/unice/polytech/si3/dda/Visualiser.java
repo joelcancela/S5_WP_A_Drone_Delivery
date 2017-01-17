@@ -1,5 +1,8 @@
 package fr.unice.polytech.si3.dda;
 
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 
@@ -22,6 +25,8 @@ public class Visualiser {
 		instructions = instructionsList;
 	}
 
-	public void display() {
+	public void display() throws InterruptedException, WrongIdException, OverLoadException, ProductNotFoundException {
+		ClientView clientView = new ClientView(ctx,instructions);
+		clientView.display();
 	}
 }
