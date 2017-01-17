@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.dda.instruction;
 
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.scheduler.Drone;
@@ -37,12 +37,12 @@ public class DeliverInstruction implements IInstruction {
 	}
 
 	@Override
-	public int execute(Context ctx) throws ProductNotFoundException {
+	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException {
 		Drone d = ctx.getFleet().getDrone(droneNumber);
-		//DeliveryPoint dp = ctx.getMap();
+		DeliveryPoint dp = ctx.getMap().getDeliveryPoint(orderNumber);
 		for (int i=0; i<numberOfProducts; i++) {
 			Product p = ctx.getProducts().get(productType);
-			//o.deliver(p);
+			dp.getOrder().deliver(p);
 			d.unload(p);
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(dp.getCoordinates()));

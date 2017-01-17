@@ -1,5 +1,13 @@
 package fr.unice.polytech.si3.dda.instruction;
 
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.scheduler.Context;
+import fr.unice.polytech.si3.dda.scheduler.Drone;
+
 /**
  * Class LoadInstruction
  *
@@ -29,6 +37,20 @@ public class LoadInstruction implements IInstruction {
 		this.numberOfProducts = numberOfProducts;
 	}
 
+	@Override
+	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException {
+		Drone d = ctx.getFleet().getDrone(droneNumber);
+		Warehouse w = ctx.getMap().getWarehouse(idWarehouse);
+		for (int i=0; i<numberOfProducts; i++) {
+			Product p = ctx.getProducts().get(productType);
+			w.pullOutProduct(p);
+			d.load(p);
+		}
+		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
+		d.move(w.getCoordinates());
+		return distance+1;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 *

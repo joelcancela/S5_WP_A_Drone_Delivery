@@ -1,10 +1,8 @@
 package fr.unice.polytech.si3.dda.instruction;
 
-import java.util.List;
-
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
-import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 
 /**
@@ -17,8 +15,6 @@ import fr.unice.polytech.si3.dda.scheduler.Context;
  */
 public interface IInstruction {
 	
-	public void execute();
-
-	int execute(Context ctx) throws ProductNotFoundException;
+	int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
 	
 }
