@@ -12,13 +12,10 @@ import java.util.*;
 
 public class ClientView extends View {
 
-	Context ctx;
-	List<Instruction> instructions;
 	private final int tickTime = 2000;
 
 	public ClientView(Context context, List<Instruction> instructionsList) {
-		ctx = context;
-		instructions = instructionsList;
+		super(context, instructionsList);
 	}
 
 	@Override
