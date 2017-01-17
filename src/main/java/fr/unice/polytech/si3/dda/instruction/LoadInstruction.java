@@ -48,7 +48,7 @@ public class LoadInstruction implements IInstruction {
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
 		d.move(w.getCoordinates());
-		return distance+1;
+		return distance+2;
 	}
 	
 	/*
