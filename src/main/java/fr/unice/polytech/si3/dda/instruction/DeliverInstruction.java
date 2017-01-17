@@ -1,5 +1,7 @@
 package fr.unice.polytech.si3.dda.instruction;
 
+import fr.unice.polytech.si3.dda.mapping.Mapping;
+
 /**
  * Class DeliverInstruction
  *
@@ -27,6 +29,11 @@ public class DeliverInstruction implements IInstruction {
 		this.orderNumber = orderNumber;
 		this.productType = productType;
 		this.numberOfProducts = numberOfProducts;
+	}
+
+	@Override
+	public void execute(Mapping mapping) {
+		
 	}
 
 	/*

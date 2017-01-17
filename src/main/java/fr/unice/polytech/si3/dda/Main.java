@@ -23,7 +23,7 @@ public class Main {
 
 		if (args.length > 0) {
 			try {
-				Context ctx = new Parser(args[0]).parse();
+				Context ctx = new ContextParser(args[0]).parse();
 				new Scheduler(ctx).schedule();
 			} catch (Exception e) {
 				throw new RuntimeException(e);

@@ -24,13 +24,13 @@ import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
-public class ParserTest {
+public class ContextParserTest {
 	
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
     String FILE_NAME = "new-file.txt";
-    Parser p;
+    ContextParser p;
     File file;
 	
 	@Before
@@ -48,7 +48,7 @@ public class ParserTest {
 				+ "2\n"
 				+ "2 0\n");
 		wrt.close();
-		p = new Parser(file.getAbsolutePath());
+		p = new ContextParser(file.getAbsolutePath());
 	}
 
 	@Test
