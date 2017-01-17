@@ -13,24 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class Parser
+ * Class ScheduleParser
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class Parser {
+public class ScheduleParser {
 
 	private BufferedReader br;
 
 	/**
-	 * Parser constructor
+	 * ScheduleParser constructor
 	 *
 	 * @param filename the filename to parse
 	 * @throws FileNotFoundException if the filename is incorrect
 	 */
-	public Parser(String filename) throws FileNotFoundException {
+	public ScheduleParser(String filename) throws FileNotFoundException {
 		br = new BufferedReader(new FileReader(filename));
 	}
 
