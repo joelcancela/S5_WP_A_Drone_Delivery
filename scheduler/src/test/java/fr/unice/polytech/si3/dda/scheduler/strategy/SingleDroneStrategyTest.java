@@ -1,5 +1,9 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+import fr.unice.polytech.si3.dda.ContextParser;
+import fr.unice.polytech.si3.dda.exception.EmptyFileException;
+import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
@@ -10,17 +14,25 @@ import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SingleDroneStrategyTest {
     private SingleDroneStrategy singleDroneStrategy;
-
+    private File file;
+    private ContextParser p;
+    private Context ctx;
+    
     @Test
     public void finishAOrderAndMoveToNearestWarehouse() throws OverLoadException, ProductNotFoundException, NonValidCoordinatesException {
         List<Product> products = new ArrayList<Product>();
@@ -104,6 +116,42 @@ public class SingleDroneStrategyTest {
         List<IInstruction> get = singleDroneStrategy.getInstructions();
         
         assertEquals(expected, get);
+    }
+    
+    @Test
+    public void essaiContextFromFileEasyWithOnTravel() throws Exception{
+    	file = new File("../examples/contextDemo_simple.in");
+    	p = new ContextParser(file.getAbsolutePath());
+    	ctx = p.parse();
+    	
+    	List<IInstruction> expected = new ArrayList<IInstruction>();
+    	expected.add(new LoadInstruction(0, 0, 1, 1));
+    	expected.add(new LoadInstruction(0, 0, 0, 1));
+    	expected.add(new DeliverInstruction(0, 0, 0, 1));
+    	expected.add(new DeliverInstruction(0, 0, 1, 1));
+    	
+    	singleDroneStrategy = new SingleDroneStrategy(ctx);
+    	List<IInstruction> get = singleDroneStrategy.getInstructions();
+    	
+    	assertEquals(expected, get);
+    }
+    
+    @Test
+    public void essaiContextFromFileCompleteExample() throws Exception{
+    	file = new File("../examples/contextFoncManyOrders.in");
+    	p = new ContextParser(file.getAbsolutePath());
+    	ctx = p.parse();
+    	
+    	List<IInstruction> expected = new ArrayList<IInstruction>();
+    	expected.add(new LoadInstruction(0, 0, 1, 1));
+    	expected.add(new LoadInstruction(0, 0, 0, 1));
+    	expected.add(new DeliverInstruction(0, 0, 0, 1));
+    	expected.add(new DeliverInstruction(0, 0, 1, 1));
+    	
+    	singleDroneStrategy = new SingleDroneStrategy(ctx);
+    	List<IInstruction> get = singleDroneStrategy.getInstructions();
+    	
+    	System.out.println(get);
     }
 
 
