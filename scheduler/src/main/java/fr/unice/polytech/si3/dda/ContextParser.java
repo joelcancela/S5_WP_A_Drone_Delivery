@@ -64,7 +64,7 @@ public class ContextParser {
 			// Parse order
 			for (Map.Entry<Coordinates, Order> entry : parseOrders(products).entrySet())
 			    cb.addDeliveryPoint(entry.getKey(), entry.getValue());
-		} catch (MalformedContextException e) {
+		} catch (MalformedContextException | ArrayIndexOutOfBoundsException | NullPointerException e) {
 			throw new MalformedContextBodyException(cb.build());
 		}
         return cb.build();
