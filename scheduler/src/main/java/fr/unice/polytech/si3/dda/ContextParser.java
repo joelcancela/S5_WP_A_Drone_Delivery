@@ -160,7 +160,7 @@ public class ContextParser {
      */
     private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException, MalformedContextException {
         try {
-            Map<Coordinates, Order> orders = new HashMap<>();
+            Map<Coordinates, Order> orders = new LinkedHashMap<>();
             String line = br.readLine();
             int numOrder = Integer.parseInt(line);
             for (int i = 0; i < numOrder; i++) {

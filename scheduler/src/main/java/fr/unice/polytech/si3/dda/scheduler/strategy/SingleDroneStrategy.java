@@ -249,6 +249,8 @@ public class SingleDroneStrategy implements Strategy{
 
 		for(int i=1;i<firstTravel.getSecond().size();i++){
 			for(Map.Entry<Product, Integer> entry : pair.getFirst().get(firstTravel.getSecond().get(i)).entrySet()){
+				System.out.println(firstTravel.getSecond().get(i).getId()+":");
+				System.out.println(firstTravel.getSecond().get(i));
 				instructionsLists.add(new DeliverInstruction(0, firstTravel.getSecond().get(i).getId(), entry.getKey().getId(), entry.getValue()));
 				droneUsed.unload(entry.getKey());
 				for(Map.Entry<Coordinates, DeliveryPoint> dps : context.getMap().getDeliveryPoints().entrySet()){
