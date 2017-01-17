@@ -38,7 +38,7 @@ public class ClientView extends View {
 			Thread.sleep(tickTime);
 			clearScreen();
 		}
-		
+
 		sc.close();
 
 	}
@@ -49,10 +49,10 @@ public class ClientView extends View {
 		Order currentOrder = ctx.getMap().getOrders().get(clientNumber);
 		float productsToDeliver = currentOrder.getNumberOfProducts();
 		float productsLeft = currentOrder.getRemaining().size();
-		int percentage = (int)((productsToDeliver - productsLeft)/(productsToDeliver) * 100);
-		System.out.println("N°client: " + clientNumber + "\n");
-		System.out.println("#######" + "\n");
-		System.out.println("Order: " + percentage + "% " + "(" + remainingTurns + " turns remaining)" + "\n");
+		int percentage = (int) ((productsToDeliver - productsLeft) / (productsToDeliver) * 100);
+		System.out.println("####### \n");
+		System.out.println("N°client: " + clientNumber);
+		System.out.println("Order: " + percentage + "% " + "(" + remainingTurns + " turns remaining)" + "\n");//TODO Recalc turns
 		// Percentage of the order
 		// Review of the order and status
 		// Remaining time
@@ -61,11 +61,14 @@ public class ClientView extends View {
 			int initialQuantity = initialOrderState.get(p);
 			int remainingQuantity = Collections.frequency(currentOrder.getRemaining(), p);
 
-			System.out.println("Item of type " + p.getId() + ": ");
-			if (remainingQuantity != 0) {
-				System.out.println(remainingQuantity + "/" + initialQuantity);
-			} else {
-				System.out.println("OK");
+			for (int i = 0; i < initialQuantity; i++) {
+				System.out.print("Item of type " + p.getId() + ": ");
+				if (remainingQuantity != 0) {
+					System.out.print("(" + remainingTurns + " turns remaining) \n");//TODO Recalc turns
+					remainingQuantity--;
+				} else {
+					System.out.print("OK \n");
+				}
 			}
 		}
 	}

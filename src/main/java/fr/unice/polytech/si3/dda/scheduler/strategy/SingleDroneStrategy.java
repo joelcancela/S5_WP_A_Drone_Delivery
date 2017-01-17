@@ -101,7 +101,7 @@ public class SingleDroneStrategy implements Strategy{
 		return true;
 	}
 	
-	private void loadOrderFromAWarehouse(List<Order> orders, Warehouse warehouse, Drone droneUsed, List<Map<Product, Integer>> takens) throws OverLoadException, ProductNotFoundException {
+	private void loadOrderFromAWarehouse(List<Order> orders, Warehouse warehouse, Drone droneUsed, List<Map<Product, Integer>> takens) throws OverLoadException, ProductNotFoundException{	
 		boolean restart = false;
 		int indexToRestart = 0;
 		int i =0;
