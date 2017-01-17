@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-
-import fr.unice.polytech.si3.dda.Bench;
 import fr.unice.polytech.si3.dda.exception.*;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
@@ -68,7 +66,7 @@ public class Scheduler {
 		for(Strategy strategy : strategies){
 		    List<Instruction> currentInstructions = strategy.getInstructions();
 
-		    int cost = Bench.computeSrat(currentInstructions, new Context(ctx));
+		    int cost = computeSrat(currentInstructions, new Context(ctx));
 			
 			if(cost<minCost){
 				minCost = cost;
@@ -82,6 +80,30 @@ public class Scheduler {
 		}
 		fw.close();
 		generateMapCsv();
+	}
+
+	/**
+	 * Compoute the strategy and return the cost of a strategy.
+	 *
+	 * @param strategy the strategy to compute.
+	 * @param context  the context for the strategy.
+	 * @return the cost of the strategy.
+	 * @throws WrongIdException
+	 * @throws OverLoadException
+	 * @throws ProductNotFoundException
+	 */
+	public static int computeSrat(List<Instruction> strategy, Context context) throws WrongIdException, OverLoadException, ProductNotFoundException {
+		int maxDrone = context.getMaxDrones();
+		int scoreMax = 0;
+		for (int i = 0; i < maxDrone; i++) {
+			int score = 0;
+			for (Instruction instruction : strategy){
+				if (instruction.getDroneNumber() == i)
+					score += 1 + instruction.execute(context);
+			}
+			if (score > scoreMax) scoreMax = score;
+		}
+		return scoreMax;
 	}
 
 	/**
