@@ -8,6 +8,7 @@
     <modules>
         <module>visualiser</module>
         <module>benchmark</module>
+        <module>scheduler</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -24,6 +25,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>fr.unice.polytech.si3.dda</groupId>
+            <artifactId>scheduler</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
