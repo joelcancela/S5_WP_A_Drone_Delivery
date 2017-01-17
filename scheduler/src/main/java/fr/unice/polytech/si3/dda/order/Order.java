@@ -84,10 +84,18 @@ public class Order {
 		return new ArrayList<>(remaining);
 	}
 	
+	/**
+     * Remove a product to the list of remaining products
+     * @param product Product to remove
+	 */
 	public void deliver(Product p) {
 		remaining.remove(p);
 	}
 	
+	/**
+     * Remove a product to the map of the order
+     * @param product Product to remove
+	 */
 	public void removeThisProduct(Product p){
 		products.put(p, products.get(p)-1);
 	}

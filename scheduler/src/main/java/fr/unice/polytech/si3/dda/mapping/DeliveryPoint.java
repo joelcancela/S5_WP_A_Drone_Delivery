@@ -26,6 +26,7 @@ public class DeliveryPoint extends PointOfInterest {
      * Normal constructor of DeliveryPoint
      *
      * @param order Order of the DeliveryPoint
+	 * @param id Id of the DeliveryPoint
      * @throws IllegalArgumentException if the order is null
      */
     public DeliveryPoint(Order order, int id) {
@@ -37,6 +38,7 @@ public class DeliveryPoint extends PointOfInterest {
 	 *
 	 * @param order       Order of the DeliveryPoint
 	 * @param coordinates Coordinates of the deliveryPoint
+	 * @param id Id of the DeliveryPoint
 	 * @throws IllegalArgumentException if the order is null
 	 */
 	public DeliveryPoint(Order order, Coordinates coordinates, int id) {
@@ -83,10 +85,18 @@ public class DeliveryPoint extends PointOfInterest {
         return "DeliveryPoint ["+coordinates.getX()+":"+coordinates.getY()+"] : {" + order.toString() + " , " + super.toString() + "}";
     }
 
+    /**
+     * Remove a product to the list of remaining products
+     * @param product Product to remove
+     */
     public void deliver(Product product){
     	order.deliver(product);
 	}
     
+    /**
+     * Remove a product to the map of the order
+     * @param product Product to remove
+     */
     public void removeThisProduct(Product product){
     	order.removeThisProduct(product);
     }

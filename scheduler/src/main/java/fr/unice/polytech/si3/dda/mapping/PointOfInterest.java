@@ -25,6 +25,7 @@ public class PointOfInterest {
      * Normal constructor of PointOfInterest
      *
      * @param coordinates Coordinates of the interest point
+	 * @param id Id of the PointOfInterest
      */
     public PointOfInterest(Coordinates coordinates, int id) {
         this.id = id;

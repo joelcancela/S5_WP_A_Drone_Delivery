@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Before;
 import org.junit.Test;

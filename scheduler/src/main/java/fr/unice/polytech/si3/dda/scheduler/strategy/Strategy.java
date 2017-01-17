@@ -3,6 +3,8 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 import java.util.List;
 
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 
 /**
@@ -23,6 +25,6 @@ public interface Strategy {
 	 *
 	 * @return instructions
 	 */
-	public List<IInstruction> getInstructions() throws Exception;
+	public List<IInstruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException;
 
 }

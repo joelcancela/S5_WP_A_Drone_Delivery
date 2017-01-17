@@ -17,6 +17,7 @@ public class Product {
      * Product class constructor
      *
      * @param weight the weight of the product
+     * @param id Id of the Product
      */
     public Product(int weight, int id) {
         if (weight <= 0)
@@ -70,9 +71,6 @@ public class Product {
 		return weight;
 	}
 
-
-
-
 	/*
 	 * (non-Javadoc)
 	 *
@@ -81,9 +79,5 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [weight=" + weight + ", id=" + id + "]";
-	}
-
-	public Product copie(){
-		return new Product(weight, id);
 	}
 }

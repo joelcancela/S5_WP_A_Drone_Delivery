@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.dda.mapping;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.order.Order;
-import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class Mapping {
      * @return the map containing the delivery points.
      */
     public Map<Coordinates, DeliveryPoint> getDeliveryPoints() {
-        return new LinkedHashMap(deliveryPoints);
+        return new LinkedHashMap<Coordinates, DeliveryPoint>(deliveryPoints);
     }
 
     /**

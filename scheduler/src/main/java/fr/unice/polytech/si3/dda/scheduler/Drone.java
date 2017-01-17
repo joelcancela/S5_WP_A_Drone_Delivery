@@ -107,7 +107,11 @@ public class Drone {
 		return new ArrayList<>(loadedProducts);
 	}
 	
-	public Drone copie(){
+	/**
+	 * 
+	 * @return
+	 */
+	public Drone copy(){
 		return new Drone(maxPayload, coordinates);
 	}
 	

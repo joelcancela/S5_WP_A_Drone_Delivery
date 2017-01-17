@@ -11,19 +11,23 @@ package fr.unice.polytech.si3.dda.exception;
  */
 public class ProductNotFoundException extends Exception {
 
+	/**
+	 * Generated serialId
+	 */
 	private static final long serialVersionUID = 4080126928650616184L;
 
+	/**
+	 * Normal constructor of ProductNotFoundException
+	 * @param s Exception message
+	 */
     public ProductNotFoundException(String s) {
+    	super(s);
     }
 
-    public ProductNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public ProductNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
+    /**
+     * Default constructor of ProductNotFoundException
+     */
     public ProductNotFoundException() {
+    	super();
     }
 }

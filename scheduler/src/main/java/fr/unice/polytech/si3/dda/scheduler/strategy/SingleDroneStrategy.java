@@ -54,19 +54,19 @@ public class SingleDroneStrategy implements Strategy{
 	 */
 	@Override
 	public List<IInstruction> getInstructions() throws OverLoadException, ProductNotFoundException{
-		List<IInstruction> instructionsLists = new ArrayList<IInstruction>();
-		Drone droneUsed = fleet.getDrone(0).copie();
+		List<IInstruction> instructionsLists = new ArrayList<>();
+		Drone droneUsed = fleet.getDrone(0).copy();
 		
 		List<Order> orders = context.getMap().getOrders();
 		Warehouse warehouse = context.getFirstWarehouse();
-		List<Map<Product, Integer>> takens = new ArrayList<Map<Product, Integer>>();
+		List<Map<Product, Integer>> takens = new ArrayList<>();
 		
 		while(!isOrdersCompleted(orders)){
 			
 			loadOrderFromAWarehouse(orders, warehouse, droneUsed, takens);
 
 			Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pairOfPath = getPathForThoseProducts(takens, warehouse);
-			generateInstructionsForThisPath(instructionsLists, orders, pairOfPath, warehouse, droneUsed);
+			generateInstructionsForThisPath(instructionsLists, pairOfPath, warehouse, droneUsed);
 
 			
 			Map<Coordinates, Warehouse> warhouses =  context.getMap().getWarehouses();
@@ -106,7 +106,7 @@ public class SingleDroneStrategy implements Strategy{
 		int i =0;
 		while(i<orders.size()){
 			
-			Map<Product, Integer> tempo = new HashMap<Product, Integer>();
+			Map<Product, Integer> tempo = new HashMap<>();
 			if(i==takens.size() && !restart){
 				takens.add(tempo);
 			}else{
@@ -155,6 +155,7 @@ public class SingleDroneStrategy implements Strategy{
 		}
 	}
 	
+	
 	/**
 	 * Find the next warehouse to go (nearest with useful products)
 	 * @param orders List of orders to do
@@ -189,7 +190,7 @@ public class SingleDroneStrategy implements Strategy{
 	 * @return Pair with in the first element a map wich deliveryPoint to the products to deliver, in second element the path of pois to visit
 	 */
 	private Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> getPathForThoseProducts(List<Map<Product, Integer>> takens, Warehouse warehouse){
-		Map<DeliveryPoint, Map<Product, Integer>> pointToDeliver = new HashMap<DeliveryPoint, Map<Product, Integer>>();
+		Map<DeliveryPoint, Map<Product, Integer>> pointToDeliver = new HashMap<>();
 		for(Map.Entry<Coordinates, DeliveryPoint> entryDP : context.getMap().getDeliveryPoints().entrySet()){
 			for(int i=0; i<takens.size();i++){
 				boolean takeIt = true;
@@ -205,26 +206,25 @@ public class SingleDroneStrategy implements Strategy{
 				}
 			}
 		}
-		List<PointOfInterest> poiList = new ArrayList<PointOfInterest>();
+		List<PointOfInterest> poiList = new ArrayList<>();
 		poiList.add(warehouse);
 		for(Map.Entry<DeliveryPoint, Map<Product, Integer>> entry : pointToDeliver.entrySet())
 			poiList.add(entry.getKey());
 		
-		return new Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>>(pointToDeliver, poiList);
+		return new Pair<>(pointToDeliver, poiList);
 	}
 	
 	/**
 	 * Generate instructions for a path
 	 * @param instructionsLists List of instruction for the current strategy
-	 * @param orders List of orders to do
 	 * @param pair Associations of a deliveryPoint and products to deliver
 	 * @param warehouse Current warehouse
 	 * @param droneUsed Current drone
 	 * @throws ProductNotFoundException
 	 */
-	private void generateInstructionsForThisPath(List<IInstruction> instructionsLists, List<Order> orders, Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
+	private void generateInstructionsForThisPath(List<IInstruction> instructionsLists, Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
-		List<Product> alreadyCounted = new ArrayList<Product>();
+		List<Product> alreadyCounted = new ArrayList<>();
 		for(Product productTemp : droneUsed.getLoadedProducts()){
 			if(alreadyCounted.contains(productTemp)){
 				continue;

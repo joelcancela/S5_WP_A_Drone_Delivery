@@ -10,18 +10,18 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Joël CANCELA VAZ
  */
 public class WrongIdException extends Exception {
-    public WrongIdException() {
-    }
 
+	/**
+	 * Generated serialId
+	 */
+	private static final long serialVersionUID = -5801935147380982298L;
+
+	/**
+	 * Normal constructor of WrongIdException
+	 * @param message Exception message
+	 */
     public WrongIdException(String message) {
         super(message);
     }
 
-    public WrongIdException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public WrongIdException(Throwable cause) {
-        super(cause);
-    }
 }

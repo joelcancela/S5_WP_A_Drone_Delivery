@@ -9,4 +9,17 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Joël CANCELA VAZ
  */
 public class MalformedScheduleException extends Exception {
+	
+	/**
+	 * Generated serialId
+	 */
+	private static final long serialVersionUID = -7050963456160981441L;
+
+	/**
+	 * Normal constructor of MalformedScheduleException
+	 * @param message Exception message
+	 */
+    public MalformedScheduleException(String message) {
+        super(message);
+    }
 }

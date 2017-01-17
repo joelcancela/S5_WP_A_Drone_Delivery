@@ -1,6 +1,8 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
@@ -25,7 +27,6 @@ import java.util.List;
 public class MultipleDroneStrategy implements Strategy {
     private Fleet fleet;
     private Mapping mapping;
-    private Context context;
     private List<IInstruction> instructionList;
     private List<Warehouse> visitedWarehouse;
 
@@ -36,7 +37,6 @@ public class MultipleDroneStrategy implements Strategy {
      * @param context the context.
      */
     public MultipleDroneStrategy(Context context) {
-        this.context = context;
         this.mapping = context.getMap();
         this.fleet = context.getFleet();
         instructionList = new ArrayList<>();
@@ -47,10 +47,13 @@ public class MultipleDroneStrategy implements Strategy {
      * Return the list of instruction representing the strategy.
      *
      * @return the strategy.
+     * @throws WrongIdException 
+     * @throws ProductNotFoundException 
+     * @throws OverLoadException 
      * @throws Exception
      */
     @Override
-    public List<IInstruction> getInstructions() throws Exception {
+    public List<IInstruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException  {
         int numberOfDrones = fleet.getDronesNumber();
         int numberOfOrder = mapping.getOrders().size();
 
@@ -60,7 +63,7 @@ public class MultipleDroneStrategy implements Strategy {
             DeliveryPoint deliveryPoint = mapping.getDeliveryPoint(i);
             List<Product> products = deliveryPoint.getOrder().getRemaining();
             //For all product
-            while (products.size() > 0) {
+            while (!products.isEmpty()) {
                 visitedWarehouse = new ArrayList<>();
                 if (fleet.getDrone(droneIndex).isEmpty()) {
                     loadFromWarehouse(droneIndex, products.get(0), mapping.getWarehouse(0));
@@ -69,7 +72,8 @@ public class MultipleDroneStrategy implements Strategy {
                 }
                 droneIndex++;
 
-                if (droneIndex == numberOfDrones) droneIndex = 0;
+                if (droneIndex == numberOfDrones)
+                	droneIndex = 0;
             }
         }
 
@@ -98,12 +102,15 @@ public class MultipleDroneStrategy implements Strategy {
      * @param droneId   the drone which load the item.
      * @param product   the product to load.
      * @param warehouse the warehouse where to laod.
+     * @throws WrongIdException 
+     * @throws OverLoadException 
+     * @throws ProductNotFoundException 
      * @throws Exception
      */
-    public void loadFromWarehouse(int droneId, Product product, Warehouse warehouse) throws Exception {
+    public void loadFromWarehouse(int droneId, Product product, Warehouse warehouse) throws WrongIdException, OverLoadException, ProductNotFoundException {
         if (warehouse == null)
             searchForItem(droneId, product, warehouse);
-        if (warehouse.howManyProduct(product) > 0) {
+        else if(warehouse.howManyProduct(product) > 0) {
             fleet.getDrone(droneId).load(product);
             instructionList.add(new LoadInstruction(droneId, warehouse.getId(), product.getId(), 1));
         } else {
@@ -117,9 +124,12 @@ public class MultipleDroneStrategy implements Strategy {
      * @param droneId   the drone which load the product.
      * @param product   the product to load.
      * @param warehouse the warehouse where the drone can't load the product.
+     * @throws WrongIdException 
+     * @throws ProductNotFoundException 
+     * @throws OverLoadException 
      * @throws Exception
      */
-    public void searchForItem(int droneId, Product product, Warehouse warehouse) throws Exception {
+    public void searchForItem(int droneId, Product product, Warehouse warehouse) throws WrongIdException, ProductNotFoundException, OverLoadException {
         visitedWarehouse.add(warehouse);
         int j = 0;
         for (; j < mapping.getWarehouses().size(); j++) {

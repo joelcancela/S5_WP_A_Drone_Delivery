@@ -39,6 +39,7 @@ public class Warehouse extends PointOfInterest {
      * Normal constructor of Warehouse
      *
      * @param coordinates Coordinates of the warehous
+	 * @param id Id of the Warehouse
      * @throws IllegalArgumentException if the stock is null
      */
     public Warehouse(Coordinates coordinates, int id) {
@@ -50,6 +51,7 @@ public class Warehouse extends PointOfInterest {
      *
      * @param stock       Map which contains all of products at this warehouse
      * @param coordinates Coordinates of the warehouse
+	 * @param id Id of the Warehouse
      * @throws IllegalArgumentException if the stock is null
      */
     public Warehouse(Map<Product, Integer> stock, Coordinates coordinates, int id) {
@@ -122,16 +124,6 @@ public class Warehouse extends PointOfInterest {
      */
     public boolean isDeliveryPoint() {
         return false;
-    }
-
-    public Warehouse copie() {
-        Warehouse nwWarehouse = new Warehouse();
-        nwWarehouse.setCoordinates(coordinates);
-        for (Map.Entry<Product, Integer> entry : stock.entrySet()) {
-            nwWarehouse.addProduct(entry.getKey().copie(), entry.getValue());
-        }
-
-        return nwWarehouse;
     }
 
 }
