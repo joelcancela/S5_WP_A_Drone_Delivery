@@ -63,14 +63,15 @@ public class Scheduler {
 
 		for (int i = 0; i < map.getRows(); i++) {
 			for (int j = 0; j < map.getCols(); j++) {
-				PointOfInterest poi = map.getPointOfInterest(new Coordinates(i, j));
-				if (poi == null) {
+				Warehouse warehouse = map.getWarehouse(new Coordinates(i, j));
+				DeliveryPoint deliveryPoint = map.getDeliveryPoint(new Coordinates(i,j));
+				if (warehouse == null && deliveryPoint == null) {
 					fw.write(";");
 				}
-				if (poi instanceof Warehouse) {
+				if (warehouse != null) {
 					fw.write("W" + (warehouses++) + ";");
 				}
-				if (poi instanceof DeliveryPoint) {
+				if (deliveryPoint != null) {
 					fw.write("O" + (deliveryPoints++) + ";");
 				}
 			}
