@@ -55,7 +55,7 @@ public class Scheduler {
 	public void schedule() throws IOException, StrategyException {
 		List<Strategy> strategies =  new ArrayList<>();
 		if (forceWait) {
-			strategies.add(new BasicStrategy(ctx));
+			strategies.add(new BasicStrategy(new Context(ctx)));
 		}
 		else {
 			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
