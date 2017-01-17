@@ -12,14 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
-import fr.unice.polytech.si3.dda.instruction.UnloadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -67,11 +64,6 @@ public class SingleDroneStrategy implements Strategy{
 		while(!isOrdersCompleted(orders)){
 			
 			loadOrderFromAWarehouse(orders, warehouse, droneUsed, takens);
-			
-			System.out.println(droneUsed.getLoadedProducts());
-			System.out.println("-----------------");
-			System.out.println(context.getMap().getDeliveryPoints());
-			
 
 			Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pairOfPath = getPathForThoseProducts(takens, warehouse);
 			generateInstructionsForThisPath(instructionsLists, orders, pairOfPath, warehouse, droneUsed);
@@ -79,18 +71,16 @@ public class SingleDroneStrategy implements Strategy{
 			
 			Map<Coordinates, Warehouse> warhouses =  context.getMap().getWarehouses();
 			warehouse =  findTheNextWarehouse(orders, warhouses, droneUsed);
-			
-			System.out.println(warehouse);
-			System.out.println(instructionsLists);
 		}
 
-		
-		System.out.println(instructionsLists);
-
-		
 		return instructionsLists;
 	}
 	
+	/**
+	 * Check if all orders are done
+	 * @param orders List of orders to do
+	 * @return true if all orders are done, false otherwise
+	 */
 	private boolean isOrdersCompleted(List<Order> orders){
 		for(int i=0; i<orders.size(); i++){
 			for(Map.Entry<Product, Integer> entry : orders.get(i).getProducts().entrySet()){
@@ -101,6 +91,15 @@ public class SingleDroneStrategy implements Strategy{
 		return true;
 	}
 	
+	/**
+	 * Load all products need
+	 * @param orders
+	 * @param warehouse
+	 * @param droneUsed
+	 * @param takens
+	 * @throws OverLoadException
+	 * @throws ProductNotFoundException
+	 */
 	private void loadOrderFromAWarehouse(List<Order> orders, Warehouse warehouse, Drone droneUsed, List<Map<Product, Integer>> takens) throws OverLoadException, ProductNotFoundException{	
 		boolean restart = false;
 		int indexToRestart = 0;
@@ -114,9 +113,6 @@ public class SingleDroneStrategy implements Strategy{
 			if(i==orders.size())
 				break;
 			
-			System.out.println("im in order n°"+i);
-
-			
 			Map<Product, Integer> tempo = new HashMap<Product, Integer>();
 			if(i==takens.size() && !restart){
 				takens.add(tempo);
@@ -124,13 +120,8 @@ public class SingleDroneStrategy implements Strategy{
 				tempo = takens.get(i);
 			}
 			
-			System.out.println("TAKENS :");
-			System.out.println(takens);
-			
 			Map<Product, Integer> tempoProducts = orders.get(i).getProducts();
-			System.out.println("Nb boucles à faire : "+ tempoProducts.size());
 			for(Map.Entry<Product, Integer> entry : tempoProducts.entrySet()){
-				System.out.println("im looking for : "+entry.getKey());
 				if(tempo.containsKey(entry.getKey())){
 					if(entry.getValue()-tempo.get(entry.getKey()) > 0 
 							&& warehouse.howManyProduct(entry.getKey())!=0
@@ -138,7 +129,6 @@ public class SingleDroneStrategy implements Strategy{
 						
 						droneUsed.load(entry.getKey());
 						warehouse.pullOutProduct(entry.getKey());
-						System.out.println("i add : "+entry.getKey());
 						
 						tempo.put(entry.getKey(), tempo.get(entry.getKey())+1);
 							
@@ -155,7 +145,6 @@ public class SingleDroneStrategy implements Strategy{
 						
 						droneUsed.load(entry.getKey());
 						warehouse.pullOutProduct(entry.getKey());
-						System.out.println("i add : "+entry.getKey());
 						
 						tempo.put(entry.getKey(), 1);
 							
@@ -165,7 +154,6 @@ public class SingleDroneStrategy implements Strategy{
 					}
 				}
 			}
-			System.out.println("-----------------");
 			i++;
 		}
 	}
@@ -196,13 +184,11 @@ public class SingleDroneStrategy implements Strategy{
 			for(int i=0; i<takens.size();i++){
 				boolean takeIt = true;
 				for(Map.Entry<Product, Integer> entryTakenI: takens.get(i).entrySet()){
-					System.out.println("looking for "+entryTakenI.getKey());
 					if(entryDP.getValue().getOrder().getQuantity(entryTakenI.getKey()) == 0)
 						takeIt = false;
 				}
 				
 				if(takeIt){
-					System.out.println(entryDP.getKey() + " take this " +takens.get(i));
 					pointToDeliver.put(entryDP.getValue(), takens.get(i));
 					takens.remove(i);
 					break;
@@ -242,10 +228,7 @@ public class SingleDroneStrategy implements Strategy{
 				droneUsed.unload(entry.getKey());
 				for(Map.Entry<Coordinates, DeliveryPoint> dps : context.getMap().getDeliveryPoints().entrySet()){
 					if(dps.getKey().equals(firstTravel.getSecond().get(i).getCoordinates())){
-						System.out.println("-----------------");
-						System.out.println(i + " : delete this SHIT :"+entry.getKey());
 						dps.getValue().removeThisProduct(entry.getKey());
-						System.out.println(orders);
 						droneUsed.move(dps.getKey());
 					}
 						

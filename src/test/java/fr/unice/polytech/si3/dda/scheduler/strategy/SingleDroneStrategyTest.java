@@ -9,9 +9,7 @@ import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Fleet;
 import fr.unice.polytech.si3.dda.util.Coordinates;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -59,8 +57,10 @@ public class SingleDroneStrategyTest {
         expected.add(new DeliverInstruction(0, 1, 3, 1));
         expected.add(new LoadInstruction(0, 2, 0, 1));
         expected.add(new DeliverInstruction(0, 0, 0, 1));
+
+        List<IInstruction> get = singleDroneStrategy.getInstructions();
         
-        assertEquals(expected, singleDroneStrategy.getInstructions());
+        assertEquals(expected, get);
     }
     
     @Test
@@ -91,10 +91,19 @@ public class SingleDroneStrategyTest {
         
         List<IInstruction> expected = new ArrayList<IInstruction>();
         expected.add(new LoadInstruction(0, 0, 0, 1));
+        expected.add(new DeliverInstruction(0, 0, 0, 1));
+        expected.add(new LoadInstruction(0, 0, 0, 1));
+        expected.add(new DeliverInstruction(0, 0, 0, 1));
+        expected.add(new LoadInstruction(0, 0, 1, 1));
+        expected.add(new DeliverInstruction(0, 1, 1, 1));
+        expected.add(new LoadInstruction(0, 1, 3, 1));
+        expected.add(new DeliverInstruction(0, 1, 3, 1));
         expected.add(new LoadInstruction(0, 0, 2, 1));
-        expected.add(new LoadInstruction(0, 0, 3, 2));
+        expected.add(new DeliverInstruction(0, 1, 2, 1));
         
-        //singleDroneStrategy.getInstructions();
+        List<IInstruction> get = singleDroneStrategy.getInstructions();
+        
+        assertEquals(expected, get);
     }
 
 
