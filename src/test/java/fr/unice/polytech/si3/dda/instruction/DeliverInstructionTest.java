@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,7 +71,29 @@ public class DeliverInstructionTest {
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		DeliverInstruction instruction1 = new DeliverInstruction(0,0,0,0);
+		DeliverInstruction instruction2 = new DeliverInstruction(1,0,0,0);
+		DeliverInstruction instruction3 = new DeliverInstruction(0,1,0,0);
+		DeliverInstruction instruction4 = new DeliverInstruction(0,0,1,0);
+
+		assertEquals("0 D 0 0 0", instruction1.toString());
+		assertEquals("1 D 0 0 0", instruction2.toString());
+		assertEquals("0 D 1 0 0", instruction3.toString());
+		assertEquals("0 D 0 1 0", instruction4.toString());
 	}
 
+	@Test
+	public void equals() throws Exception {
+		DeliverInstruction instruction1 = new DeliverInstruction(0,0,0,0);
+		DeliverInstruction instruction2 = new DeliverInstruction(1,0,0,0);
+		DeliverInstruction instruction3 = new DeliverInstruction(0,1,0,0);
+		DeliverInstruction instruction4 = new DeliverInstruction(0,0,1,0);
+		DeliverInstruction instruction5 = new DeliverInstruction(0,0,0,1);
+
+		assertEquals(instruction1, instruction1);
+		assertNotEquals(instruction1, instruction2);
+		assertNotEquals(instruction1, instruction3);
+		assertNotEquals(instruction1, instruction4);
+		assertNotEquals(instruction1, instruction5);
+	}
 }
