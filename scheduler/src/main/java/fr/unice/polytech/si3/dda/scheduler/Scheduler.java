@@ -73,7 +73,7 @@ public class Scheduler {
 				bestStrategy = strategy;
 			}
 		}
-		System.out.println("Chosen strategy: "+bestStrategy.getClass().getSimpleName()+", cost :" + minCost);
+		System.out.println("Chosen strategy: "+bestStrategy.getClass().getSimpleName()+", cost : " + minCost);
 		FileWriter fw = new FileWriter(scheduleOutFile);
 		for (Instruction instruction : bestStrategy.getInstructions()) {
 			fw.write(instruction.toString());
