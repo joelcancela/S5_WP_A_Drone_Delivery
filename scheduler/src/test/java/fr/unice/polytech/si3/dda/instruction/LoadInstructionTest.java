@@ -53,9 +53,13 @@ public class LoadInstructionTest {
 		Drone d = ctx.getFleet().getDrone(0);
 		Warehouse w = ctx.getMap().getWarehouse(0);
 		d.move(new Coordinates(1,0));
+		assertEquals(0, d.getLoadedProducts().size());
+		assertEquals(5, w.howManyProduct(new Product(100, 0)));
 		inst = new LoadInstruction(0, 0, 0, 1);
 		assertEquals(2, inst.execute(ctx));
 		assertEquals(new Coordinates(0,0), d.getCoordinates());
+		assertEquals(1, d.getLoadedProducts().size());
+		assertEquals(4, w.howManyProduct(new Product(100, 0)));
 	}
 	
 	@Test(expected=ProductNotFoundException.class)

@@ -43,7 +43,7 @@ public class UnloadInstruction implements IInstruction {
 		Warehouse w = ctx.getMap().getWarehouse(idWarehouse);
 		for (int i=0; i<numberOfProducts; i++) {
 			Product p = ctx.getProducts().get(productType);
-			w.addProduct(p, 1);;
+			w.addProduct(p, 1);
 			d.unload(p);
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));

@@ -49,19 +49,24 @@ public class ContextParser {
      * @throws NonValidCoordinatesException if the coordinates are invalid
      * @throws EmptyFileException           if the file is empty
      * @throws MalformedContextException    if the file is malformed
+     * @throws MalformedContextBodyException if the context body is malformed
      */
-    public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException, MalformedContextException {
+    public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException, MalformedContextException, MalformedContextBodyException {
         // Parse the first line
         ContextBuilder cb = parseFirstLine();
-        // Parse products
-        List<Product> products = parseProducts();
-        cb.addProducts(products);
-        // Parse warehouses
-        for (Map.Entry<Coordinates, int[]> entry : parseWarehouses().entrySet())
-            cb.addWarehouse(entry.getKey(), entry.getValue());
-        // Parse order
-        for (Map.Entry<Coordinates, Order> entry : parseOrders(products).entrySet())
-            cb.addDeliveryPoint(entry.getKey(), entry.getValue());
+        try {
+			// Parse products
+			List<Product> products = parseProducts();
+			cb.addProducts(products);
+			// Parse warehouses
+			for (Map.Entry<Coordinates, int[]> entry : parseWarehouses().entrySet())
+			    cb.addWarehouse(entry.getKey(), entry.getValue());
+			// Parse order
+			for (Map.Entry<Coordinates, Order> entry : parseOrders(products).entrySet())
+			    cb.addDeliveryPoint(entry.getKey(), entry.getValue());
+		} catch (MalformedContextException e) {
+			throw new MalformedContextBodyException(cb.build());
+		}
         return cb.build();
     }
 
