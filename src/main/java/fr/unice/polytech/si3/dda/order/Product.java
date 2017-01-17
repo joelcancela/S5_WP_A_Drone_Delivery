@@ -70,6 +70,9 @@ public class Product {
 		return weight;
 	}
 
+
+
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -77,9 +80,7 @@ public class Product {
 	 */
 	@Override
 	public String toString() {
-		return "Product{" +
-				"weight=" + weight +
-				'}';
+		return "Product [weight=" + weight + ", id=" + id + "]";
 	}
 
 	public Product copie(){
