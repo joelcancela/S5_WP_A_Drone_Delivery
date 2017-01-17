@@ -1,9 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import fr.unice.polytech.si3.dda.ContextParser;
-import fr.unice.polytech.si3.dda.exception.EmptyFileException;
-import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
-import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
@@ -15,15 +12,12 @@ import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -137,7 +131,6 @@ public class SingleDroneStrategyTest {
     	assertEquals(expected, get);
     }
 
-    @Ignore
     @Test
     public void essaiContextFromFileCompleteExample() throws Exception{
     	file = new File("../examples/contextFoncManyOrders.in");
