@@ -17,5 +17,10 @@ import fr.unice.polytech.si3.dda.instruction.IInstruction;
 public interface Strategy {
 
 	
+	/**
+	 * Gets instructions.
+	 *
+	 * @return instructions
+	 */
 	public List<IInstruction> getInstructions();
 }
