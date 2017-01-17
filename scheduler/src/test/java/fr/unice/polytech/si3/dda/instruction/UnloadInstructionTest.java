@@ -71,7 +71,13 @@ public class UnloadInstructionTest {
 	}
 
 	@Test
-	public void testToString() {
+	public void testToString(){
+		UnloadInstruction unloadInstruction = new UnloadInstruction(0,0,0,0);
+		assertEquals("0 U 0 0 0", unloadInstruction.toString());
+	}
+
+	@Test
+	public void testEquals() {
 		UnloadInstruction unloadInstruction = new UnloadInstruction(0,0,0,0);
 		UnloadInstruction unloadInstruction1 = new UnloadInstruction(0,1,0,0);
 		UnloadInstruction unloadInstruction2 = new UnloadInstruction(0,0,1,0);

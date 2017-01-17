@@ -25,7 +25,7 @@ public class WaitInstructionTest {
 	}
 
 	@Test
-	public void testToString() {
+	public void testEquals() {
 		WaitInstruction waitInstruction = new WaitInstruction(3, 25);
 		WaitInstruction waitInstruction2 = new WaitInstruction(2, 25);
 		WaitInstruction waitInstruction3 = new WaitInstruction(3, 15);
@@ -34,6 +34,12 @@ public class WaitInstructionTest {
 		assertNotEquals(waitInstruction, waitInstruction2);
 		assertNotEquals(waitInstruction, waitInstruction3);
 		assertNotEquals(waitInstruction2, waitInstruction3);
+	}
+
+	@Test
+	public void testToString(){
+		WaitInstruction waitInstruction = new WaitInstruction(3, 25);
+		assertEquals("3 W 25", waitInstruction.toString());
 	}
 
 }
