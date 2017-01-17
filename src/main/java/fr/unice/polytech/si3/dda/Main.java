@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Scheduler;
 
 /**
  * Class Main
