@@ -1,13 +1,13 @@
 package fr.unice.polytech.si3.dda.mapping;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class Mapping
@@ -18,150 +18,168 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
  * @author Joël CANCELA VAZ
  */
 public class Mapping {
-	private final int rows;
-	private final int cols;
+    private final int rows;
+    private final int cols;
 
-	private Map<Coordinates, PointOfInterest> map;
+    private Map<Coordinates, Warehouse> warehouses;
+    private Map<Coordinates, DeliveryPoint> deliveryPoints;
 
-	/**
-	 * Instantiates a new mapping.
-	 *
-	 * @param rows
-	 *            lines' number
-	 * @param cols
-	 *            columns' number
-	 */
-	public Mapping(int rows, int cols) {
-		this.rows = rows;
-		this.cols = cols;
-		map = new HashMap<>();
-	}
+    /**
+     * Instantiates a new mapping.
+     *
+     * @param rows lines' number
+     * @param cols columns' number
+     */
+    public Mapping(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        warehouses = new LinkedHashMap<>();
+        deliveryPoints = new LinkedHashMap<>();
+    }
 
-	/**
-	 * Gets the mapping.
-	 *
-	 * @return the mapping
-	 */
-	public Map<Coordinates, PointOfInterest> getMapping() {
-		return new HashMap<>(map);
-	}
+    /**
+     * Return the list of order.
+     *
+     * @return the list of order.
+     */
+    public List<Order> getOrders() {
+        List<Order> res = new ArrayList<>();
+        for (Map.Entry<Coordinates, DeliveryPoint> entry : deliveryPoints.entrySet()) {
+            if (entry.getValue().isDeliveryPoint())
+                res.add((entry.getValue()).getOrder());
+        }
+        return res;
+    }
 
-	public List<Order> getOrders() {
-		List<Order> res = new ArrayList<>();
-		for (Map.Entry<Coordinates, PointOfInterest> entry : map.entrySet()) {
-			if (entry.getValue().isDeliveryPoint())
-				res.add(((DeliveryPoint) entry.getValue()).getOrder());
-		}
-		return res;
-	}
+    /**
+     * Getter for the rows of the map
+     *
+     * @return the rows of the map (x)
+     */
+    public int getRows() {
+        return rows;
+    }
 
-	/**
-	 * Gets a point of interest.
-	 *
-	 * @param coor
-	 *            the coor
-	 * @return the point of interest
-	 */
-	public PointOfInterest getPointOfInterest(Coordinates coor) {
-		return map.get(coor);
-	}
+    /**
+     * Getter for the columns of the map
+     *
+     * @return the columns of the map (y)
+     */
+    public int getCols() {
+        return cols;
+    }
 
-	/**
-	 * Getter for the rows of the map
-	 *
-	 * @return the rows of the map (x)
-	 */
-	public int getRows() {
-		return rows;
-	}
+    /**
+     * Return the map containing the warehouses.
+     *
+     * @return the map containing the warehouse.
+     */
+    public Map<Coordinates, Warehouse> getWarehouses() {
+        return new LinkedHashMap<>(warehouses);
+    }
 
-	/**
-	 * Getter for the columns of the map
-	 *
-	 * @return the columns of the map (y)
-	 */
-	public int getCols() {
-		return cols;
-	}
+    /**
+     * Return the map containing the DeliveryPoint.
+     *
+     * @return the map containing the delivery points.
+     */
+    public Map<Coordinates, DeliveryPoint> getDeliveryPoints() {
+        return new LinkedHashMap(deliveryPoints);
+    }
 
-	/**
-	 * Adds a point of interest.
-	 *
-	 * @param coor
-	 *            the coor of the mapping
-	 * @param poi
-	 *            the mapping to add
-	 * @throws NonValidCoordinatesException
-	 *             the non valid coordinates exception
-	 */
-	public void addPointOfInterest(Coordinates coor, PointOfInterest poi) throws NonValidCoordinatesException {
-		if (!checkCoor(coor))
-			throw new NonValidCoordinatesException();
-		map.put(coor, poi);
-	}
+    /**
+     * Add a warehouse to the map.
+     *
+     * @param coor
+     * @param warehouse
+     * @throws NonValidCoordinatesException
+     */
+    public void addWarehouse(Coordinates coor, Warehouse warehouse) throws NonValidCoordinatesException {
+        if (!checkCoor(coor))
+            throw new NonValidCoordinatesException();
+        warehouses.put(coor, warehouse);
+    }
 
-	/**
-	 * Check coor.
-	 *
-	 * @param coor
-	 *            the coor to test
-	 * @return true, if successful
-	 */
-	private boolean checkCoor(Coordinates coor) {
-		if (coor.getX() >= 0 && coor.getY() >= 0 && coor.getX() < cols && coor.getY() < rows)
-			return true;
-		return false;
-	}
+    /**
+     * Add a Delivery point to the map.
+     *
+     * @param coor
+     * @param deliveryPoint
+     * @throws NonValidCoordinatesException
+     */
+    public void addDeliveryPoint(Coordinates coor, DeliveryPoint deliveryPoint) throws NonValidCoordinatesException {
+        if (!checkCoor(coor))
+            throw new NonValidCoordinatesException();
+        deliveryPoints.put(coor, deliveryPoint);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + cols;
-		result = prime * result + ((map == null) ? 0 : map.hashCode());
-		result = prime * result + rows;
-		return result;
-	}
+    /**
+     * Check coor.
+     *
+     * @param coor the coor to test
+     * @return true, if successful
+     */
+    private boolean checkCoor(Coordinates coor) {
+        if (coor.getX() >= 0 && coor.getY() >= 0 && coor.getX() < cols && coor.getY() < rows)
+            return true;
+        return false;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Mapping other = (Mapping) obj;
-		if (cols != other.cols)
-			return false;
-		if (map == null) {
-			if (other.map != null)
-				return false;
-		} else if (!map.equals(other.map))
-			return false;
-		if (rows != other.rows)
-			return false;
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + cols;
+        result = prime * result + ((warehouses == null) ? 0 : warehouses.hashCode());
+        result = prime * result + ((deliveryPoints == null) ? 0 : deliveryPoints.hashCode());
+        result = prime * result + rows;
+        return result;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Mapping [rows=" + rows + ", cols=" + cols + ", map=" + map + "]";
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Mapping other = (Mapping) obj;
+        if (cols != other.cols)
+            return false;
+        if (warehouses == null) {
+            if (other.warehouses != null)
+                return false;
+        } else if (!warehouses.equals(other.warehouses))
+            return false;
+        if (deliveryPoints == null) {
+            if (other.deliveryPoints != null)
+                return false;
+        } else if (!deliveryPoints.equals(other.deliveryPoints))
+            return false;
+        if (rows != other.rows)
+            return false;
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Mapping [rows=" + rows + ", cols=" + cols + ", warehouses=" + warehouses + ", delivery points = " + deliveryPoints + "]";
+    }
 
 }
