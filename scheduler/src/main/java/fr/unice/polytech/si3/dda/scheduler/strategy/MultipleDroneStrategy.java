@@ -47,13 +47,13 @@ public class MultipleDroneStrategy implements Strategy {
      * Return the list of instruction representing the strategy.
      *
      * @return the strategy.
-     * @throws WrongIdException 
-     * @throws ProductNotFoundException 
-     * @throws OverLoadException 
+     * @throws WrongIdException
+     * @throws ProductNotFoundException
+     * @throws OverLoadException
      * @throws Exception
      */
     @Override
-    public List<IInstruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException  {
+    public List<IInstruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException {
         int numberOfDrones = fleet.getDronesNumber();
         int numberOfOrder = mapping.getOrders().size();
 
@@ -73,7 +73,7 @@ public class MultipleDroneStrategy implements Strategy {
                 droneIndex++;
 
                 if (droneIndex == numberOfDrones)
-                	droneIndex = 0;
+                    droneIndex = 0;
             }
         }
 
@@ -102,15 +102,15 @@ public class MultipleDroneStrategy implements Strategy {
      * @param droneId   the drone which load the item.
      * @param product   the product to load.
      * @param warehouse the warehouse where to laod.
-     * @throws WrongIdException 
-     * @throws OverLoadException 
-     * @throws ProductNotFoundException 
+     * @throws WrongIdException
+     * @throws OverLoadException
+     * @throws ProductNotFoundException
      * @throws Exception
      */
     public void loadFromWarehouse(int droneId, Product product, Warehouse warehouse) throws WrongIdException, OverLoadException, ProductNotFoundException {
         if (warehouse == null)
             searchForItem(droneId, product, warehouse);
-        else if(warehouse.howManyProduct(product) > 0) {
+        else if (warehouse.howManyProduct(product) > 0) {
             fleet.getDrone(droneId).load(product);
             instructionList.add(new LoadInstruction(droneId, warehouse.getId(), product.getId(), 1));
         } else {
@@ -124,9 +124,9 @@ public class MultipleDroneStrategy implements Strategy {
      * @param droneId   the drone which load the product.
      * @param product   the product to load.
      * @param warehouse the warehouse where the drone can't load the product.
-     * @throws WrongIdException 
-     * @throws ProductNotFoundException 
-     * @throws OverLoadException 
+     * @throws WrongIdException
+     * @throws ProductNotFoundException
+     * @throws OverLoadException
      * @throws Exception
      */
     public void searchForItem(int droneId, Product product, Warehouse warehouse) throws WrongIdException, ProductNotFoundException, OverLoadException {
