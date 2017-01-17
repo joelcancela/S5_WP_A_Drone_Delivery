@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.mapping;
 
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
@@ -82,13 +83,16 @@ public class Warehouse extends PointOfInterest {
     }
 
     /**
-     * Remove a product at this warehouse
+     * Remove a product at this warehouse.
      *
      * @param product Product to remove one copie
+     * @throws ProductNotFoundException if the product is not found
      */
-    public void pullOutProduct(Product product) {
-        if (stock.containsKey(product))
-            stock.put(product, stock.get(product) - 1);
+    public void pullOutProduct(Product product) throws ProductNotFoundException {
+        if (!stock.containsKey(product) || stock.get(product)<=0)
+        	throw new ProductNotFoundException();
+        stock.put(product, stock.get(product) - 1);
+        	
     }
 
     /**

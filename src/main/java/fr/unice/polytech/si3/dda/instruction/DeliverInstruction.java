@@ -47,7 +47,7 @@ public class DeliverInstruction implements IInstruction {
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(dp.getCoordinates()));
 		d.move(dp.getCoordinates());
-		return distance+2;
+		return distance+1;
 	}
 
 	/*
@@ -58,5 +58,27 @@ public class DeliverInstruction implements IInstruction {
 	@Override
 	public String toString() {
 		return droneNumber + " " + "D" + " " + orderNumber + " " + productType + " " + numberOfProducts;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof DeliverInstruction)) return false;
+
+		DeliverInstruction that = (DeliverInstruction) o;
+
+		if (droneNumber != that.droneNumber) return false;
+		if (orderNumber != that.orderNumber) return false;
+		if (productType != that.productType) return false;
+		return numberOfProducts == that.numberOfProducts;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = droneNumber;
+		result = 31 * result + orderNumber;
+		result = 31 * result + productType;
+		result = 31 * result + numberOfProducts;
+		return result;
 	}
 }

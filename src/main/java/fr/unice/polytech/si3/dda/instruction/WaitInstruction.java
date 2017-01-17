@@ -42,4 +42,22 @@ public class WaitInstruction implements IInstruction {
 	public String toString() {
 		return droneNumber + " " + "W" + " " + turns;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof WaitInstruction)) return false;
+
+		WaitInstruction that = (WaitInstruction) o;
+
+		if (droneNumber != that.droneNumber) return false;
+		return turns == that.turns;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = droneNumber;
+		result = 31 * result + turns;
+		return result;
+	}
 }

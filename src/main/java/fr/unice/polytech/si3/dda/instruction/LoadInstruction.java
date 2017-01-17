@@ -48,7 +48,7 @@ public class LoadInstruction implements IInstruction {
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
 		d.move(w.getCoordinates());
-		return distance+2;
+		return distance+1;
 	}
 	
 	/*
@@ -59,5 +59,27 @@ public class LoadInstruction implements IInstruction {
 	@Override
 	public String toString() {
 		return droneNumber + " " + "L" + " " + idWarehouse + " " + productType + " " + numberOfProducts;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof LoadInstruction)) return false;
+
+		LoadInstruction that = (LoadInstruction) o;
+
+		if (droneNumber != that.droneNumber) return false;
+		if (idWarehouse != that.idWarehouse) return false;
+		if (productType != that.productType) return false;
+		return numberOfProducts == that.numberOfProducts;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = droneNumber;
+		result = 31 * result + idWarehouse;
+		result = 31 * result + productType;
+		result = 31 * result + numberOfProducts;
+		return result;
 	}
 }
