@@ -91,7 +91,7 @@ public class Order {
 	
 	/**
      * Remove a product to the list of remaining products
-     * @param product Product to remove
+     * @param p Product to remove
 	 */
 	public void deliver(Product p) {
 		remaining.remove(p);
@@ -99,7 +99,7 @@ public class Order {
 	
 	/**
      * Remove a product to the map of the order
-     * @param product Product to remove
+     * @param p Product to remove
 	 */
 	public void removeThisProduct(Product p){
 		products.put(p, products.get(p)-1);

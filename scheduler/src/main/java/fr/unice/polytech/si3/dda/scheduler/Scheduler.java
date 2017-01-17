@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.exception.MalformedContextException;
-import fr.unice.polytech.si3.dda.exception.StrategyException;
+import fr.unice.polytech.si3.dda.exception.*;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
@@ -54,33 +53,53 @@ public class Scheduler {
 	 * @throws StrategyException 
 	 */
 	public void schedule() throws IOException, StrategyException {
-		List<Strategy> strategys =  new ArrayList<>();
+		List<Strategy> strategies =  new ArrayList<>();
 		if (forceWait) {
-			strategys.add(new BasicStrategy(ctx));
+			strategies.add(new BasicStrategy(ctx));
 		}
 		else {
-            strategys.add(new MultipleDroneStrategy(new Context(ctx)));
-            strategys.add(new SingleDroneStrategy(new Context(ctx)));
-        }
+			strategies.add(new MultipleDroneStrategy(ctx));
+			strategies.add(new SingleDroneStrategy(ctx));
+		}
 		int minCost = Integer.MAX_VALUE;
-		List<IInstruction> minInstructions = null;
-		for(int i=0;i<strategys.size();i++){
-		    List<IInstruction> currentInstructions = strategys.get(i).getInstructions();
-			int currentCost;
+		Strategy bestStrategy = null;
+		for(Strategy strategy : strategies){
+		    List<IInstruction> currentInstructions = strategy.getInstructions();
+
+		    int cost = computeSrat(currentInstructions, new Context(ctx));
 			
-			if(currentCost<minCost){
-				minCost = currentCost;
-				minInstructions =currentInstructions;
+			if(cost<minCost){
+				minCost = cost;
+				bestStrategy = strategy;
 			}
 		}
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		for(IInstruction instruction: strategy.getInstructions()){
+		for(IInstruction instruction: bestStrategy.getInstructions()){
 			fw.write(instruction.toString());
 			fw.write("\n");
 		}
 		fw.close();
 		generateMapCsv();
 	}
+
+    /**
+     * Compoute the strategy and return the cost of a strategy.
+     *
+     * @param strategy the strategy to compute.
+     * @param context  the context for the strategy.
+     * @return the cost of the strategy.
+     * @throws WrongIdException
+     * @throws OverLoadException
+     * @throws ProductNotFoundException
+     */
+    public int computeSrat(List<IInstruction> strategy, Context context) throws WrongIdException, OverLoadException, ProductNotFoundException {
+        int res = 0;
+        for (IInstruction instruction : strategy) {
+            res += 1 + instruction.execute(context);
+        }
+        return res;
+    }
+
 
 	/**
 	 * Generate the current map to csv file
