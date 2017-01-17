@@ -47,7 +47,7 @@ public class DeliverInstruction implements IInstruction {
 		}
 		int distance = (int) Math.ceil(d.getCoordinates().distance(dp.getCoordinates()));
 		d.move(dp.getCoordinates());
-		return distance+1;
+		return distance+2;
 	}
 
 	/*
