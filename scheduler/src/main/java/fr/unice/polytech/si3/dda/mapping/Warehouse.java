@@ -24,6 +24,10 @@ public class Warehouse extends PointOfInterest {
     public Warehouse() {
         stock = new HashMap<>();
     }
+    
+    public Warehouse(Warehouse w) {
+    	stock = new HashMap<>(w.stock);
+    }
 
     /**
      * Normal constructor of Warehouse
@@ -128,4 +132,8 @@ public class Warehouse extends PointOfInterest {
         return false;
     }
 
+    public Warehouse copy() {
+    	return new Warehouse(this);
+    }
+    
 }

@@ -43,12 +43,12 @@ public class Context {
     }
 
     public Context(Context ctx){
-        this.map=ctx.map;
+        this.map=ctx.map.copy();
         this.maxDrones=ctx.maxDrones;
         this.turns=ctx.turns;
         this.maxPayload=ctx.maxPayload;
         this.products=ctx.products;
-        this.firstWarehouse=ctx.firstWarehouse;
+        this.firstWarehouse=ctx.firstWarehouse.copy();
         this.fleet = new Fleet(maxDrones,maxPayload, firstWarehouse);
     }
 
@@ -113,7 +113,21 @@ public class Context {
 		return fleet;
 	}
 
-	/**
+
+    @Override
+    public String toString() {
+        return "Context{" +
+                "map=" + map +
+                ", maxDrones=" + maxDrones +
+                ", turns=" + turns +
+                ", maxPayload=" + maxPayload +
+                ", products=" + products +
+                ", firstWarehouse=" + firstWarehouse +
+                ", fleet=" + fleet +
+                '}';
+    }
+
+    /**
      * Class ContextBuilder
      *
      * @author Jeremy JUNAC

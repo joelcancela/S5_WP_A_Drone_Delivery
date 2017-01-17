@@ -27,6 +27,12 @@ public class Order {
         remaining = new ArrayList<>();
         numberOfProducts = 0;
     }
+    
+    public Order(Order o) {
+    	products = new LinkedHashMap<>(o.products);
+        remaining = new ArrayList<>(remaining);
+        numberOfProducts = o.numberOfProducts;
+    }
 
     /**
      * Adds a product and its quantity to the order
@@ -35,13 +41,8 @@ public class Order {
      * @param quantity the number of the products p ordered
      */
     public void addProduct(Product p, int quantity) {
-        /*if (products.containsKey(p)) {
-            numberOfProducts = numberOfProducts - products.get(p);
-        }
-        products.put(p, quantity);
-        numberOfProducts = numberOfProducts + quantity;
         for (int i=0; i<quantity; i++)
-        	remaining.add(p);*/
+        	remaining.add(p);
     	if (!products.containsKey(p))
             products.put(p, quantity);
     	else
@@ -91,7 +92,7 @@ public class Order {
 	
 	/**
      * Remove a product to the list of remaining products
-     * @param product Product to remove
+     * @param p Product to remove
 	 */
 	public void deliver(Product p) {
 		remaining.remove(p);
@@ -99,7 +100,7 @@ public class Order {
 	
 	/**
      * Remove a product to the map of the order
-     * @param product Product to remove
+     * @param p Product to remove
 	 */
 	public void removeThisProduct(Product p){
 		products.put(p, products.get(p)-1);
@@ -142,6 +143,10 @@ public class Order {
         return "Order{" +
                 "products=" + products +
                 '}';
+    }
+    
+    public Order copy()	{
+    	return new Order(this);
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Class Mapping
@@ -36,6 +37,17 @@ public class Mapping {
         this.cols = cols;
         warehouses = new LinkedHashMap<>();
         deliveryPoints = new LinkedHashMap<>();
+    }
+    
+    public Mapping(Mapping m) {
+    	rows = m.rows;
+    	cols = m.cols;
+    	warehouses = new LinkedHashMap<>();
+    	for (Map.Entry<Coordinates, Warehouse> entry : m.warehouses.entrySet())
+			warehouses.put(entry.getKey().copy(), entry.getValue().copy());
+    	deliveryPoints = new LinkedHashMap<>();
+    	for (Entry<Coordinates, DeliveryPoint> entry : m.deliveryPoints.entrySet())
+    		deliveryPoints.put(entry.getKey().copy(), entry.getValue().copy());
     }
 
     /**
@@ -227,6 +239,10 @@ public class Mapping {
     @Override
     public String toString() {
         return "Mapping [rows=" + rows + ", cols=" + cols + ", warehouses=" + warehouses + ", delivery points = " + deliveryPoints + "]";
+    }
+    
+    public Mapping copy() {
+    	return new Mapping(this);
     }
 
 }
