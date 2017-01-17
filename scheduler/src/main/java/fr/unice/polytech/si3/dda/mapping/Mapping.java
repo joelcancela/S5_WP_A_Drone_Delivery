@@ -118,7 +118,7 @@ public class Mapping {
      */
     public Warehouse getWarehouse(int id) throws WrongIdException {
         for (Warehouse warehouse : warehouses.values())
-            if (warehouse.getId() == id) 
+            if (warehouse.getId() == id)
             	return warehouse;
         throw new WrongIdException("Wrong id : " + id);
     }

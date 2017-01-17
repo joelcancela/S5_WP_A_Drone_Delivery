@@ -23,7 +23,6 @@ public class Main {
 				Visualiser visualiser = new Visualiser(ctx,instructionsList);
 				visualiser.display();
 			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 	}
