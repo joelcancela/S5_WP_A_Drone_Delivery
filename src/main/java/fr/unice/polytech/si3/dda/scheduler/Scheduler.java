@@ -1,10 +1,15 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
+import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.io.File;
@@ -40,11 +45,11 @@ public class Scheduler {
 	 *
 	 * @throws IOException if you can't write on the output file
 	 */
-	public void schedule() throws IOException {
+	public void schedule() throws Exception {
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		for (int i = 0; i < ctx.getMaxDrones(); i++) {
-			fw.write(new WaitInstruction(i, 1).toString());
-			fw.write("\n");
+		Strategy strategy = new SingleDroneStrategy(ctx);
+		for(IInstruction instruction: strategy.getInstructions()){
+			fw.write(instruction.toString());
 		}
 		fw.close();
 		generateMapCsv();
