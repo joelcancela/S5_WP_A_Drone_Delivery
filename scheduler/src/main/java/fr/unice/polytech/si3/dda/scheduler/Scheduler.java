@@ -1,11 +1,13 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.exception.StrategyException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
+import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
 import fr.unice.polytech.si3.dda.util.Coordinates;
@@ -13,6 +15,8 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class Scheduler
@@ -33,7 +37,10 @@ public class Scheduler {
 	 *
 	 * @param context is the context to be used by the scheduler
 	 */
-	public Scheduler(Context context, boolean forceWait) {
+	public Scheduler(Context context, boolean forceWait) throws MalformedContextException {
+		if(context==null){
+			throw new MalformedContextException();
+		}
 		this.ctx = context;
 		this.scheduleOutFile = new File("scheduler.out");
 		this.mapOutFile = new File("map.csv");
@@ -47,12 +54,24 @@ public class Scheduler {
 	 * @throws StrategyException 
 	 */
 	public void schedule() throws IOException, StrategyException {
-		Strategy strategy;
+		List<Strategy> strategys =  new ArrayList<>();
 		if (forceWait) {
-			strategy = new BasicStrategy(ctx);
+			strategys.add(new BasicStrategy(ctx));
 		}
 		else {
-			strategy = new SingleDroneStrategy(ctx);
+			strategys.add(new MultipleDroneStrategy(ctx));
+			strategys.add(new SingleDroneStrategy(ctx));
+		}
+		int minCost = Integer.MAX_VALUE;
+		List<IInstruction> minInstructions = null;
+		for(int i=0;i<strategys.size();i++){
+		    List<IInstruction> currentInstructions = strategys.get(i).getInstructions();
+			int currentCost;
+			
+			if(currentCost<minCost){
+				minCost = currentCost;
+				minInstructions =currentInstructions;
+			}
 		}
 		FileWriter fw = new FileWriter(scheduleOutFile);
 		for(IInstruction instruction: strategy.getInstructions()){
