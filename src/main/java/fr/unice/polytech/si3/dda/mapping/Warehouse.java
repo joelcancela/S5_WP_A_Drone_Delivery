@@ -31,7 +31,7 @@ public class Warehouse extends PointOfInterest {
 	 * @throws IllegalArgumentException if the stock is null
 	 */
 	public Warehouse(Map<Product, Integer> stock) {
-		this(stock, null);
+		this(stock, null, 0);
 	}
 	
 	/**
@@ -52,8 +52,8 @@ public class Warehouse extends PointOfInterest {
 	 * @param coordinates Coordinates of the warehouse
 	 * @throws IllegalArgumentException if the stock is null
 	 */
-	public Warehouse(Map<Product, Integer> stock, Coordinates coordinates) {
-		super(coordinates);
+	public Warehouse(Map<Product, Integer> stock, Coordinates coordinates, int id) {
+		super(coordinates, id);
 
 		if (stock == null)
 			throw new IllegalArgumentException("Argument passed \"stock\" is null.");
