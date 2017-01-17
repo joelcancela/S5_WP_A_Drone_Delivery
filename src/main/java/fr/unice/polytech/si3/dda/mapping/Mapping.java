@@ -7,7 +7,6 @@ import java.util.Map;
 
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.order.Order;
-import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
@@ -52,20 +51,6 @@ public class Mapping {
 		for (Map.Entry<Coordinates, PointOfInterest> entry : map.entrySet()) {
 			if (entry.getValue().isDeliveryPoint())
 				res.add(((DeliveryPoint) entry.getValue()).getOrder());
-		}
-		return res;
-	}
-	
-	public List<PointOfInterest> getPois(List<Product> products) {
-		List<PointOfInterest> res = new ArrayList<>();
-		for (Map.Entry<Coordinates, PointOfInterest> entry : map.entrySet()) {
-			if (entry.getValue().isDeliveryPoint())
-				for(int i=0;i<products.size();i++){
-					if(((DeliveryPoint) entry.getValue()).getOrder().getProducts().containsKey(products.get(i))){
-						res.add(entry.getValue());	
-					}
-						
-				}
 		}
 		return res;
 	}

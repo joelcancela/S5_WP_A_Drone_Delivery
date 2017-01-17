@@ -109,7 +109,7 @@ public class Warehouse extends PointOfInterest {
 	public boolean isDeliveryPoint() {
 		return false;
 	}
-	
+
 	public Warehouse copie(){
 		Warehouse nwWarehouse = new Warehouse();
 		nwWarehouse.setCoordinates(coordinates);
@@ -119,4 +119,5 @@ public class Warehouse extends PointOfInterest {
 		
 		return nwWarehouse;
 	}
+
 }
