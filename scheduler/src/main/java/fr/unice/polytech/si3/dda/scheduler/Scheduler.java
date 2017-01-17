@@ -65,8 +65,7 @@ public class Scheduler {
 		Strategy bestStrategy = null;
 		for(Strategy strategy : strategies){
 		    List<IInstruction> currentInstructions = strategy.getInstructions();
-
-		    int cost = computeSrat(currentInstructions, new Context(ctx));
+			int cost = computeSrat(currentInstructions, new Context(ctx));
 			
 			if(cost<minCost){
 				minCost = cost;
