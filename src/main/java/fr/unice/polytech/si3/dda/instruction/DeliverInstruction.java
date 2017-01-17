@@ -31,11 +31,6 @@ public class DeliverInstruction implements IInstruction {
 		this.numberOfProducts = numberOfProducts;
 	}
 
-	@Override
-	public void execute(Mapping mapping) {
-		
-	}
-
 	/*
 	 * (non-Javadoc)
 	 *
