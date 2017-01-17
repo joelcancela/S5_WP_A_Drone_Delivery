@@ -28,29 +28,27 @@ public class MultipleDroneStrategy implements Strategy {
 
     @Override
     public List<IInstruction> getInstructions() {
-//        List<IInstruction> instructionList = new ArrayList<>();
-//        int numberOfDrones = fleet.getDronesNumber();
-//        int numberOfOrder = mapping.getOrders().size();
-//
-//        if (numberOfDrones > numberOfOrder) {
-//            for (int i = 0; i < numberOfOrder; i++){
-//                Drone drone = fleet.getDrone(i);
-//                Order order = mapping.getOrders().get(i);
-//                Map<Product, Integer> products = order.getProducts();
-//
-//                Warehouse warehouse = mapping.getWarehouses().get(0);
-//                Set<Product> neededProducts = products.keySet();
-//                for (Product product : neededProducts) {
-//                    while (warehouse.howManyProduct(product) >= products.get(product)){
-//                        warehouse.pullOutProduct(product);
-//                    }
-//                    instructionList.add(new LoadInstruction(i, 0, product.));
-//                }
-//
-//
-//            }
-//        }
-        return null;
+        List<IInstruction> instructionList = new ArrayList<>();
+        int numberOfDrones = fleet.getDronesNumber();
+        int numberOfOrder = mapping.getOrders().size();
+
+        if (numberOfDrones > numberOfOrder) {
+            for (int i = 0; i < numberOfOrder; i++){
+                Drone drone = fleet.getDrone(i);
+                Order order = mapping.getOrders().get(i);
+                Map<Product, Integer> products = order.getProducts();
+
+                Warehouse warehouse = mapping.getWarehouses().get(0);
+                Set<Product> neededProducts = products.keySet();
+                for (Product product : neededProducts) {
+                        warehouse.pullOutProduct(product);
+                    instructionList.add(new LoadInstruction(i, 0, product.));
+                }
+
+
+            }
+        }
+        return instructionList;
 
     }
 
