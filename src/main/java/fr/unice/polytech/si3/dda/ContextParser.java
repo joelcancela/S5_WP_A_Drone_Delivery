@@ -20,24 +20,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class Parser
+ * Class ContextParser
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class Parser {
+public class ContextParser {
 
     private BufferedReader br;
 
     /**
-     * Parser constructor
+     * ContextParser constructor
      *
      * @param filename the filename to parse
      * @throws FileNotFoundException if the filename is incorrect
      */
-    public Parser(String filename) throws FileNotFoundException {
+    public ContextParser(String filename) throws FileNotFoundException {
         br = new BufferedReader(new FileReader(filename));
     }
 
