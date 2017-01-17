@@ -16,11 +16,7 @@ import fr.unice.polytech.si3.dda.scheduler.Drone;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class UnloadInstruction implements IInstruction {
-	int droneNumber;
-	int idWarehouse;
-	int productType;
-	int numberOfProducts;
+public class UnloadInstruction extends Instruction {
 
 	/**
 	 * Instantiates a new unload instruction.

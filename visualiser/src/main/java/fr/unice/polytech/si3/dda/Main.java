@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class Main {
 		if (args.length == 2) {
 			try {
 				Context ctx = new ContextParser(args[0]).parse();
-				List<IInstruction> instructionsList = new ScheduleParser(args[1]).parse();
+				List<Instruction> instructionsList = new ScheduleParser(args[1]).parse();
 				Visualiser visualiser = new Visualiser(ctx,instructionsList);
 				visualiser.display();
 			} catch (Exception e) {

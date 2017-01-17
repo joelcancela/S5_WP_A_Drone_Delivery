@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
 import fr.unice.polytech.si3.dda.exception.*;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -37,7 +37,7 @@ public class Scheduler {
 	 * @param context is the context to be used by the scheduler
 	 */
 	public Scheduler(Context context, boolean forceWait) throws MalformedContextException {
-		if(context==null){
+		if (context == null) {
 			throw new MalformedContextException();
 		}
 		this.ctx = context;
@@ -49,31 +49,33 @@ public class Scheduler {
 	/**
 	 * Launches algorithm and writes the instructions to the output file "scheduler.out"
 	 *
-	 * @throws IOException if you can't write on the output file
-	 * @throws StrategyException 
+	 * @throws IOException       if you can't write on the output file
+	 * @throws StrategyException
 	 */
 	public void schedule() throws IOException, StrategyException {
-		List<Strategy> strategies =  new ArrayList<>();
+		List<Strategy> strategies = new ArrayList<>();
 		if (forceWait) {
 			strategies.add(new BasicStrategy(new Context(ctx)));
-		}
-		else {
+		} else {
 			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
 			strategies.add(new SingleDroneStrategy(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;
-		for(Strategy strategy : strategies){
-		    List<IInstruction> currentInstructions = strategy.getInstructions();
-			int cost = computeSrat(currentInstructions, new Context(ctx));
-			
-			if(cost<minCost){
+		for (Strategy strategy : strategies) {
+			List<Instruction> currentInstructions = strategy.getInstructions();
+
+
+			int cost = computeStrat(currentInstructions, new Context(ctx));
+			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);
+			if (cost < minCost) {
 				minCost = cost;
 				bestStrategy = strategy;
 			}
 		}
+		System.out.println("Chosen strategy: "+bestStrategy.getClass().getSimpleName()+", cost :" + minCost);
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		for(IInstruction instruction: bestStrategy.getInstructions()){
+		for (Instruction instruction : bestStrategy.getInstructions()) {
 			fw.write(instruction.toString());
 			fw.write("\n");
 		}
@@ -81,24 +83,29 @@ public class Scheduler {
 		generateMapCsv();
 	}
 
-    /**
-     * Compoute the strategy and return the cost of a strategy.
-     *
-     * @param strategy the strategy to compute.
-     * @param context  the context for the strategy.
-     * @return the cost of the strategy.
-     * @throws WrongIdException
-     * @throws OverLoadException
-     * @throws ProductNotFoundException
-     */
-    public int computeSrat(List<IInstruction> strategy, Context context) throws WrongIdException, OverLoadException, ProductNotFoundException {
-        int res = 0;
-        for (IInstruction instruction : strategy) {
-            res += 1 + instruction.execute(context);
-        }
-        return res;
-    }
-
+	/**
+	 * Compute the strategy and return the cost of a strategy.
+	 *
+	 * @param strategy the strategy to compute.
+	 * @param context  the context for the strategy.
+	 * @return the cost of the strategy.
+	 * @throws WrongIdException
+	 * @throws OverLoadException
+	 * @throws ProductNotFoundException
+	 */
+	public static int computeStrat(List<Instruction> strategy, Context context) throws WrongIdException, OverLoadException, ProductNotFoundException {
+		int maxDrone = context.getMaxDrones();
+		int scoreMax = 0;
+		for (int i = 0; i < maxDrone; i++) {
+			int score = 0;
+			for (Instruction instruction : strategy) {
+				if (instruction.getDroneNumber() == i)
+					score += 1 + instruction.execute(context);
+			}
+			if (score > scoreMax) scoreMax = score;
+		}
+		return scoreMax;
+	}
 
 	/**
 	 * Generate the current map to csv file
@@ -114,7 +121,7 @@ public class Scheduler {
 		for (int i = 0; i < map.getRows(); i++) {
 			for (int j = 0; j < map.getCols(); j++) {
 				Warehouse warehouse = map.getWarehouse(new Coordinates(i, j));
-				DeliveryPoint deliveryPoint = map.getDeliveryPoint(new Coordinates(i,j));
+				DeliveryPoint deliveryPoint = map.getDeliveryPoint(new Coordinates(i, j));
 				if (warehouse == null && deliveryPoint == null) {
 					fw.write(";");
 				}

@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
@@ -27,7 +27,7 @@ import java.util.List;
 public class MultipleDroneStrategy implements Strategy {
     private Fleet fleet;
     private Mapping mapping;
-    private List<IInstruction> instructionList;
+    private List<Instruction> instructionList;
     private List<Warehouse> visitedWarehouse;
 
     /**
@@ -53,7 +53,7 @@ public class MultipleDroneStrategy implements Strategy {
      * @throws Exception
      */
     @Override
-    public List<IInstruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException {
+    public List<Instruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException {
         int numberOfDrones = fleet.getDronesNumber();
         int numberOfOrder = mapping.getOrders().size();
 

@@ -5,7 +5,7 @@ import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
@@ -53,7 +53,7 @@ public class SingleDroneStrategyTest {
 
         singleDroneStrategy = new SingleDroneStrategy(context);
         
-        List<IInstruction> expected = new ArrayList<IInstruction>();
+        List<Instruction> expected = new ArrayList<Instruction>();
         expected.add(new LoadInstruction(0, 0, 0, 1));
         expected.add(new LoadInstruction(0, 0, 2, 1));
         expected.add(new LoadInstruction(0, 0, 3, 2));
@@ -64,7 +64,7 @@ public class SingleDroneStrategyTest {
         expected.add(new LoadInstruction(0, 2, 0, 1));
         expected.add(new DeliverInstruction(0, 0, 0, 1));
 
-        List<IInstruction> get = singleDroneStrategy.getInstructions();
+        List<Instruction> get = singleDroneStrategy.getInstructions();
         
         assertEquals(expected, get);
     }
@@ -95,7 +95,7 @@ public class SingleDroneStrategyTest {
 
         singleDroneStrategy = new SingleDroneStrategy(context);
         
-        List<IInstruction> expected = new ArrayList<IInstruction>();
+        List<Instruction> expected = new ArrayList<Instruction>();
         expected.add(new LoadInstruction(0, 0, 0, 1));
         expected.add(new DeliverInstruction(0, 0, 0, 1));
         expected.add(new LoadInstruction(0, 0, 0, 1));
@@ -107,7 +107,7 @@ public class SingleDroneStrategyTest {
         expected.add(new LoadInstruction(0, 0, 2, 1));
         expected.add(new DeliverInstruction(0, 1, 2, 1));
         
-        List<IInstruction> get = singleDroneStrategy.getInstructions();
+        List<Instruction> get = singleDroneStrategy.getInstructions();
         
         assertEquals(expected, get);
     }
@@ -118,14 +118,14 @@ public class SingleDroneStrategyTest {
     	p = new ContextParser(file.getAbsolutePath());
     	ctx = p.parse();
     	
-    	List<IInstruction> expected = new ArrayList<IInstruction>();
+    	List<Instruction> expected = new ArrayList<Instruction>();
     	expected.add(new LoadInstruction(0, 0, 1, 1));
     	expected.add(new LoadInstruction(0, 0, 0, 1));
     	expected.add(new DeliverInstruction(0, 0, 0, 1));
     	expected.add(new DeliverInstruction(0, 0, 1, 1));
     	
     	singleDroneStrategy = new SingleDroneStrategy(ctx);
-    	List<IInstruction> get = singleDroneStrategy.getInstructions();
+    	List<Instruction> get = singleDroneStrategy.getInstructions();
     	
     	assertEquals(expected, get);
     }
@@ -136,7 +136,7 @@ public class SingleDroneStrategyTest {
     	p = new ContextParser(file.getAbsolutePath());
     	ctx = p.parse();
     	
-    	List<IInstruction> expected = new ArrayList<IInstruction>();
+    	List<Instruction> expected = new ArrayList<Instruction>();
     	expected.add(new LoadInstruction(0, 0, 1, 2));
     	expected.add(new LoadInstruction(0, 0, 0, 1));
     	expected.add(new DeliverInstruction(0, 0, 1, 1));
@@ -148,7 +148,7 @@ public class SingleDroneStrategyTest {
     	expected.add(new DeliverInstruction(0, 1, 2, 1));
     	
     	singleDroneStrategy = new SingleDroneStrategy(ctx);
-    	List<IInstruction> get = singleDroneStrategy.getInstructions();
+    	List<Instruction> get = singleDroneStrategy.getInstructions();
     	
     	assertEquals(expected, get);
     }

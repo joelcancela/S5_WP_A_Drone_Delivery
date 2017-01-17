@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 
@@ -33,8 +33,8 @@ public class BasicStrategy implements Strategy {
      * @return the list of instruction.
      */
     @Override
-    public List<IInstruction> getInstructions() {
-        List<IInstruction> list = new ArrayList<>();
+    public List<Instruction> getInstructions() {
+        List<Instruction> list = new ArrayList<>();
 
         for (int i = 0; i < context.getMaxDrones(); i++) {
             list.add(new WaitInstruction(i, context.getTurns()));

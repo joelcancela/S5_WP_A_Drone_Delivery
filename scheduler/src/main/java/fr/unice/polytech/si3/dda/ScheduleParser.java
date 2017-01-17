@@ -34,8 +34,8 @@ public class ScheduleParser {
 		br = new BufferedReader(new FileReader(filename));
 	}
 
-	public List<IInstruction> parse() throws IOException, EmptyFileException, MalformedScheduleException {
-		List<IInstruction> instructions = new ArrayList<>();
+	public List<Instruction> parse() throws IOException, EmptyFileException, MalformedScheduleException {
+		List<Instruction> instructions = new ArrayList<>();
 		String line = br.readLine();
 		if (line == null)
 			throw new EmptyFileException();

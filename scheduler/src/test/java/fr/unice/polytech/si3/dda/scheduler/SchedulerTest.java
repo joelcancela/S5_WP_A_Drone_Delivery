@@ -16,6 +16,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class SchedulerTest {
     @Test
+    public void computeSrat() throws Exception {
+
+    }
+
+    @Test
     public void scheduleWithAMalformedBody() throws Exception {
 
         Context context = new Context.ContextBuilder(4, 4, 3, 25, 150)

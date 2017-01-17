@@ -6,16 +6,20 @@ import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 
 /**
- * Interface IInstruction
+ * Interface Instruction
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-@FunctionalInterface
-public interface IInstruction {
-	
+public abstract class Instruction {
+
+	protected int droneNumber;
+	protected int idWarehouse;
+	protected int productType;
+	protected int numberOfProducts;
+
 	/**
 	 * Execute an instruction
 	 * @param ctx Context used
@@ -24,6 +28,9 @@ public interface IInstruction {
 	 * @throws WrongIdException
 	 * @throws OverLoadException
 	 */
-	int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
-	
+	public abstract int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
+
+	public int getDroneNumber() {
+		return droneNumber;
+	}
 }
