@@ -117,3 +117,4 @@ hs_err_pid*
 *.out
 *.csv
 src/main/java/fr/unice/polytech/si3/dda/MainALArrache.java
+visualiser/.gitignore
