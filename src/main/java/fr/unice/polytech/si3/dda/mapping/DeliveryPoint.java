@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.dda.mapping;
 
 import fr.unice.polytech.si3.dda.order.Order;
+import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
@@ -81,5 +82,9 @@ public class DeliveryPoint extends PointOfInterest {
     public String toString() {
         return "DeliveryPoint ["+coordinates.getX()+":"+coordinates.getY()+"] : {" + order.toString() + " , " + super.toString() + "}";
     }
+
+    public void deliver(Product product){
+    	order.deliver(product);
+	}
 
 }
