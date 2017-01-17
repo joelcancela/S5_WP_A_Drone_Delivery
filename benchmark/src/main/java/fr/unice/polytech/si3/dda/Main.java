@@ -1,7 +1,7 @@
 package fr.unice.polytech.si3.dda;
 
 /**
- * Class x
+ * Class MainTest
  *
  * @author Jeremy JUNAC
  * @author Alexandre HILTCHER
