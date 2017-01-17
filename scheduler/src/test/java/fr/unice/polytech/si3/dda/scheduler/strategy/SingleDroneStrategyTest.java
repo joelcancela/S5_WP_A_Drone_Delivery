@@ -16,6 +16,7 @@ import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -135,7 +136,8 @@ public class SingleDroneStrategyTest {
     	
     	assertEquals(expected, get);
     }
-    
+
+    @Ignore
     @Test
     public void essaiContextFromFileCompleteExample() throws Exception{
     	file = new File("../examples/contextFoncManyOrders.in");
