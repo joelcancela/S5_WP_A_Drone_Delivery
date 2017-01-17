@@ -55,11 +55,11 @@ public class Scheduler {
 	public void schedule() throws IOException, StrategyException {
 		List<Strategy> strategies =  new ArrayList<>();
 		if (forceWait) {
-			strategies.add(new BasicStrategy(ctx));
+			strategies.add(new BasicStrategy(new Context(ctx)));
 		}
 		else {
-			strategies.add(new MultipleDroneStrategy(ctx));
-			strategies.add(new SingleDroneStrategy(ctx));
+			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
+			strategies.add(new SingleDroneStrategy(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;

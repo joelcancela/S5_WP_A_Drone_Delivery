@@ -113,7 +113,21 @@ public class Context {
 		return fleet;
 	}
 
-	/**
+
+    @Override
+    public String toString() {
+        return "Context{" +
+                "map=" + map +
+                ", maxDrones=" + maxDrones +
+                ", turns=" + turns +
+                ", maxPayload=" + maxPayload +
+                ", products=" + products +
+                ", firstWarehouse=" + firstWarehouse +
+                ", fleet=" + fleet +
+                '}';
+    }
+
+    /**
      * Class ContextBuilder
      *
      * @author Jeremy JUNAC
