@@ -71,8 +71,22 @@ public class UnloadInstructionTest {
 	}
 
 	@Test
-	public void testToString() {
-		fail("Not yet implemented");
+	public void testToString(){
+		UnloadInstruction unloadInstruction = new UnloadInstruction(0,0,0,0);
+		assertEquals("0 U 0 0 0", unloadInstruction.toString());
+	}
+
+	@Test
+	public void testEquals() {
+		UnloadInstruction unloadInstruction = new UnloadInstruction(0,0,0,0);
+		UnloadInstruction unloadInstruction1 = new UnloadInstruction(0,1,0,0);
+		UnloadInstruction unloadInstruction2 = new UnloadInstruction(0,0,1,0);
+		UnloadInstruction unloadInstruction3 = new UnloadInstruction(0,0,0,1);
+
+		assertEquals(unloadInstruction, unloadInstruction);
+		assertNotEquals(unloadInstruction, unloadInstruction1);
+		assertNotEquals(unloadInstruction, unloadInstruction2);
+		assertNotEquals(unloadInstruction, unloadInstruction3);
 	}
 
 }

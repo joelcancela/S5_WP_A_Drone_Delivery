@@ -69,8 +69,25 @@ public class LoadInstructionTest {
 	}
 
 	@Test
-	public void testToString() {
-		fail("Not yet implemented");
+	public void testToString(){
+		LoadInstruction loadInstruction = new LoadInstruction(0,0,0,0);
+		assertEquals("0 L 0 0 0", loadInstruction.toString());
+	}
+
+	@Test
+	public void testEquals() {
+		LoadInstruction loadInstruction = new LoadInstruction(0,0,0,0);
+		LoadInstruction loadInstruction1 = new LoadInstruction(1,0,0,0);
+		LoadInstruction loadInstruction2 = new LoadInstruction(0,1,0,0);
+		LoadInstruction loadInstruction3 = new LoadInstruction(0,0,1,0);
+		LoadInstruction loadInstruction4 = new LoadInstruction(0,0,0,1);
+
+		assertEquals(loadInstruction, loadInstruction);
+		assertNotEquals(loadInstruction, loadInstruction1);
+		assertNotEquals(loadInstruction, loadInstruction2);
+		assertNotEquals(loadInstruction, loadInstruction3);
+		assertNotEquals(loadInstruction, loadInstruction4);
+
 	}
 
 }
