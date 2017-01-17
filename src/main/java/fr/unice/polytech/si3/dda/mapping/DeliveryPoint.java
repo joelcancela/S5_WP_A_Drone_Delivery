@@ -86,5 +86,9 @@ public class DeliveryPoint extends PointOfInterest {
     public void deliver(Product product){
     	order.deliver(product);
 	}
+    
+    public void removeThisProduct(Product product){
+    	order.removeThisProduct(product);
+    }
 
 }

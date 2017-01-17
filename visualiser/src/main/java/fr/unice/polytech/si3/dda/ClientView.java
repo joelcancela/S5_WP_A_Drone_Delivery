@@ -38,11 +38,13 @@ public class ClientView extends View {
 			Thread.sleep(tickTime);
 			clearScreen();
 		}
+		
+		sc.close();
 
 	}
 
 
-	private void displayExecution(final Map initialOrderState, int clientNumber, int remainingTurns) {
+	private void displayExecution(final Map<Product, Integer> initialOrderState, int clientNumber, int remainingTurns) {
 
 		Order currentOrder = ctx.getMap().getOrders().get(clientNumber);
 		float productsToDeliver = currentOrder.getNumberOfProducts();
@@ -55,12 +57,11 @@ public class ClientView extends View {
 		// Review of the order and status
 		// Remaining time
 
-		for (Object p : initialOrderState.keySet()) {
-			Product product = (Product) p;
-			int initialQuantity = (Integer) initialOrderState.get(product);
-			int remainingQuantity = Collections.frequency(currentOrder.getRemaining(), product);
+		for (Product p : initialOrderState.keySet()) {
+			int initialQuantity = initialOrderState.get(p);
+			int remainingQuantity = Collections.frequency(currentOrder.getRemaining(), p);
 
-			System.out.println("Item of type " + product.getId() + ": ");
+			System.out.println("Item of type " + p.getId() + ": ");
 			if (remainingQuantity != 0) {
 				System.out.println(remainingQuantity + "/" + initialQuantity);
 			} else {
