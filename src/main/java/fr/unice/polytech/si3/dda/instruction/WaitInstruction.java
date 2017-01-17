@@ -1,5 +1,10 @@
 package fr.unice.polytech.si3.dda.instruction;
 
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.scheduler.Context;
+
 /**
  * Class WaitInstruction
  *
@@ -21,6 +26,11 @@ public class WaitInstruction implements IInstruction {
 	public WaitInstruction(int droneNumber, int turns) {
 		this.droneNumber = droneNumber;
 		this.turns = turns;
+	}
+
+	@Override
+	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException {
+		return turns;
 	}
 
 	/*

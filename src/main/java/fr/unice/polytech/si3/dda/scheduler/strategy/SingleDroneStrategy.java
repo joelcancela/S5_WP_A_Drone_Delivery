@@ -45,9 +45,9 @@ public class SingleDroneStrategy implements Strategy{
 	 * @param context Context of execution
 	 * @param fleet Fleet of drones used for this strategy
 	 */
-	public SingleDroneStrategy(Context context, Fleet fleet){
+	public SingleDroneStrategy(Context context){
 		this.context = context;
-		this.fleet = fleet;
+		this.fleet = context.getFleet();
 	}
 	
 	/**

@@ -105,6 +105,12 @@ public class Mapping {
         throw new WrongIdException("Wrong id : " + id);
     }
 
+    public DeliveryPoint getDeliveryPoint(int id) throws WrongIdException {
+        for (DeliveryPoint deliveryPoint : deliveryPoints.values())
+            if (deliveryPoint.getId() == id) return deliveryPoint;
+        throw new WrongIdException("Wrong id : " + id);
+    }
+
     /**
      * Return the delivery point at the coordinates if it exists
      *

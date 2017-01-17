@@ -22,6 +22,8 @@ public class Visualiser {
 		instructions = instructionsList;
 	}
 
-	public void display() {
+	public void display() throws InterruptedException {
+		ClientView clientView = new ClientView(ctx,instructions);
+		clientView.display();
 	}
 }

@@ -121,4 +121,10 @@ public class Drone {
 			return 0;
 			
 	}
+
+	public boolean isEmpty(){
+		return usedPayload == 0;
+	}
+
+
 }

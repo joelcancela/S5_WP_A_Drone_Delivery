@@ -26,6 +26,7 @@ public class Context {
     private final int maxPayload;
     private final List<Product> products;
     private Warehouse firstWarehouse;
+    private Fleet fleet;
 
     /**
      * Context constructor
@@ -39,7 +40,7 @@ public class Context {
         maxPayload = builder.maxPayload;
         products = builder.products;
         firstWarehouse = builder.firstWarehouse;
-
+        fleet = new Fleet(maxDrones, maxPayload, firstWarehouse);
     }
 
     /**
@@ -95,6 +96,15 @@ public class Context {
     }
 
     /**
+     * Gets the fleet.
+     *
+     * @return the fleet
+     */
+    public Fleet getFleet() {
+		return fleet;
+	}
+
+	/**
      * Class ContextBuilder
      *
      * @author Jeremy JUNAC
