@@ -1,6 +1,8 @@
 package fr.unice.polytech.si3.dda.order;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,6 +15,7 @@ import java.util.Map;
  */
 public class Order {
     private Map<Product, Integer> products;
+    private List<Product> remaining;
     private int numberOfProducts;
 
 
@@ -21,6 +24,7 @@ public class Order {
      */
     public Order() {
         products = new LinkedHashMap<>();
+        remaining = new ArrayList<>();
         numberOfProducts = 0;
     }
 
@@ -36,6 +40,8 @@ public class Order {
         }
         products.put(p, quantity);
         numberOfProducts = numberOfProducts + quantity;
+        for (int i=0; i<quantity; i++)
+        	remaining.add(p);
     }
 
     /**
@@ -69,7 +75,16 @@ public class Order {
         return numberOfProducts;
     }
 
-    /*
+	/**
+	 * Gets the remaining.
+	 *
+	 * @return the remaining
+	 */
+	public List<Product> getRemaining() {
+		return new ArrayList<>(remaining);
+	}
+
+	/*
      * (non-Javadoc)
      *
      * @see java.lang.Object#equals(java.lang.Object)
