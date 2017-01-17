@@ -2,6 +2,8 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
@@ -63,14 +65,33 @@ public class MultipleDroneStrategyTest {
 
     @Test
     public void getInstructions() throws Exception {
-
+        List<IInstruction> list = strategy.getInstructions();
+        //[0 L 0 0 1,
+        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
+        // 0 D 0 0 1,
+        // 1 L 0 0 1,
+        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
+        // 1 D 0 0 1,
+        // 0 L 0 0 1,
+        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
+        // 0 D 1 0 1,
+        // 1 L 0 1 1,
+        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
+        // 1 D 1 1 1,
+        // 0 L 0 2 1,
+        assertTrue(list.contains(new LoadInstruction(0, 0, 0, 1)));
+        // 0 D 1 2 1]
     }
 
     @Test
     public void deliverProduct() throws Exception {
         strategy.loadFromWarehouse(0, products.get(0), mapping.getWarehouse(0));
+        assertTrue(order.getRemaining().contains(products.get(0)));
+        assertTrue(!fleet.getDrone(0).isEmpty());
+        int sizeBefore = order.getRemaining().size();
         strategy.deliverProduct(0, products.get(0), mapping.getDeliveryPoint(0));
-
+        assertTrue(order.getRemaining().size() < sizeBefore);
+        assertTrue(fleet.getDrone(0).isEmpty());
 
     }
 
