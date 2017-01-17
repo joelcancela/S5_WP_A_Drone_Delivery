@@ -26,7 +26,14 @@ public class WaitInstructionTest {
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		WaitInstruction waitInstruction = new WaitInstruction(3, 25);
+		WaitInstruction waitInstruction2 = new WaitInstruction(2, 25);
+		WaitInstruction waitInstruction3 = new WaitInstruction(3, 15);
+
+		assertEquals(waitInstruction, waitInstruction);
+		assertNotEquals(waitInstruction, waitInstruction2);
+		assertNotEquals(waitInstruction, waitInstruction3);
+		assertNotEquals(waitInstruction2, waitInstruction3);
 	}
 
 }
