@@ -13,4 +13,17 @@ public class ProductNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 4080126928650616184L;
 
+    public ProductNotFoundException(String s) {
+    }
+
+    public ProductNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ProductNotFoundException(Throwable cause) {
+        super(cause);
+    }
+
+    public ProductNotFoundException() {
+    }
 }
