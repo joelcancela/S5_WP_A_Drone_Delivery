@@ -15,7 +15,7 @@ import java.util.Map;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
@@ -53,8 +53,8 @@ public class SingleDroneStrategy implements Strategy{
 	 * @throws ProductNotFoundException 
 	 */
 	@Override
-	public List<IInstruction> getInstructions() throws OverLoadException, ProductNotFoundException{
-		List<IInstruction> instructionsLists = new ArrayList<>();
+	public List<Instruction> getInstructions() throws OverLoadException, ProductNotFoundException{
+		List<Instruction> instructionsLists = new ArrayList<>();
 		Drone droneUsed = fleet.getDrone(0).copy();
 		
 		List<Order> orders = context.getMap().getOrders();
@@ -223,7 +223,7 @@ public class SingleDroneStrategy implements Strategy{
 	 * @param droneUsed Current drone
 	 * @throws ProductNotFoundException
 	 */
-	private void generateInstructionsForThisPath(List<IInstruction> instructionsLists, Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
+	private void generateInstructionsForThisPath(List<Instruction> instructionsLists, Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
 		List<Product> alreadyCounted = new ArrayList<>();
 		for(Product productTemp : droneUsed.getLoadedProducts()){

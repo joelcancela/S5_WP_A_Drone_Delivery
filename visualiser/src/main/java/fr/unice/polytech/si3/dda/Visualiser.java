@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.dda;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.scheduler.Context;
 
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class Visualiser {
 	Context ctx;
-	List<IInstruction> instructions;
+	List<Instruction> instructions;
 
-	public Visualiser(Context context, List<IInstruction> instructionsList) {
+	public Visualiser(Context context, List<Instruction> instructionsList) {
 		ctx = context;
 		instructions = instructionsList;
 	}

@@ -15,11 +15,8 @@ import fr.unice.polytech.si3.dda.scheduler.Drone;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class DeliverInstruction implements IInstruction {
-	int droneNumber;
+public class DeliverInstruction extends Instruction {
 	int orderNumber;
-	int productType;
-	int numberOfProducts;
 
 	/**
 	 * Instantiates a new deliver instruction.

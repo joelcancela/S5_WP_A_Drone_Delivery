@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda;
 
+
 import fr.unice.polytech.si3.dda.exception.EmptyFileException;
 import fr.unice.polytech.si3.dda.exception.MalformedScheduleException;
 import fr.unice.polytech.si3.dda.instruction.*;

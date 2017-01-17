@@ -1,7 +1,9 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
+
+import fr.unice.polytech.si3.dda.Bench;
 import fr.unice.polytech.si3.dda.exception.*;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -64,9 +66,9 @@ public class Scheduler {
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;
 		for(Strategy strategy : strategies){
-		    List<IInstruction> currentInstructions = strategy.getInstructions();
+		    List<Instruction> currentInstructions = strategy.getInstructions();
 
-		    int cost = computeSrat(currentInstructions, new Context(ctx));
+		    int cost = Bench.computeSrat(currentInstructions, new Context(ctx));
 			
 			if(cost<minCost){
 				minCost = cost;
@@ -74,32 +76,13 @@ public class Scheduler {
 			}
 		}
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		for(IInstruction instruction: bestStrategy.getInstructions()){
+		for(Instruction instruction: bestStrategy.getInstructions()){
 			fw.write(instruction.toString());
 			fw.write("\n");
 		}
 		fw.close();
 		generateMapCsv();
 	}
-
-    /**
-     * Compoute the strategy and return the cost of a strategy.
-     *
-     * @param strategy the strategy to compute.
-     * @param context  the context for the strategy.
-     * @return the cost of the strategy.
-     * @throws WrongIdException
-     * @throws OverLoadException
-     * @throws ProductNotFoundException
-     */
-    public int computeSrat(List<IInstruction> strategy, Context context) throws WrongIdException, OverLoadException, ProductNotFoundException {
-        int res = 0;
-        for (IInstruction instruction : strategy) {
-            res += 1 + instruction.execute(context);
-        }
-        return res;
-    }
-
 
 	/**
 	 * Generate the current map to csv file

@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 import fr.unice.polytech.si3.dda.ContextParser;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.order.Order;
@@ -64,8 +64,8 @@ public class MultipleDroneStrategyTest {
 
     @Test
     public void getInstructions() throws Exception {
-        List<IInstruction> list = strategy.getInstructions();
-        List<IInstruction> expect = Arrays.asList(
+        List<Instruction> list = strategy.getInstructions();
+        List<Instruction> expect = Arrays.asList(
                 new LoadInstruction(0, 0, 0, 1),
                 new DeliverInstruction(0, 0, 0, 1),
                 new LoadInstruction(1, 0, 0, 1),
@@ -118,7 +118,7 @@ public class MultipleDroneStrategyTest {
         Context ctx = p.parse();
 
         MultipleDroneStrategy strategy = new MultipleDroneStrategy(ctx);
-        List<IInstruction> list = strategy.getInstructions();
+        List<Instruction> list = strategy.getInstructions();
 
         System.out.println(list);
         assertTrue(list.contains(new LoadInstruction(0,0,1,1)));

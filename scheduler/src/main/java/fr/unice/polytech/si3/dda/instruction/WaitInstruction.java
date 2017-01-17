@@ -13,8 +13,7 @@ import fr.unice.polytech.si3.dda.scheduler.Context;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class WaitInstruction implements IInstruction {
-	int droneNumber;
+public class WaitInstruction extends Instruction {
 	int turns;
 
 	/**

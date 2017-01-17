@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 import java.util.List;
 
 import fr.unice.polytech.si3.dda.exception.StrategyException;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 
 /**
  * 
@@ -24,6 +24,6 @@ public interface Strategy {
 	 *
 	 * @return instructions
 	 */
-	public List<IInstruction> getInstructions() throws StrategyException;
+	public List<Instruction> getInstructions() throws StrategyException;
 
 }

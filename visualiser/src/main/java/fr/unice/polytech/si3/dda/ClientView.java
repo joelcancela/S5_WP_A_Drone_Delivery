@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.dda;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
-import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
@@ -13,10 +13,10 @@ import java.util.*;
 public class ClientView extends View {
 
 	Context ctx;
-	List<IInstruction> instructions;
+	List<Instruction> instructions;
 	private final int tickTime = 2000;
 
-	public ClientView(Context context, List<IInstruction> instructionsList) {
+	public ClientView(Context context, List<Instruction> instructionsList) {
 		ctx = context;
 		instructions = instructionsList;
 	}
@@ -32,7 +32,7 @@ public class ClientView extends View {
 		clearScreen();
 
 
-		for (IInstruction inst : instructions) {
+		for (Instruction inst : instructions) {
 			turns = turns - inst.execute(ctx);
 			displayExecution(initialProducts, clientNumber, turns);
 			Thread.sleep(tickTime);
