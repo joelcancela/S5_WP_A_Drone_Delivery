@@ -17,10 +17,9 @@ public class FleetTest {
 
     @Before
     public void setUp() throws Exception {
-        fleet = new Fleet(
-                new Context.ContextBuilder(4,4,5,25,100)
+        fleet = new Context.ContextBuilder(4,4,5,25,100)
                 .addProducts(new ArrayList<>())
-                .addWarehouse(new Coordinates(0,0)).build());
+                .addWarehouse(new Coordinates(0,0)).build().getFleet();
     }
 
     @Test
