@@ -83,6 +83,10 @@ public class Order {
 	public List<Product> getRemaining() {
 		return new ArrayList<>(remaining);
 	}
+	
+	public void deliver(Product p) {
+		remaining.remove(p);
+	}
 
 	/*
      * (non-Javadoc)
