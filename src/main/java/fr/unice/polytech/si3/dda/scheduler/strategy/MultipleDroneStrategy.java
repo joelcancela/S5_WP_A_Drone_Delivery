@@ -13,8 +13,6 @@ import fr.unice.polytech.si3.dda.scheduler.Fleet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * The MultipleDroneStrategy.
@@ -60,19 +58,16 @@ public class MultipleDroneStrategy implements Strategy {
         //For all order
         for (int i = 0; i < numberOfOrder; i++) {
             DeliveryPoint deliveryPoint = mapping.getDeliveryPoint(i);
-            Map<Product, Integer> products = deliveryPoint.getOrder().getProducts();
-            Set<Product> productSet = products.keySet();
+            List<Product> products = deliveryPoint.getOrder().getRemaining();
             //For all product
-            for (Product product : productSet) {
-                //Take one drone
-                droneIndex++;
-                Warehouse warehouse = mapping.getWarehouse(fleet.getDrone(droneIndex).getCoordinates());
-                //If the current warehouse contain the product
+            while (products.size() > 0) {
                 visitedWarehouse = new ArrayList<>();
-                if (!fleet.getDrone(droneIndex).isEmpty()) {
-                    loadFromWarehouse(droneIndex, product, warehouse);
-                    deliverProduct(droneIndex, product, deliveryPoint);
+                if (fleet.getDrone(droneIndex).isEmpty()) {
+                    loadFromWarehouse(droneIndex, products.get(0), mapping.getWarehouse(0));
+                    deliverProduct(droneIndex, products.get(0), deliveryPoint);
+                    products = deliveryPoint.getOrder().getRemaining();
                 }
+                droneIndex++;
 
                 if (droneIndex == numberOfDrones - 1) droneIndex = 0;
             }
@@ -137,7 +132,7 @@ public class MultipleDroneStrategy implements Strategy {
             }
         }
         if (j == mapping.getWarehouses().size())
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException("Product : " + product.getId());
     }
 
 }
