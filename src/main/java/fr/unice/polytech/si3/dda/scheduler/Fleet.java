@@ -19,7 +19,9 @@ public class Fleet {
     /**
      * Constructs a default fleet from the context.
      *
-     * @param context the context of execution.
+     * @param maxDrones the maximum number of drones.
+     * @param maxPayload the max payload of a drone.
+     * @param firstWarehouse the first warehouse.
      */
     public Fleet(int maxDrones, int maxPayload, Warehouse firstWarehouse) {
         register = new ArrayList<>();
