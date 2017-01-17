@@ -106,4 +106,19 @@ public class Drone {
 	public List<Product> getLoadedProducts() {
 		return new ArrayList<>(loadedProducts);
 	}
+	
+	public Drone copie(){
+		return new Drone(maxPayload, coordinates);
+	}
+	
+	public int getNumberOf(Product product){
+		if(loadedProducts.contains(product)){
+			int numberOf = 0;
+			for(int i=0;i<loadedProducts.size();i++)
+				numberOf++;
+			return numberOf;
+		}else
+			return 0;
+			
+	}
 }

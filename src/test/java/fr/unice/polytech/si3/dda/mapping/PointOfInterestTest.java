@@ -19,7 +19,7 @@ public class PointOfInterestTest {
 	@Test
 	public void getSomeDistances() {
 		pointOfInterest.setCoordinates(new Coordinates(0, 0));
-		PointOfInterest pointOfInterest2 = new PointOfInterest(new Coordinates(0, 2));
+		PointOfInterest pointOfInterest2 = new PointOfInterest(new Coordinates(0, 2), 0);
 
 		assertEquals(2, pointOfInterest.distance(pointOfInterest2));
 		pointOfInterest2.setCoordinates(new Coordinates(2, 0));

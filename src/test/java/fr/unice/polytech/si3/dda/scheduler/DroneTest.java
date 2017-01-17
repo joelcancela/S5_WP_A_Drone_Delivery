@@ -36,7 +36,7 @@ public class DroneTest {
 
 	@Test
 	public void load() throws Exception {
-		Product product = new Product(100);
+		Product product = new Product(100, 0);
 		drone.load(product);
 		assertTrue(drone.getLoadedProducts().contains(product));
 		assertEquals(100, drone.getUsedPayload());
@@ -44,13 +44,13 @@ public class DroneTest {
 
 	@Test(expected = OverLoadException.class)
 	public void loadingError() throws OverLoadException {
-		Product product = new Product(10000);
+		Product product = new Product(10000, 0);
 		drone.load(product);
 	}
 
 	@Test
 	public void unload() throws Exception {
-		Product product = new Product(100);
+		Product product = new Product(100, 0);
 		drone.load(product);
 		drone.unload(product);
 		assertTrue(drone.getLoadedProducts().isEmpty());
@@ -59,7 +59,7 @@ public class DroneTest {
 
 	@Test(expected = ProductNotFoundException.class)
 	public void unloadError() throws ProductNotFoundException {
-		Product product = new Product(100);
+		Product product = new Product(100, 0);
 		drone.unload(product);
 	}
 

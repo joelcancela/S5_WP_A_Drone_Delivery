@@ -31,7 +31,17 @@ public class Warehouse extends PointOfInterest {
 	 * @throws IllegalArgumentException if the stock is null
 	 */
 	public Warehouse(Map<Product, Integer> stock) {
-		this(stock, null);
+		this(stock, null, 0);
+	}
+	
+	/**
+	 * Normal constructor of Warehouse
+	 *
+	 * @param coordinates Coordinates of the warehous
+	 * @throws IllegalArgumentException if the stock is null
+	 */
+	public Warehouse(Coordinates coordinates, int id) {
+		this(new HashMap<>(),coordinates, id);
 	}
 
 	/**
@@ -41,8 +51,8 @@ public class Warehouse extends PointOfInterest {
 	 * @param coordinates Coordinates of the warehouse
 	 * @throws IllegalArgumentException if the stock is null
 	 */
-	public Warehouse(Map<Product, Integer> stock, Coordinates coordinates) {
-		super(coordinates);
+	public Warehouse(Map<Product, Integer> stock, Coordinates coordinates, int id) {
+		super(coordinates, id);
 
 		if (stock == null)
 			throw new IllegalArgumentException("Argument passed \"stock\" is null.");
@@ -57,7 +67,7 @@ public class Warehouse extends PointOfInterest {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public String toString() {
-		return "Warehouse : {" + stock.toString() + " , " + super.toString() + "}";
+		return "Warehouse ["+coordinates.getX()+":"+coordinates.getY()+"] : {" + stock.toString() + " , " + super.toString() + "}";
 	}
 
 	/**
@@ -108,6 +118,16 @@ public class Warehouse extends PointOfInterest {
 	 */
 	public boolean isDeliveryPoint() {
 		return false;
+	}
+
+	public Warehouse copie(){
+		Warehouse nwWarehouse = new Warehouse();
+		nwWarehouse.setCoordinates(coordinates);
+		for(Map.Entry<Product, Integer> entry : stock.entrySet()){
+			nwWarehouse.addProduct(entry.getKey().copie(), entry.getValue());
+		}
+		
+		return nwWarehouse;
 	}
 
 }

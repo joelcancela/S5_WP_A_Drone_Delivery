@@ -11,69 +11,80 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
  * @author Joël CANCELA VAZ
  */
 public class PointOfInterest {
-	protected Coordinates coordinates;
+    protected Coordinates coordinates;
+    protected int id;
 
-	/**
-	 * Default constructor of PointOfInterest
-	 */
-	public PointOfInterest() {
-		this(null);
-	}
+    /**
+     * Default constructor of PointOfInterest
+     */
+    public PointOfInterest() {
+        this(null, 0);
+    }
 
-	/**
-	 * Normal constructor of PointOfInterest
-	 *
-	 * @param coordinates Coordinates of the interest point
-	 */
-	public PointOfInterest(Coordinates coordinates) {
-		this.coordinates = coordinates;
-	}
+    /**
+     * Normal constructor of PointOfInterest
+     *
+     * @param coordinates Coordinates of the interest point
+     */
+    public PointOfInterest(Coordinates coordinates, int id) {
+        this.id = id;
+        this.coordinates = coordinates;
+    }
 
-	/**
-	 * Getter of coordinates
-	 *
-	 * @return Coordinates of the PointOfInterest
-	 */
-	public Coordinates getCoordinates() {
-		return coordinates;
-	}
+    /**
+     * Getter of coordinates
+     *
+     * @return Coordinates of the PointOfInterest
+     */
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
 
-	/**
-	 * Setter of coordinates
-	 *
-	 * @param coordinates news coordinates for this PointOfInterest
-	 */
-	public void setCoordinates(Coordinates coordinates) {
-		this.coordinates = coordinates;
-	}
+    /**
+     * Return the id of the PointOfInterest.
+     *
+     * @return the id of the piont of interest.
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * Get the distance between two PointOfInterest
-	 *
-	 * @param poi Second PointOfInterest
-	 * @return Distance between two PointOfInterest
-	 */
-	public int distance(PointOfInterest poi) {
-		return (int) Math.ceil(this.getCoordinates().distance(poi.getCoordinates()));
-	}
+    /**
+     * Setter of coordinates
+     *
+     * @param coordinates news coordinates for this PointOfInterest
+     */
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
 
-	/**
-	 * Use to know if the IPointOfInterest is a warehouse
-	 *
-	 * @return true if the object is a warehouse, false otherwise
-	 */
-	public boolean isWarehouse() {
-		return false;
-	}
+    /**
+     * Get the distance between two PointOfInterest
+     *
+     * @param poi Second PointOfInterest
+     * @return Distance between two PointOfInterest
+     */
+    public int distance(PointOfInterest poi) {
+        return (int) Math.ceil(this.getCoordinates().distance(poi.getCoordinates()));
+    }
 
-	/**
-	 * Use to know if the IPointOfInterest is a deliveryPoint
-	 *
-	 * @return true if the object is a deliveryPoint, false otherwise
-	 */
-	public boolean isDeliveryPoint() {
-		return false;
-	}
+    /**
+     * Use to know if the IPointOfInterest is a warehouse
+     *
+     * @return true if the object is a warehouse, false otherwise
+     */
+    public boolean isWarehouse() {
+        return false;
+    }
+
+    /**
+     * Use to know if the IPointOfInterest is a deliveryPoint
+     *
+     * @return true if the object is a deliveryPoint, false otherwise
+     */
+    public boolean isDeliveryPoint() {
+        return false;
+    }
 
 
 }

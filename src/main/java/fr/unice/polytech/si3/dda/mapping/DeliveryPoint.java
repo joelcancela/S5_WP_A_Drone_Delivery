@@ -18,7 +18,7 @@ public class DeliveryPoint extends PointOfInterest {
      * Default constructor of DeliveryPoint
      */
     public DeliveryPoint() {
-        this(null);
+        this(null, 0);
     }
 
     /**
@@ -27,8 +27,8 @@ public class DeliveryPoint extends PointOfInterest {
      * @param order Order of the DeliveryPoint
      * @throws IllegalArgumentException if the order is null
      */
-    public DeliveryPoint(Order order) {
-        this(order, null);
+    public DeliveryPoint(Order order, int id) {
+        this(order, null, id);
     }
 
 	/**
@@ -38,8 +38,8 @@ public class DeliveryPoint extends PointOfInterest {
 	 * @param coordinates Coordinates of the deliveryPoint
 	 * @throws IllegalArgumentException if the order is null
 	 */
-	public DeliveryPoint(Order order, Coordinates coordinates) {
-		super(coordinates);
+	public DeliveryPoint(Order order, Coordinates coordinates, int id) {
+		super(coordinates, id);
 
 		if (order == null)
 			throw new IllegalArgumentException("Argument passed \"order\" is null.");
@@ -79,7 +79,7 @@ public class DeliveryPoint extends PointOfInterest {
 	 * @see java.lang.Object#toString()
 	 */
     public String toString() {
-        return "DeliveryPoint : {" + order.toString() + " , " + super.toString() + "}";
+        return "DeliveryPoint ["+coordinates.getX()+":"+coordinates.getY()+"] : {" + order.toString() + " , " + super.toString() + "}";
     }
 
 }
