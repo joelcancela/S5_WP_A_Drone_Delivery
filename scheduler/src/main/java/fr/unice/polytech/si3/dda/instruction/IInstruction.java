@@ -13,8 +13,17 @@ import fr.unice.polytech.si3.dda.scheduler.Context;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
+@FunctionalInterface
 public interface IInstruction {
 	
+	/**
+	 * Execute an instruction
+	 * @param ctx Context used
+	 * @return Cost of instruction
+	 * @throws ProductNotFoundException
+	 * @throws WrongIdException
+	 * @throws OverLoadException
+	 */
 	int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
 	
 }

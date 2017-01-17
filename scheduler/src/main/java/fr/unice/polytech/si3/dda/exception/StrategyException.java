@@ -9,25 +9,25 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class ProductNotFoundException extends StrategyException {
+public class StrategyException extends Exception {
 
 	/**
 	 * Generated serialId
 	 */
-	private static final long serialVersionUID = 4080126928650616184L;
+	private static final long serialVersionUID = -6359662948436845688L;
 
 	/**
-	 * Normal constructor of ProductNotFoundException
+	 * Normal constructor of StrategyException
 	 * @param s Exception message
 	 */
-    public ProductNotFoundException(String s) {
+    public StrategyException(String s) {
     	super(s);
     }
-
+    
     /**
-     * Default constructor of ProductNotFoundException
+     * Default constructor of StrategyException
      */
-    public ProductNotFoundException() {
+    public StrategyException() {
     	super();
     }
 }
