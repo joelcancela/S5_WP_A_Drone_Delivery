@@ -66,6 +66,7 @@ public class ContextParser {
 			for (Map.Entry<Coordinates, Order> entry : parseOrders(products).entrySet())
 			    cb.addDeliveryPoint(entry.getKey(), entry.getValue());
 		} catch (MalformedContextException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+			e.printStackTrace();
 			throw new MalformedContextBodyException(cb.build());
 		}
         return cb.build();
@@ -133,8 +134,8 @@ public class ContextParser {
             Map<Coordinates, int[]> warehouses = new HashMap<>();
             String line = br.readLine();
             int numWarehouse = Integer.parseInt(line);
-            line = br.readLine();
             for (int i = 0; i < numWarehouse; i++) {
+            	line = br.readLine();
                 int[] coorInt = Utils.stringArrayToIntArray(line.split(" "));
                 Coordinates coor = new Coordinates(coorInt[0], coorInt[1]);
                 line = br.readLine();
