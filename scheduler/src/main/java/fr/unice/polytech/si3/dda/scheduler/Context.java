@@ -19,7 +19,6 @@ import java.util.List;
  * @author Joël CANCELA VAZ
  */
 public class Context {
-
     private final Mapping map;
     private final int maxDrones;
     private final int turns;

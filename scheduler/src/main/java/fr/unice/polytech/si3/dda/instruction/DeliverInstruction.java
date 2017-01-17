@@ -62,14 +62,19 @@ public class DeliverInstruction implements IInstruction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof DeliverInstruction)) return false;
+		if (this == o) 
+			return true;
+		if (!(o instanceof DeliverInstruction)) 
+			return false;
 
 		DeliverInstruction that = (DeliverInstruction) o;
 
-		if (droneNumber != that.droneNumber) return false;
-		if (orderNumber != that.orderNumber) return false;
-		if (productType != that.productType) return false;
+		if (droneNumber != that.droneNumber) 
+			return false;
+		if (orderNumber != that.orderNumber) 
+			return false;
+		if (productType != that.productType) 
+			return false;
 		return numberOfProducts == that.numberOfProducts;
 	}
 

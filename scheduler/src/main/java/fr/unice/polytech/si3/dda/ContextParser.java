@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.exception.EmptyFileException;
+import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
 import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.order.Order;

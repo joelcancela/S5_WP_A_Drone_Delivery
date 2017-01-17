@@ -2,9 +2,7 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import java.util.List;
 
-import fr.unice.polytech.si3.dda.exception.OverLoadException;
-import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.exception.StrategyException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 
 /**
@@ -17,6 +15,7 @@ import fr.unice.polytech.si3.dda.instruction.IInstruction;
  * @author Joël CANCELA VAZ
  *
  */
+@FunctionalInterface
 public interface Strategy {
 
 	
@@ -25,6 +24,6 @@ public interface Strategy {
 	 *
 	 * @return instructions
 	 */
-	public List<IInstruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException;
+	public List<IInstruction> getInstructions() throws StrategyException;
 
 }

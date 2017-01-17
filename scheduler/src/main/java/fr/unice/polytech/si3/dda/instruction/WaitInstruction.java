@@ -45,12 +45,15 @@ public class WaitInstruction implements IInstruction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof WaitInstruction)) return false;
+		if (this == o) 
+			return true;
+		if (!(o instanceof WaitInstruction)) 
+			return false;
 
 		WaitInstruction that = (WaitInstruction) o;
 
-		if (droneNumber != that.droneNumber) return false;
+		if (droneNumber != that.droneNumber) 
+			return false;
 		return turns == that.turns;
 	}
 
