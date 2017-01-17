@@ -16,6 +16,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -55,7 +56,7 @@ public class SingleDroneStrategy implements Strategy{
 	public List<IInstruction> getInstructions() throws OverLoadException{
 		Drone doneUsed = fleet.getDrone(0);
 
-		Map<List<IInstruction>, Integer> instructionsLists = new HashMap<List<IInstruction>, Integer>();
+		List<IInstruction> instructionsLists = new ArrayList<IInstruction>();
 		Drone droneUsed = fleet.getDrone(0).copie();
 		
 		List<Order> orders = context.getMap().getOrders();
@@ -154,6 +155,7 @@ public class SingleDroneStrategy implements Strategy{
 			poiList.add(entry.getKey());
 		
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(poiList);
+		//instructionsLists.add(new LoadInstruction(0, warehouse.get, productType, numberOfProducts));
 		
 		
 		return null;
