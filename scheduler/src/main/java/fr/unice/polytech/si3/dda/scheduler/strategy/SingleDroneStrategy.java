@@ -62,7 +62,7 @@ public class SingleDroneStrategy implements Strategy{
 		List<Map<Product, Integer>> takens = new ArrayList<>();
 		
 		while(!isOrdersCompleted(orders)){
-			
+			System.out.println(instructionsLists);
 			loadOrderFromAWarehouse(orders, warehouse, droneUsed, takens);
 
 			Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pairOfPath = getPathForThoseProducts(takens, warehouse);
@@ -130,8 +130,9 @@ public class SingleDroneStrategy implements Strategy{
 						break;
 					}
 				}else{
-					if(warehouse==null)
+					if(warehouse==null) {
 						throw new ProductNotFoundException("Product : " + entry.getKey());
+					}
 					if(entry.getValue() > 0 
 							&& warehouse.howManyProduct(entry.getKey())!=0
 							&& entry.getKey().getWeight() <= droneUsed.getMaxPayload()-droneUsed.getUsedPayload()){

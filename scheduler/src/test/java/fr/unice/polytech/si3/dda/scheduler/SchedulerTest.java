@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class SchedulerTest {
     @Test
-    public void schedule() throws Exception {
+    public void scheduleWithAMalformedBody() throws Exception {
 
         Context context = new Context.ContextBuilder(4, 4, 3, 25, 150)
                 .addProducts(new ArrayList<>())
@@ -29,6 +30,13 @@ public class SchedulerTest {
         assertEquals("0 W 25", str.get(0));
         assertEquals("1 W 25", str.get(1));
         assertEquals("2 W 25", str.get(2));
+    }
+
+
+    @Test(expected = MalformedContextException.class)
+    public void scheduleWithAnEmptyBody() throws Exception{
+        Scheduler scheduler = new Scheduler(null, true);
+        scheduler.schedule();
     }
 
 

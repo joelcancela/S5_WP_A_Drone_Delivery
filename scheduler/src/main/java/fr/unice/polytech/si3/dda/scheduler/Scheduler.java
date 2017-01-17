@@ -1,9 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
-import fr.unice.polytech.si3.dda.exception.OverLoadException;
-import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.exception.StrategyException;
-import fr.unice.polytech.si3.dda.exception.WrongIdException;
+import fr.unice.polytech.si3.dda.exception.*;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
@@ -34,17 +31,20 @@ public class Scheduler {
     File mapOutFile;
     private boolean forceWait;
 
-    /**
-     * Scheduler constructor
-     *
-     * @param context is the context to be used by the scheduler
-     */
-    public Scheduler(Context context, boolean forceWait) {
-        this.ctx = context;
-        this.scheduleOutFile = new File("scheduler.out");
-        this.mapOutFile = new File("map.csv");
-        this.forceWait = forceWait;
-    }
+	/**
+	 * Scheduler constructor
+	 *
+	 * @param context is the context to be used by the scheduler
+	 */
+	public Scheduler(Context context, boolean forceWait) throws MalformedContextException {
+		if(context==null){
+			throw new MalformedContextException();
+		}
+		this.ctx = context;
+		this.scheduleOutFile = new File("scheduler.out");
+		this.mapOutFile = new File("map.csv");
+		this.forceWait = forceWait;
+	}
 
     /**
      * Launches algorithm and writes the instructions to the output file "scheduler.out"
