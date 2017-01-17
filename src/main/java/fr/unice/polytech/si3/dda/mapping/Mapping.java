@@ -88,6 +88,26 @@ public class Mapping {
     }
 
     /**
+     * Return the warehouse at the coordinates if it exists.
+     *
+     * @param coor the coordinates.
+     * @return the warehouse.
+     */
+    public Warehouse getWarehouse(Coordinates coor){
+        return warehouses.get(coor);
+    }
+
+    /**
+     * Return the delivery point at the coordinates if it exists
+     *
+     * @param coor the coordinates
+     * @return the delivery point
+     */
+    public DeliveryPoint getDeliveryPoint(Coordinates coor){
+        return deliveryPoints.get(coor);
+    }
+
+    /**
      * Add a warehouse to the map.
      *
      * @param coor
