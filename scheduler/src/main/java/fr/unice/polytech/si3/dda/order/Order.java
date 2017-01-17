@@ -27,6 +27,12 @@ public class Order {
         remaining = new ArrayList<>();
         numberOfProducts = 0;
     }
+    
+    public Order(Order o) {
+    	products = new LinkedHashMap<>(o.products);
+        remaining = new ArrayList<>(remaining);
+        numberOfProducts = o.numberOfProducts;
+    }
 
     /**
      * Adds a product and its quantity to the order
@@ -142,6 +148,10 @@ public class Order {
         return "Order{" +
                 "products=" + products +
                 '}';
+    }
+    
+    public Order copy()	{
+    	return new Order(this);
     }
 
 }
