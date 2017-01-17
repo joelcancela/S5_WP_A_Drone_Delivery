@@ -92,11 +92,11 @@ public class SingleDroneStrategy implements Strategy{
 	}
 	
 	/**
-	 * Load all products need
-	 * @param orders
-	 * @param warehouse
-	 * @param droneUsed
-	 * @param takens
+	 * Load all products needed and possible at a warehouse
+	 * @param orders List of orders to do
+	 * @param warehouse Current warehouse
+	 * @param droneUsed Current drone
+	 * @param takens List of products to take
 	 * @throws OverLoadException
 	 * @throws ProductNotFoundException
 	 */
@@ -104,14 +104,7 @@ public class SingleDroneStrategy implements Strategy{
 		boolean restart = false;
 		int indexToRestart = 0;
 		int i =0;
-		while(true){
-			if(restart){
-				i = indexToRestart;
-				restart = false;
-			}
-			
-			if(i==orders.size())
-				break;
+		while(i<orders.size()){
 			
 			Map<Product, Integer> tempo = new HashMap<Product, Integer>();
 			if(i==takens.size() && !restart){
@@ -155,9 +148,20 @@ public class SingleDroneStrategy implements Strategy{
 				}
 			}
 			i++;
+			if(restart){
+				i = indexToRestart;
+				restart = false;
+			}
 		}
 	}
 	
+	/**
+	 * Find the next warehouse to go (nearest with useful products)
+	 * @param orders List of orders to do
+	 * @param warhouses List of warehouses
+	 * @param droneUsed Current drone
+	 * @return The next warehouse chosen by the strategy 
+	 */
 	private Warehouse findTheNextWarehouse(List<Order> orders, Map<Coordinates, Warehouse> warhouses, Drone droneUsed){
 		double distance = Double.MAX_VALUE;
 		Warehouse nextWareHouse =  null;
@@ -178,6 +182,12 @@ public class SingleDroneStrategy implements Strategy{
 		return nextWareHouse;
 	}
 	
+	/**
+	 * Get the next path to follow and the order of deliveries
+	 * @param takens List of products to take
+	 * @param warehouse Warehouse of departure
+	 * @return Pair with in the first element a map wich deliveryPoint to the products to deliver, in second element the path of pois to visit
+	 */
 	private Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> getPathForThoseProducts(List<Map<Product, Integer>> takens, Warehouse warehouse){
 		Map<DeliveryPoint, Map<Product, Integer>> pointToDeliver = new HashMap<DeliveryPoint, Map<Product, Integer>>();
 		for(Map.Entry<Coordinates, DeliveryPoint> entryDP : context.getMap().getDeliveryPoints().entrySet()){
@@ -203,6 +213,15 @@ public class SingleDroneStrategy implements Strategy{
 		return new Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>>(pointToDeliver, poiList);
 	}
 	
+	/**
+	 * Generate instructions for a path
+	 * @param instructionsLists List of instruction for the current strategy
+	 * @param orders List of orders to do
+	 * @param pair Associations of a deliveryPoint and products to deliver
+	 * @param warehouse Current warehouse
+	 * @param droneUsed Current drone
+	 * @throws ProductNotFoundException
+	 */
 	private void generateInstructionsForThisPath(List<IInstruction> instructionsLists, List<Order> orders, Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
 		List<Product> alreadyCounted = new ArrayList<Product>();
