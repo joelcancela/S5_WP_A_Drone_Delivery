@@ -96,6 +96,15 @@ public class Context {
     }
 
     /**
+     * Gets the fleet.
+     *
+     * @return the fleet
+     */
+    public Fleet getFleet() {
+		return fleet;
+	}
+
+	/**
      * Class ContextBuilder
      *
      * @author Jeremy JUNAC
