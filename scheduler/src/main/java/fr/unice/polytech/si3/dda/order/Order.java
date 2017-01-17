@@ -30,7 +30,7 @@ public class Order {
     
     public Order(Order o) {
     	products = new LinkedHashMap<>(o.products);
-        remaining = new ArrayList<>(remaining);
+        remaining = new ArrayList<>(o.remaining);
         numberOfProducts = o.numberOfProducts;
     }
 
