@@ -96,7 +96,7 @@ public class ContextParserTest {
 		wrt.close();
 		Context ctx = p.parse();
 	}
-	
+
 	@Test(expected=MalformedContextException.class)
 	public void testParseMalformed2() throws Exception {
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
