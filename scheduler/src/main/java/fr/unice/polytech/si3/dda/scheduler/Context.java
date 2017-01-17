@@ -42,6 +42,16 @@ public class Context {
         fleet = new Fleet(maxDrones, maxPayload, firstWarehouse);
     }
 
+    public Context(Context ctx){
+        this.map=ctx.map;
+        this.maxDrones=ctx.maxDrones;
+        this.turns=ctx.turns;
+        this.maxPayload=ctx.maxPayload;
+        this.products=ctx.products;
+        this.firstWarehouse=ctx.firstWarehouse;
+        this.fleet = new Fleet(maxDrones,maxPayload, firstWarehouse);
+    }
+
     /**
      * Getter for the map
      *
