@@ -50,6 +50,7 @@ public class Scheduler {
 		Strategy strategy = new SingleDroneStrategy(ctx);
 		for(IInstruction instruction: strategy.getInstructions()){
 			fw.write(instruction.toString());
+			fw.write("\n");
 		}
 		fw.close();
 		generateMapCsv();
