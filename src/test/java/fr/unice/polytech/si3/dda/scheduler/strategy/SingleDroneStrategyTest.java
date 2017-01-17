@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
@@ -42,7 +43,7 @@ public class SingleDroneStrategyTest {
     }
 
     @Test
-    public void test() throws OverLoadException {
+    public void test() throws OverLoadException, ProductNotFoundException {
         singleDroneStrategy.getInstructions();
     }
 

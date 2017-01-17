@@ -15,8 +15,11 @@ import java.util.Map;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
+import fr.unice.polytech.si3.dda.instruction.UnloadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -51,11 +54,10 @@ public class SingleDroneStrategy implements Strategy{
 	 * Return the list of all instructions of the strategy
 	 * @return list of all instructions of the strategy
 	 * @throws OverLoadException 
+	 * @throws ProductNotFoundException 
 	 */
 	@Override
-	public List<IInstruction> getInstructions() throws OverLoadException{
-		Drone doneUsed = fleet.getDrone(0);
-
+	public List<IInstruction> getInstructions() throws OverLoadException, ProductNotFoundException{
 		List<IInstruction> instructionsLists = new ArrayList<IInstruction>();
 		Drone droneUsed = fleet.getDrone(0).copie();
 		
@@ -155,8 +157,32 @@ public class SingleDroneStrategy implements Strategy{
 			poiList.add(entry.getKey());
 		
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(poiList);
-		//instructionsLists.add(new LoadInstruction(0, warehouse.get, productType, numberOfProducts));
+		for(Product productTemp : droneUsed.getLoadedProducts()){
+			int nbof = 0;
+			for(i=0; i<droneUsed.getLoadedProducts().size(); i++)
+				if(droneUsed.getLoadedProducts().get(i).equals(productTemp))
+					nbof++;
+			
+			instructionsLists.add(new LoadInstruction(0, warehouse.getId(), productTemp.getId(), nbof));
+		}
 		
+
+		for(i=1;i<firstTravel.getSecond().size();i++){
+			for(Map.Entry<Product, Integer> entry : pointToDeliver.get(firstTravel.getSecond().get(i)).entrySet()){
+				instructionsLists.add(new DeliverInstruction(0, firstTravel.getSecond().get(i).getId(), entry.getKey().getId(), entry.getValue()));
+				droneUsed.unload(entry.getKey());
+				//delete les produits livrés
+			}
+		}
+		
+		System.out.println(orders);
+		Map<Coordinates, Warehouse> warhouses =  context.getMap().getWarehouses();
+		for(Map.Entry<Coordinates, Warehouse> entry : warhouses.entrySet()){
+			//if(entry.getValue().howManyProduct(product))
+		}
+		
+		System.out.println(instructionsLists);
+
 		
 		return null;
 	}
