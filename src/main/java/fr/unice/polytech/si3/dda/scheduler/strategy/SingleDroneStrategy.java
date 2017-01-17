@@ -43,7 +43,6 @@ public class SingleDroneStrategy implements Strategy{
 	/**
 	 * Normal constructor of SingleDroneStrategy
 	 * @param context Context of execution
-	 * @param fleet Fleet of drones used for this strategy
 	 */
 	public SingleDroneStrategy(Context context){
 		this.context = context;
@@ -82,6 +81,7 @@ public class SingleDroneStrategy implements Strategy{
 			warehouse =  findTheNextWarehouse(orders, warhouses, droneUsed);
 			
 			System.out.println(warehouse);
+			System.out.println(instructionsLists);
 		}
 
 		
@@ -147,6 +147,7 @@ public class SingleDroneStrategy implements Strategy{
 						break;
 					}
 				}else{
+					System.out.println("warehouse:"+warehouse);
 					if(entry.getValue() > 0 
 							&& warehouse.howManyProduct(entry.getKey())!=0
 							&& entry.getKey().getWeight() <= droneUsed.getMaxPayload()-droneUsed.getUsedPayload()){
@@ -217,13 +218,20 @@ public class SingleDroneStrategy implements Strategy{
 	
 	private void generateInstructionsForThisPath(List<IInstruction> instructionsLists, List<Order> orders, Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
+		List<Product> alreadyCounted = new ArrayList<Product>();
 		for(Product productTemp : droneUsed.getLoadedProducts()){
+			if(alreadyCounted.contains(productTemp)){
+				continue;
+			}
+			
 			int nbof = 0;
+			
 			for(int i=0; i<droneUsed.getLoadedProducts().size(); i++)
 				if(droneUsed.getLoadedProducts().get(i).equals(productTemp))
 					nbof++;
 			
 			instructionsLists.add(new LoadInstruction(0, warehouse.getId(), productTemp.getId(), nbof));
+			alreadyCounted.add(productTemp);
 		}
 		
 

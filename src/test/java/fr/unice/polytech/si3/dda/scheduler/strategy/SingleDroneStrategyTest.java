@@ -1,7 +1,10 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.instruction.IInstruction;
+import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.scheduler.Context;
@@ -16,8 +19,8 @@ import java.util.List;
 public class SingleDroneStrategyTest {
     private SingleDroneStrategy singleDroneStrategy;
 
-    @Before
-    public void setUp() throws Exception {
+    @Test
+    public void finishAOrderAndMoveToNearestWarehouse() throws OverLoadException, ProductNotFoundException, NonValidCoordinatesException {
         List<Product> products = new ArrayList<Product>();
         products.add(new Product(50, 0));
         products.add(new Product(20, 1));
@@ -41,10 +44,12 @@ public class SingleDroneStrategyTest {
                 .addDeliveryPoint(new Coordinates(0, 3), order2).build();
 
         singleDroneStrategy = new SingleDroneStrategy(context);
-    }
-
-    @Test
-    public void test() throws OverLoadException, ProductNotFoundException {
+        
+        List<IInstruction> expected = new ArrayList<IInstruction>();
+        expected.add(new LoadInstruction(0, 0, 0, 1));
+        expected.add(new LoadInstruction(0, 0, 2, 1));
+        expected.add(new LoadInstruction(0, 0, 3, 2));
+        
         singleDroneStrategy.getInstructions();
     }
 
