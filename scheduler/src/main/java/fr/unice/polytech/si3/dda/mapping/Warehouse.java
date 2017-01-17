@@ -26,8 +26,8 @@ public class Warehouse extends PointOfInterest {
     }
     
     public Warehouse(Warehouse w) {
+    	super(w.getCoordinates(), w.getId());
     	stock = new HashMap<>(w.stock);
-    	setCoordinates(w.getCoordinates());
     }
 
     /**

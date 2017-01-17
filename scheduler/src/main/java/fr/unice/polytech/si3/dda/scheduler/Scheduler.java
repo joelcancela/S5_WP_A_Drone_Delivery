@@ -58,22 +58,21 @@ public class Scheduler {
 			strategies.add(new BasicStrategy(new Context(ctx)));
 		} else {
 			strategies.add(new SingleDroneStrategy(new Context(ctx)));
-			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
+			//strategies.add(new MultipleDroneStrategy(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;
 		for (Strategy strategy : strategies) {
 			List<Instruction> currentInstructions = strategy.getInstructions();
 
-
 			int cost = computeStrat(currentInstructions, new Context(ctx));
-			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);
+			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost : " + cost);
 			if (cost < minCost) {
 				minCost = cost;
 				bestStrategy = strategy;
 			}
 		}
-		System.out.println("Chosen strategy: "+bestStrategy.getClass().getSimpleName()+", cost :" + minCost);
+		System.out.println("Chosen strategy: "+bestStrategy.getClass().getSimpleName()+", cost : " + minCost);
 		FileWriter fw = new FileWriter(scheduleOutFile);
 		for (Instruction instruction : bestStrategy.getInstructions()) {
 			fw.write(instruction.toString());
