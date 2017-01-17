@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+import fr.unice.polytech.si3.dda.ContextParser;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
@@ -13,6 +14,7 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -109,4 +111,19 @@ public class MultipleDroneStrategyTest {
         strategy.loadFromWarehouse(0, new Product(12, 12), mapping.getWarehouse(0));
     }
 
+    @Test
+    public void testdemo() throws Exception {
+        File file = new File("../examples/contextDemo_simple.in");
+        ContextParser p = new ContextParser(file.getAbsolutePath());
+        Context ctx = p.parse();
+
+        MultipleDroneStrategy strategy = new MultipleDroneStrategy(ctx);
+        List<IInstruction> list = strategy.getInstructions();
+
+        System.out.println(list);
+        assertTrue(list.contains(new LoadInstruction(0,0,1,1)));
+        assertTrue(list.contains(new DeliverInstruction(0,0,1,1)));
+        assertTrue(list.contains(new LoadInstruction(1,0,0,1)));
+        assertTrue(list.contains(new DeliverInstruction(1,0,0,1)));
+    }
 }
