@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.exception.StrategyException;
 import fr.unice.polytech.si3.dda.instruction.IInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
@@ -33,7 +34,10 @@ public class Scheduler {
 	 *
 	 * @param context is the context to be used by the scheduler
 	 */
-	public Scheduler(Context context, boolean forceWait) {
+	public Scheduler(Context context, boolean forceWait) throws MalformedContextException {
+		if(context==null){
+			throw new MalformedContextException();
+		}
 		this.ctx = context;
 		this.scheduleOutFile = new File("scheduler.out");
 		this.mapOutFile = new File("map.csv");
