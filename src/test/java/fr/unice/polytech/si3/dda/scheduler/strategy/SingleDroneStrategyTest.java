@@ -36,7 +36,7 @@ public class SingleDroneStrategyTest {
                 .addWarehouse(new Coordinates(0, 0), 1, 2, 3, 4)
                 .addDeliveryPoint(new Coordinates(1, 1), order1)
                 .addDeliveryPoint(new Coordinates(0, 3), order2).build();
-        Fleet fleet = new Fleet(context);
+        Fleet fleet = context.getFleet();
 
         singleDroneStrategy = new SingleDroneStrategy(context, fleet);
     }
