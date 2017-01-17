@@ -83,6 +83,6 @@ public class Product {
 	}
 
 	public Product copie(){
-		return new Product(weight);
+		return new Product(weight, id);
 	}
 }

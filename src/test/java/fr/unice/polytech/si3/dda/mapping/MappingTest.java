@@ -17,7 +17,7 @@ public class MappingTest {
 		mapping = new Mapping(7, 7);
 		mapping.addWarehouse(new Coordinates(0, 0), null);
 		w = new Warehouse();
-		dp = new DeliveryPoint(new Order());
+		dp = new DeliveryPoint(new Order(), 0);
 	}
 
 	@Test

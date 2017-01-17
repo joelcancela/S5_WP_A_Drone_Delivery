@@ -40,9 +40,8 @@ public class Warehouse extends PointOfInterest {
 	 * @param coordinates Coordinates of the warehous
 	 * @throws IllegalArgumentException if the stock is null
 	 */
-	public Warehouse(Coordinates coordinates) {
-		super(coordinates);
-		stock = new HashMap<>();
+	public Warehouse(Coordinates coordinates, int id) {
+		this(new HashMap<>(),coordinates, id);
 	}
 
 	/**

@@ -23,7 +23,7 @@ public class WarehouseTest {
 
 	@Test
 	public void addAProductAndGetIt() {
-		Product product1 = new Product(200);
+		Product product1 = new Product(200, 0);
 		warehouse.addProduct(product1, 3);
 
 		assertEquals(3, warehouse.howManyProduct(product1));
@@ -31,8 +31,8 @@ public class WarehouseTest {
 
 	@Test
 	public void howManyProduct() {
-		Product product1 = new Product(200);
-		Product product2 = new Product(150);
+		Product product1 = new Product(200, 0);
+		Product product2 = new Product(150, 1);
 		warehouse.addProduct(product1, 3);
 
 		assertEquals(3, warehouse.howManyProduct(product1));
@@ -54,8 +54,8 @@ public class WarehouseTest {
 	@Test
 	public void createAFullWarehouse() {
 		Map<Product, Integer> stock = new HashMap<Product, Integer>();
-		Product product1 = new Product(200);
-		Product product2 = new Product(150);
+		Product product1 = new Product(200, 0);
+		Product product2 = new Product(150, 1);
 
 		stock.put(product1, 3);
 		stock.put(product2, 2);

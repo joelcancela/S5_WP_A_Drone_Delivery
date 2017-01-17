@@ -110,6 +110,8 @@ public class Context {
         private List<Product> products;
         private boolean first = true;
         private Warehouse firstWarehouse;
+        private int deliveryId = 0;
+        private int warehouseId = 0;
 
         /**
          * ContextBuilder constructor
@@ -147,7 +149,8 @@ public class Context {
          * @throws NonValidCoordinatesException if coordinates are invalid
          */
         public ContextBuilder addWarehouse(Coordinates coor, int... stock) throws NonValidCoordinatesException {
-            Warehouse w = new Warehouse(coor);
+            Warehouse w = new Warehouse(coor, warehouseId);
+            warehouseId += 1;
             if (first) {
                 firstWarehouse = w;
                 first = false;
@@ -167,7 +170,8 @@ public class Context {
          * @throws NonValidCoordinatesException if coordinates are invalid
          */
         public ContextBuilder addDeliveryPoint(Coordinates coor, Order o) throws NonValidCoordinatesException {
-            map.addDeliveryPoint(coor, new DeliveryPoint(o, coor));
+            map.addDeliveryPoint(coor, new DeliveryPoint(o, coor, deliveryId));
+            deliveryId += 1;
             return this;
         }
 

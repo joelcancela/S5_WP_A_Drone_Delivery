@@ -16,7 +16,7 @@ public class DeliveryPointTest {
 
 	@Before
 	public void defineContext() {
-		deliveryPoint = new DeliveryPoint(new Order());
+		deliveryPoint = new DeliveryPoint(new Order(), 0);
 	}
 
 	@Test
@@ -30,7 +30,7 @@ public class DeliveryPointTest {
 		thrown.expect(IllegalArgumentException.class);
 		thrown.expectMessage("Argument passed \"order\" is null.");
 
-		deliveryPoint = new DeliveryPoint(null);
+		deliveryPoint = new DeliveryPoint(null, 0);
 	}
 
 }
