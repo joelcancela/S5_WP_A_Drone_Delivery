@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
@@ -38,57 +37,19 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     public void calculateInstructions() throws GlobalException {
         List<Order> orders = context.getMap().getOrders();
         Fleet fleet = context.getFleet();
-        Map<Coordinates,Warehouse> warehouses = context.getMap().getWarehouses();
+        Map<Coordinates, Warehouse> warehouses = context.getMap().getWarehouses();
         boolean ordersCompleted = false;
 
         while (!isOrdersCompleted(orders)) {
             for (int i = 0; i < context.getMaxDrones(); i++) {
-                System.out.println("IIII : " + i);
-                Drone drone = fleet.getDrone(i);
                 Warehouse closestWarehouse = findTheNextWarehouse(orders, warehouses, fleet.getDrone(i));
                 if (closestWarehouse == null)
-                    throw new ProductNotFoundException();
-//                System.out.println("\n\n *********************************");
+                    break;
+
                 loadDrone(orders, i, closestWarehouse);
-//                System.out.println("\n\n *********************************");
 
-                DeliveryPoint closestDeliveryPoint = null;
-                Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
-                for (Product product : drone.getLoadedProducts()) {
+                findPath(i);
 
-//                    System.out.println("++++++++++++++++++++++");
-                    System.out.println(product);
-                    for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
-                        if (deliveryPoint.getValue().getOrder().getRemaining().size() == 0) {
-                            continue;
-                        }
-//                        System.out.println("####################################");
-//                        System.out.println(deliveryPoint.getValue().getOrder().getRemaining());
-                        if (closestDeliveryPoint == null || (deliveryPoint.getValue().getOrder().getRemaining().contains(product))) {
-                            closestDeliveryPoint = deliveryPoint.getValue();
-                        }
-                    }
-                    drone.move(closestDeliveryPoint.getCoordinates());
-
-                    int count = 0;
-//                    System.out.println("-------------------");
-//                    System.out.println("drone : " + drone.getLoadedProducts());
-//                    System.out.println("order : " + closestDeliveryPoint.getOrder().getRemaining());
-                    for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
-                        if (drone.getNumberOf(product) == 0) continue;
-//                        System.out.println(product.equals(other));
-                        if (product.equals(other)) {
-                            count++;
-                            drone.unload(product);
-                            closestDeliveryPoint.deliver(product);
-                            closestDeliveryPoint.removeThisProduct(product);
-                        }
-                    }
-                    if (count > 0) {
-//                        System.out.println("DELIVER");
-                        instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
-                    }
-                }
 
             }
 
@@ -97,16 +58,49 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                 if (!ordersCompleted) break;
             }
 
-            System.out.println(orders);
         }
-        System.out.println(instructionsLists);
+    }
+
+    protected void findPath(int droneId) throws ProductNotFoundException {
+        Drone drone = context.getFleet().getDrone(droneId);
+
+        DeliveryPoint closestDeliveryPoint = null;
+        Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
+
+        for (Product product : drone.getLoadedProducts()) {
+
+            for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
+                if (deliveryPoint.getValue().getOrder().getRemaining().size() == 0) {
+                    continue;
+                }
+                if (closestDeliveryPoint == null || (deliveryPoint.getValue().getOrder().getRemaining().contains(product))) {
+                    closestDeliveryPoint = deliveryPoint.getValue();
+                }
+            }
+            drone.move(closestDeliveryPoint.getCoordinates());
+
+            int count = 0;
+            for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
+                if (drone.getNumberOf(product) == 0) continue;
+                if (product.equals(other)) {
+                    count++;
+                    drone.unload(product);
+                    closestDeliveryPoint.deliver(product);
+                    closestDeliveryPoint.removeThisProduct(product);
+                }
+            }
+            if (count > 0) {
+                instructionsLists.add(new DeliverInstruction(droneId, closestDeliveryPoint.getId(), product.getId(), count));
+            }
+        }
     }
 
     /**
-     * @param currentStock
-     * @return
+     * Order a stock by the weight of products
+     * @param currentStock Stock to order
+     * @return Ordered stock
      */
-    private Map<Product, Integer> orderAWharehousStcok(Map<Product, Integer> currentStock) {
+    private Map<Product, Integer> orderAWharehousStock(Map<Product, Integer> currentStock) {
         Map<Product, Integer> copy = new HashMap<>(currentStock);
         Map<Product, Integer> orderedStock = new LinkedHashMap<>();
         while (copy.size() > 0) {
@@ -126,17 +120,23 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     }
 
     /**
-     * @param orders
-     * @param indexDrone
-     * @param warehouse
+     * Load products to a drone at a warehouse
+     * @param orders List of needed products
+     * @param indexDrone Index of the drone in the fleet
+     * @param warehouse Warehouse where is the current drone
      * @throws OverLoadException
      * @throws ProductNotFoundException
      */
     protected void loadDrone(List<Order> orders, int indexDrone, Warehouse warehouse) throws OverLoadException, ProductNotFoundException {
         Drone drone = context.getFleet().getDrone(indexDrone);
-        List<Order> tempoOrders = new ArrayList<>(orders);
 
-        Map<Product, Integer> orderedStock = orderAWharehousStcok(warehouse.getStock());
+        List<Order> tempoOrders = new ArrayList<>();
+        for (Order tempoOrder : orders) {
+            tempoOrders.add(new Order(tempoOrder));
+        }
+
+        Map<Product, Integer> orderedStock = orderAWharehousStock(warehouse.getStock());
+
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
             for (int i = 0; i < tempoOrders.size(); i++) {
                 Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();
@@ -149,24 +149,13 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                         drone.load(entry.getKey());
                         warehouse.pullOutProduct(entry.getKey());
                         orderedStock.put(entry.getKey(), orderedStock.get(entry.getKey()) - 1);
-                        System.out.println("Je suis : " + i);
-                        System.out.println(tempoOrders.get(i));
-                        System.out.println("Je veux " + entryOrder.getValue() + " :" + entryOrder.getKey());
-
-                        System.out.println("i try tOU delete this : " + entryOrder.getKey());
                         tempoOrders.get(i).removeThisProduct(entryOrder.getKey());
-
-                        System.out.println("------------------");
                     }
 
                 }
             }
         }
-        System.out.println("carried by THIS BITCH :");
-        System.out.println(drone.getLoadedProducts());
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         addLoadInstructions(warehouse, indexDrone);
-//        System.out.println(instructionsLists);
     }
 
 }
