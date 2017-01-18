@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -53,6 +54,7 @@ public class VisualiserTest {
         instructionsList = new ScheduleParser(schedule.getAbsolutePath()).parse();
     }
 
+    @Ignore
     @Test
     public void testDisplay() throws Exception {
 		new Visualiser(ctx, instructionsList).display();
