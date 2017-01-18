@@ -67,8 +67,8 @@ public class Scheduler {
 		Strategy bestStrategy = new BasicStrategy(new Context(ctx));
 		for (Strategy strategy : strategies) {
 			strategy.calculateInstructions();
-			List<Instruction> currentInstructions = strategy.getInstructions();
 
+			List<Instruction> currentInstructions = strategy.getInstructions();
 
 			int cost = new Benchmark(currentInstructions, new Context(ctx)).calculateScore();
 			System.out.println("Strategy " + strategy.getClass().getSimpleName() + ", cost: " + cost);
