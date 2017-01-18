@@ -78,7 +78,7 @@ public class Warehouse extends PointOfInterest {
 		StringBuilder s = new StringBuilder();
 		s.append("Warehouse" + id + " @(" + coordinates.getX() + "," + coordinates.getY() + ") : ");
 		for (Map.Entry<Product, Integer> e : stock.entrySet()) {
-			s.append(e.getValue() + "*" + e.toString() + ", ");
+			s.append(e.getValue() + "*" + e.getKey() + ", ");
 		}
 		return s.toString();
 	}
