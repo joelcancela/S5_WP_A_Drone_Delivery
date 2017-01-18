@@ -1,3 +1,9 @@
+### DroneDelivery Team A
+
+Scripts :
+-
+
+* build.sh: script for maven build and chain execution <br>
 ```
-mvn exec:java -Dexec.args="contextDemo.in"
+./build.sh [pathToFile.in]
 ```
