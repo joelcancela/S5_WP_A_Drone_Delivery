@@ -11,7 +11,7 @@ import java.util.List;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class MultipleMaxDronePayload implements Strategy {
+public class MultipleMaxDronePayloadStrategy implements Strategy {
 
     @Override
     public void calculateInstructions() throws GlobalException{
@@ -23,7 +23,7 @@ public class MultipleMaxDronePayload implements Strategy {
         return null;
     }
 
-    public void computeTaMere(){
+    public void (){
 
     }
 
