@@ -137,8 +137,20 @@ public class Warehouse extends PointOfInterest {
         return false;
     }
 
+    /**
+     * Create a copy of a warehouse
+     * @return Same content, different object
+     */
     public Warehouse copy() {
     	return new Warehouse(this);
+    }
+    
+    /**
+     * Accesor of stock
+     * @return The current stock of this warehouse
+     */
+    public Map<Product, Integer> getStock(){
+    	return stock;
     }
     
 }
