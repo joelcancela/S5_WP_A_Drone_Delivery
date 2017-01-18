@@ -11,6 +11,7 @@ import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
+import fr.unice.polytech.si3.dda.scoring.Scoring;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.io.File;
@@ -68,7 +69,9 @@ public class Scheduler {
 			 strategy.calculateInstructions();
 			 List<Instruction> currentInstructions = strategy.getInstructions();
 
-			int cost = computeStrat(currentInstructions, new Context(ctx));
+
+
+			int cost = new Scoring(currentInstructions, new Context(ctx)).computeStrat();
 			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);
 			if (cost < minCost) {
 				minCost = cost;
@@ -83,30 +86,6 @@ public class Scheduler {
 		}
 		fw.close();
 		generateMapCsv();
-	}
-
-	/**
-	 * Compute the strategy and return the cost of a strategy.
-	 *
-	 * @param strategy the strategy to compute.
-	 * @param context  the context for the strategy.
-	 * @return the cost of the strategy.
-	 * @throws WrongIdException
-	 * @throws OverLoadException
-	 * @throws ProductNotFoundException
-	 */
-	public static int computeStrat(List<Instruction> strategy, Context context) throws WrongIdException, OverLoadException, ProductNotFoundException {
-		int maxDrone = context.getMaxDrones();
-		int scoreMax = 0;
-		for (int i = 0; i < maxDrone; i++) {
-			int score = 0;
-			for (Instruction instruction : strategy) {
-				if (instruction.getDroneNumber() == i)
-					score += 1 + instruction.execute(context);
-			}
-			if (score > scoreMax) scoreMax = score;
-		}
-		return scoreMax;
 	}
 
 	/**
