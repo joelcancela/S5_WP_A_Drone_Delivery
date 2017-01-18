@@ -227,7 +227,6 @@ public class SingleDroneStrategy extends Strategy{
 	private void generateInstructionsForThisPath(Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
 		addLoadInstructions(warehouse, 0);
-		
 
 		for(int i=1;i<firstTravel.getSecond().size();i++){
 			for(Map.Entry<Product, Integer> entry : pair.getFirst().get(firstTravel.getSecond().get(i)).entrySet()){

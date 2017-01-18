@@ -28,6 +28,10 @@ import java.util.Map;
  */
 public class MultipleMaxDronePayloadStrategy extends Strategy {
 
+	/**
+	 * Normal constructor of MultipleMaxDronePayloadStrategy
+	 * @param context Context used
+	 */
     public MultipleMaxDronePayloadStrategy(Context context) {
         this.context = context;
         instructionsLists = new ArrayList<>();
@@ -72,6 +76,11 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         }
     }
 
+    /**
+     * 
+     * @param currentStock
+     * @return
+     */
     private Map<Product, Integer> orderAWharehousStcok(Map<Product, Integer> currentStock) {
     	Map<Product, Integer> copy = new HashMap<>(currentStock);
         Map<Product, Integer> orderedStock = new LinkedHashMap<>();
@@ -91,6 +100,14 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         return orderedStock;
     }
 
+    /**
+     * 
+     * @param orders
+     * @param indexDrone
+     * @param warehouse
+     * @throws OverLoadException
+     * @throws ProductNotFoundException
+     */
     private void loadDrone(List<Order> orders, int indexDrone, Warehouse warehouse) throws OverLoadException, ProductNotFoundException {
     	Drone drone = context.getFleet().getDrone(indexDrone);
     	
