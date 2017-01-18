@@ -23,6 +23,7 @@ public class ClientView extends View {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Entrez votre numéro client: ");
 		int clientNumber = sc.nextInt();
+		sc.nextLine();
 		System.out.println("\n");
 		int turns = ctx.getTurns();
 		Map<Product, Integer> initialProducts = new HashMap<>(ctx.getMap().getOrders().get(clientNumber).getProducts());
