@@ -11,6 +11,7 @@ import fr.unice.polytech.si3.dda.benchmark.Benchmark;
 import fr.unice.polytech.si3.dda.scheduler.strategy.*;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,6 +69,7 @@ public class Scheduler {
 			 strategy.calculateInstructions();
 			 List<Instruction> currentInstructions = strategy.getInstructions();
 
+
 			int cost = new Benchmark(currentInstructions, new Context(ctx)).calculateScore();
 			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost: " + cost);
 			if (cost < minCost) {
@@ -104,10 +106,10 @@ public class Scheduler {
 					fw.write(",");
 				}
 				if (warehouse != null) {
-					fw.write("W" + (warehouses++) + ";");
+					fw.write("W" + (warehouses++) + ",");
 				}
 				if (deliveryPoint != null) {
-					fw.write("O" + (deliveryPoints++) + ";");
+					fw.write("O" + (deliveryPoints++) + ",");
 				}
 			}
 			fw.write("\n");
