@@ -1,8 +1,8 @@
 package fr.unice.polytech.si3.dda;
 
+import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.EmptyFileException;
 import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
-import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.scheduler.Scheduler;
 
 import java.io.File;

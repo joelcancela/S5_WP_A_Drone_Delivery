@@ -1,6 +1,9 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+
 import fr.unice.polytech.si3.dda.ContextParser;
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.common.Fleet;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
@@ -8,18 +11,15 @@ import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Fleet;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**

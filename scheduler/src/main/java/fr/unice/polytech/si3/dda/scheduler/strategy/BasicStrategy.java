@@ -1,8 +1,9 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+
+import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
-import fr.unice.polytech.si3.dda.scheduler.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,9 @@ public class BasicStrategy implements Strategy {
     }
 
     /**
-     * Return the list of instruction.
+     * Return the list of fr.unice.polytech.si3.dda.exception.instruction.
      *
-     * @return the list of instruction.
+     * @return the list of fr.unice.polytech.si3.dda.exception.instruction.
      */
     @Override
     public List<Instruction> getInstructions() {

@@ -11,13 +11,6 @@
 
     <artifactId>visualiser</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>fr.unice.polytech.si3.dda</groupId>
-            <artifactId>scheduler</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
@@ -38,4 +31,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>fr.unice.polytech.si3.dda</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

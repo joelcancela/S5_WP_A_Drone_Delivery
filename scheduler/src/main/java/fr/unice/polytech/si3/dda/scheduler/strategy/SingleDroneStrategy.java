@@ -1,17 +1,10 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
-import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Drone;
-import fr.unice.polytech.si3.dda.scheduler.Fleet;
-import fr.unice.polytech.si3.dda.scheduler.PathFinder;
-import fr.unice.polytech.si3.dda.util.Coordinates;
-import fr.unice.polytech.si3.dda.util.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.common.Drone;
+import fr.unice.polytech.si3.dda.common.Fleet;
+import fr.unice.polytech.si3.dda.common.PathFinder;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
@@ -22,6 +15,14 @@ import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
+import fr.unice.polytech.si3.dda.util.Pair;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * 
@@ -53,7 +54,7 @@ public class SingleDroneStrategy implements Strategy{
 	 * @throws ProductNotFoundException 
 	 */
 	@Override
-	public List<Instruction> getInstructions() throws OverLoadException, ProductNotFoundException{
+	public List<Instruction> getInstructions() throws OverLoadException, ProductNotFoundException {
 		List<Instruction> instructionsLists = new ArrayList<>();
 		Drone droneUsed = fleet.getDrone(0).copy();
 		
@@ -184,7 +185,7 @@ public class SingleDroneStrategy implements Strategy{
 	}
 	
 	/**
-	 * Get the next path to follow and the order of deliveries
+	 * Get the next path to follow and the fr.unice.polytech.si3.dda.exception.order of deliveries
 	 * @param takens List of products to take
 	 * @param warehouse Warehouse of departure
 	 * @return Pair with in the first element a map wich deliveryPoint to the products to deliver, in second element the path of pois to visit
@@ -216,7 +217,7 @@ public class SingleDroneStrategy implements Strategy{
 	
 	/**
 	 * Generate instructions for a path
-	 * @param instructionsLists List of instruction for the current strategy
+	 * @param instructionsLists List of fr.unice.polytech.si3.dda.exception.instruction for the current strategy
 	 * @param pair Associations of a deliveryPoint and products to deliver
 	 * @param warehouse Current warehouse
 	 * @param droneUsed Current drone

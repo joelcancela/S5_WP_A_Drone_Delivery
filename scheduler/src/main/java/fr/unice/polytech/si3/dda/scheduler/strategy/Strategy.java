@@ -1,9 +1,10 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
-import java.util.List;
 
 import fr.unice.polytech.si3.dda.exception.StrategyException;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
+
+import java.util.List;
 
 /**
  * 

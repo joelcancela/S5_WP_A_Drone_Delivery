@@ -1,12 +1,13 @@
 package fr.unice.polytech.si3.dda;
 
+
+import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.scheduler.Context;
 
 import java.util.*;
 
@@ -23,6 +24,7 @@ public class ClientView extends View {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Entrez votre numéro client: ");
 		int clientNumber = sc.nextInt();
+		sc.nextLine();
 		System.out.println("\n");
 		int turns = ctx.getTurns();
 		Map<Product, Integer> initialProducts = new HashMap<>(ctx.getMap().getOrders().get(clientNumber).getProducts());
@@ -50,8 +52,8 @@ public class ClientView extends View {
 		System.out.println("####### \n");
 		System.out.println("N°client: " + clientNumber);
 		System.out.println("Order: " + percentage + "% " + "(" + remainingTurns + " turns remaining)" + "\n");//TODO Recalc turns
-		// Percentage of the order
-		// Review of the order and status
+		// Percentage of the fr.unice.polytech.si3.dda.exception.order
+		// Review of the fr.unice.polytech.si3.dda.exception.order and status
 		// Remaining time
 
 		for (Product p : initialOrderState.keySet()) {

@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
+import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Test;

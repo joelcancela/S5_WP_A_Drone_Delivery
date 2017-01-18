@@ -1,13 +1,19 @@
 package fr.unice.polytech.si3.dda;
 
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.common.Drone;
+import fr.unice.polytech.si3.dda.common.Fleet;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
+import fr.unice.polytech.si3.dda.mapping.Mapping;
+import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.order.Order;
+import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
-import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Drone;
-import fr.unice.polytech.si3.dda.util.Coordinates;
+import java.util.Map;
 
 public class OperatorView extends View {
 
@@ -19,17 +25,66 @@ public class OperatorView extends View {
 	public void display() {
 		// Get drones positions
 		List<Coordinates> dronePos = new LinkedList<>();
-		for (int i = 0; i < ctx.getMaxDrones(); i++) {
-			Drone d = ctx.getFleet().getDrone(i);
+		for (Drone d : ctx.getFleet().getDrones()) {
 			dronePos.add(d.getCoordinates());
 		}
 		drawMap(dronePos);
 		System.out.println();
 		drawDrones();
+		System.out.println();
+		drawWarehouses();
+		System.out.println();
+		drawOrders();
+	}
+
+	private void drawOrders() {
+		System.out.println("ORDERS");
+		drawHorizontalLine(10);
+		System.out.println();
+		int i=0;
+		for (Map.Entry<Coordinates, DeliveryPoint> entry: ctx.getMap().getDeliveryPoints().entrySet()) {
+			Order o = entry.getValue().getOrder();
+			System.out.printf("Order %d: %s\n", i++, entry.getKey());
+			for (int j=0; j < ctx.getProducts().size(); j++) {
+				Product p = ctx.getProducts().get(j);
+				int quantity = o.getQuantity(p);
+				if (quantity <= 0)
+					continue;
+				int remaining = (int) o.getRemaining().stream().filter(e->e.equals(p)).count();
+				System.out.printf("\tItem %d: %d/%d\n", j, remaining,o.getQuantity(p));
+			}
+		}
+		System.out.println();
+	}
+
+	private void drawWarehouses() {
+		System.out.println("WAREHOUSES INVENTORY");
+		drawHorizontalLine(10);
+		System.out.println();
+		int i=0;
+		for (Map.Entry<Coordinates, Warehouse> entry: ctx.getMap().getWarehouses().entrySet()) {
+			Warehouse w = entry.getValue();
+			System.out.printf("Warehouse %d: %s\n", i++, entry.getKey());
+			for (int j=0; j < ctx.getProducts().size(); j++) {
+				Product p = ctx.getProducts().get(j);
+				System.out.printf("\tItem %d: %d\n", j, w.howManyProduct(p));
+			}
+		}
+		System.out.println();
 	}
 
 	private void drawDrones() {
-		
+		Fleet fleet = ctx.getFleet();
+		System.out.println("DRONES INVENTORY");
+		drawHorizontalLine(10);
+		System.out.println();
+		for (int i = 0; i < fleet.getDronesNumber(); i++) {
+			Drone d = fleet.getDrone(i);
+			System.out.printf("Drone %d: %s\n", i, d.getCoordinates().toString());
+			d.getLoadedProducts().stream().distinct()
+					.forEach(p -> System.out.printf("\tItem %d: %d\n", ctx.getProducts().indexOf(p), d.getNumberOf(p)));
+		}
+		System.out.println();
 	}
 
 	private void drawMap(List<Coordinates> dronePos) {
@@ -42,24 +97,24 @@ public class OperatorView extends View {
 		for (int i = 0; i < map.getRows() || i < 4; i++) {
 			// For the width of the map
 			System.out.print("|");
-				for (int j = 0; j < map.getCols(); j++) {
-					if (i < map.getRows()) {
-						// If the map is big enough
-						Coordinates coor = new Coordinates(i, j);
-						if (map.getDeliveryPoints().containsKey(coor)) {
-							System.out.print("O");
-						} else if (map.getWarehouses().containsKey(coor)) {
-							System.out.print("W");
-						} else if (dronePos.contains(coor)) {
-							System.out.print("D");
-						} else {
-							System.out.print(" ");
-						} 
+			for (int j = 0; j < map.getCols(); j++) {
+				if (i < map.getRows()) {
+					// If the map is big enough
+					Coordinates coor = new Coordinates(i, j);
+					if (map.getDeliveryPoints().containsKey(coor)) {
+						System.out.print("O");
+					} else if (map.getWarehouses().containsKey(coor)) {
+						System.out.print("W");
+					} else if (dronePos.contains(coor)) {
+						System.out.print("D");
 					} else {
-						// Else we complete with spaces
 						System.out.print(" ");
 					}
-				} 
+				} else {
+					// Else we complete with spaces
+					System.out.print(" ");
+				}
+			}
 			System.out.print("|");
 			drawCaption(i);
 		}
@@ -69,7 +124,7 @@ public class OperatorView extends View {
 	}
 
 	private void drawCaption(int i) {
-		switch(i){
+		switch (i) {
 		case 0:
 			System.out.println(" Caption:");
 			break;
