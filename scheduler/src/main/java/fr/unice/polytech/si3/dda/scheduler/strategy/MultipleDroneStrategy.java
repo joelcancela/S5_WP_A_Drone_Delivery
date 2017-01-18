@@ -25,10 +25,9 @@ import java.util.List;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class MultipleDroneStrategy implements Strategy {
+public class MultipleDroneStrategy extends Strategy {
     private Fleet fleet;
     private Mapping mapping;
-    private List<Instruction> instructionList;
     private List<Warehouse> visitedWarehouse;
 
     /**
@@ -40,7 +39,7 @@ public class MultipleDroneStrategy implements Strategy {
     public MultipleDroneStrategy(Context context) {
         this.mapping = context.getMap();
         this.fleet = context.getFleet();
-        instructionList = new ArrayList<>();
+        instructionsLists = new ArrayList<>();
         visitedWarehouse = new ArrayList<>();
     }
 
@@ -86,7 +85,7 @@ public class MultipleDroneStrategy implements Strategy {
 	 */
     @Override
 	public List<Instruction> getInstructions(){
-		return instructionList;
+		return instructionsLists;
 	}
 
     /**
@@ -97,7 +96,7 @@ public class MultipleDroneStrategy implements Strategy {
      * @param deliveryPoint the delivery point.
      */
     public void deliverProduct(int droneIndex, Product product, DeliveryPoint deliveryPoint) throws ProductNotFoundException {
-        instructionList.add(new DeliverInstruction(droneIndex, deliveryPoint.getId(), product.getId(), 1));
+        instructionsLists.add(new DeliverInstruction(droneIndex, deliveryPoint.getId(), product.getId(), 1));
         fleet.getDrone(droneIndex).move(deliveryPoint.getCoordinates());
         fleet.getDrone(droneIndex).unload(product);
         deliveryPoint.deliver(product);
@@ -121,7 +120,7 @@ public class MultipleDroneStrategy implements Strategy {
         } else if (warehouse.howManyProduct(product) > 0) {
             fleet.getDrone(droneId).load(product);
             warehouse.pullOutProduct(product);
-            instructionList.add(new LoadInstruction(droneId, warehouse.getId(), product.getId(), 1));
+            instructionsLists.add(new LoadInstruction(droneId, warehouse.getId(), product.getId(), 1));
         } else {
             searchForItem(droneId, product, warehouse);
         }

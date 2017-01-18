@@ -9,12 +9,6 @@ import org.junit.Test;
 
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.GlobalException;
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
-import fr.unice.polytech.si3.dda.exception.OverLoadException;
-import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
-import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
@@ -49,7 +43,7 @@ public class MultipleMaxDronePayloadStrategyTest {
         multipleMaxDronePayloadStrategy = new MultipleMaxDronePayloadStrategy(context);
         
         
-//        multipleMaxDronePayloadStrategy.calculateInstructions();
+        multipleMaxDronePayloadStrategy.calculateInstructions();
 //        List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
 
     }

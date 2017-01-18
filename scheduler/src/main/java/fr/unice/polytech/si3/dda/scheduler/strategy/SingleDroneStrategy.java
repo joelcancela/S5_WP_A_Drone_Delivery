@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -33,9 +32,7 @@ import java.util.Map;
  * @author Joël CANCELA VAZ
  *
  */
-public class SingleDroneStrategy implements Strategy{
-	private Context context;
-	private List<Instruction> instructionsLists;
+public class SingleDroneStrategy extends Strategy{
 	
 	/**
 	 * Normal constructor of SingleDroneStrategy
@@ -63,7 +60,7 @@ public class SingleDroneStrategy implements Strategy{
 	 */
 	@Override
 	public void calculateInstructions() throws OverLoadException, ProductNotFoundException {
-		Drone droneUsed =  context.getFleet().getDrone(0).copy();
+		Drone droneUsed =  context.getFleet().getDrone(0);
 		
 		List<Order> orders = context.getMap().getOrders();
 		Warehouse warehouse = context.getFirstWarehouse();
@@ -229,21 +226,7 @@ public class SingleDroneStrategy implements Strategy{
 	 */
 	private void generateInstructionsForThisPath(Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
-		List<Product> alreadyCounted = new ArrayList<>();
-		for(Product productTemp : droneUsed.getLoadedProducts()){
-			if(alreadyCounted.contains(productTemp)){
-				continue;
-			}
-			
-			int nbof = 0;
-			
-			for(int i=0; i<droneUsed.getLoadedProducts().size(); i++)
-				if(droneUsed.getLoadedProducts().get(i).equals(productTemp))
-					nbof++;
-			
-			instructionsLists.add(new LoadInstruction(0, warehouse.getId(), productTemp.getId(), nbof));
-			alreadyCounted.add(productTemp);
-		}
+		addLoadInstructions(warehouse, 0);
 		
 
 		for(int i=1;i<firstTravel.getSecond().size();i++){

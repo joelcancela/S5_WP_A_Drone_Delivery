@@ -16,9 +16,7 @@ import java.util.List;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class BasicStrategy implements Strategy {
-    private Context context;
-	private List<Instruction> instructionsLists;
+public class BasicStrategy extends Strategy {
 
     /**
      * Constructs a BasicStrategy from a context.
