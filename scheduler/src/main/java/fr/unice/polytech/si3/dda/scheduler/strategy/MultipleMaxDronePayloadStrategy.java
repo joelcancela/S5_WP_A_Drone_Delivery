@@ -65,13 +65,15 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                 drone.move(closestDeliveryPoint.getCoordinates());
 
                 int count = 0;
-                for (Product other : closestDeliveryPoint.getOrder().getRemaining()){
+                for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
+                    if (drone.getNumberOf(product) == 0) continue;
                     if (product.equals(other)) {
                         count++;
                         drone.unload(product);
+                        closestDeliveryPoint.deliver(product);
+                        closestDeliveryPoint.removeThisProduct(product);
                     }
                 }
-                closestDeliveryPoint.deliver(product);
                 instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
             }
 
