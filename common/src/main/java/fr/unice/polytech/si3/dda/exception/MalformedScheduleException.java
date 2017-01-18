@@ -9,7 +9,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Joël CANCELA VAZ
  */
 public class MalformedScheduleException extends GlobalException {
-	
+
 	/**
 	 * Generated serialId
 	 */
@@ -17,9 +17,10 @@ public class MalformedScheduleException extends GlobalException {
 
 	/**
 	 * Normal constructor of MalformedScheduleException
+	 *
 	 * @param message Exception message
 	 */
-    public MalformedScheduleException(String message) {
-        super(message);
-    }
+	public MalformedScheduleException(String message) {
+		super(message);
+	}
 }

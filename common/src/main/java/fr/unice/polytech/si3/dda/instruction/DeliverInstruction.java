@@ -22,9 +22,9 @@ public class DeliverInstruction extends Instruction {
 	/**
 	 * Instantiates a new deliver fr.unice.polytech.si3.dda.exception.instruction.
 	 *
-	 * @param droneNumber the drone number
-	 * @param orderNumber the fr.unice.polytech.si3.dda.exception.order number
-	 * @param productType the product type
+	 * @param droneNumber      the drone number
+	 * @param orderNumber      the fr.unice.polytech.si3.dda.exception.order number
+	 * @param productType      the product type
 	 * @param numberOfProducts the number of products
 	 */
 	public DeliverInstruction(int droneNumber, int orderNumber, int productType, int numberOfProducts) {
@@ -45,7 +45,7 @@ public class DeliverInstruction extends Instruction {
 	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException {
 		Drone d = ctx.getFleet().getDrone(droneNumber);
 		DeliveryPoint dp = ctx.getMap().getDeliveryPoint(orderNumber);
-		for (int i=0; i<numberOfProducts; i++) {
+		for (int i = 0; i < numberOfProducts; i++) {
 			Product p = ctx.getProducts().get(productType);
 			dp.getOrder().deliver(p);
 			d.unload(p);
@@ -54,13 +54,13 @@ public class DeliverInstruction extends Instruction {
 		d.move(dp.getCoordinates());
 		return cost;
 	}
-	
+
 	@Override
 	public int cost(Context ctx) throws WrongIdException {
 		Drone d = ctx.getFleet().getDrone(droneNumber);
 		DeliveryPoint dp = ctx.getMap().getDeliveryPoint(orderNumber);
 		int distance = (int) Math.ceil(d.getCoordinates().distance(dp.getCoordinates()));
-		return distance+1;
+		return distance + 1;
 	}
 
 	/*
@@ -75,18 +75,18 @@ public class DeliverInstruction extends Instruction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) 
+		if (this == o)
 			return true;
-		if (!(o instanceof DeliverInstruction)) 
+		if (!(o instanceof DeliverInstruction))
 			return false;
 
 		DeliverInstruction that = (DeliverInstruction) o;
 
-		if (droneNumber != that.droneNumber) 
+		if (droneNumber != that.droneNumber)
 			return false;
-		if (orderNumber != that.orderNumber) 
+		if (orderNumber != that.orderNumber)
 			return false;
-		if (productType != that.productType) 
+		if (productType != that.productType)
 			return false;
 		return numberOfProducts == that.numberOfProducts;
 	}

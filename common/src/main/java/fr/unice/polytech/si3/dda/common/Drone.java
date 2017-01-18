@@ -106,36 +106,39 @@ public class Drone {
 	public List<Product> getLoadedProducts() {
 		return new ArrayList<>(loadedProducts);
 	}
-	
+
 	/**
 	 * Copy an instance of an object Drone (generate a new one)
+	 *
 	 * @return An exact copy as a different object
 	 */
-	public Drone copy(){
+	public Drone copy() {
 		return new Drone(maxPayload, coordinates);
 	}
-	
+
 	/**
 	 * Return the number of a product carried by this drone
+	 *
 	 * @param product Product to count
 	 * @return The number of a product
 	 */
-	public int getNumberOf(Product product){
-		if(loadedProducts.contains(product)){
+	public int getNumberOf(Product product) {
+		if (loadedProducts.contains(product)) {
 			int numberOf = 0;
-			for(int i=0;i<loadedProducts.size();i++)
+			for (int i = 0; i < loadedProducts.size(); i++)
 				numberOf++;
 			return numberOf;
-		}else
+		} else
 			return 0;
-			
+
 	}
 
 	/**
 	 * Allow to known if the drone didn't carry anything
+	 *
 	 * @return true if we is empty, false otherwise
 	 */
-	public boolean isEmpty(){
+	public boolean isEmpty() {
 		return usedPayload == 0;
 	}
 

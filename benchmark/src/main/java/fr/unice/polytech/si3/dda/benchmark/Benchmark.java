@@ -114,12 +114,12 @@ public class Benchmark {
 		System.out.println("Field dimension: " + mapSize + " (" + rows + "*" + cols + ")");
 		System.out.println("Drones number: " + dronesNumber);
 		if (dronesNumber > 0) {
-			System.out.println("Drones max capacity: " + context.getFleet().getDrone(0).getMaxPayload()+"u");
+			System.out.println("Drones max capacity: " + context.getFleet().getDrone(0).getMaxPayload() + "u");
 		}
 		int productsTypeNumber = context.getProducts().size();
 		System.out.println("Products type number: " + productsTypeNumber);
 		for (Product product : context.getProducts()) {
-			System.out.println("\t" + product + " weight:" + product.getWeight()+"u");
+			System.out.println("\t" + product + " weight:" + product.getWeight() + "u");
 		}
 		System.out.println("Orders number: " + ordersNumber);
 		for (DeliveryPoint dp : context.getMap().getDeliveryPoints().values()) {

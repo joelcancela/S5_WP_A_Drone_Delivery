@@ -9,7 +9,7 @@ package fr.unice.polytech.si3.dda.util;
  * @author Joël CANCELA VAZ
  */
 public final class Utils {
-	
+
 	private Utils() {
 	}
 

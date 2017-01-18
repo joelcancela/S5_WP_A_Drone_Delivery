@@ -1,33 +1,33 @@
 package fr.unice.polytech.si3.dda.instruction;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-
+import fr.unice.polytech.si3.dda.ContextParser;
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.common.Drone;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
+import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import fr.unice.polytech.si3.dda.ContextParser;
-import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.util.Coordinates;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DeliverInstructionTest {
 
-    @Rule
-    public TemporaryFolder temp = new TemporaryFolder();
+	@Rule
+	public TemporaryFolder temp = new TemporaryFolder();
 
-    String FILE_NAME = "new-file.txt";
-    File file;
-    DeliverInstruction inst;
-    Context ctx;
-	
+	String FILE_NAME = "new-file.txt";
+	File file;
+	DeliverInstruction inst;
+	Context ctx;
+
 	@Before
 	public void setUp() throws Exception {
 		file = new File(temp.getRoot(), FILE_NAME);
@@ -44,37 +44,37 @@ public class DeliverInstructionTest {
 				+ "0\n");
 		wrt.close();
 		ctx = new ContextParser(file.getAbsolutePath()).parse();
-		
+
 	}
-	
+
 	@Test
-	public void testExecute() throws Exception{
+	public void testExecute() throws Exception {
 		Drone d = ctx.getFleet().getDrone(0);
 		d.load(new Product(100, 0));
-		d.move(new Coordinates(1,0));
+		d.move(new Coordinates(1, 0));
 		assertEquals(1, ctx.getMap().getOrders().get(0).getRemaining().size());
 		inst = new DeliverInstruction(0, 0, 0, 1);
 		assertEquals(2, inst.execute(ctx));
-		assertEquals(new Coordinates(1,1), d.getCoordinates());
+		assertEquals(new Coordinates(1, 1), d.getCoordinates());
 		assertEquals(0, ctx.getMap().getOrders().get(0).getRemaining().size());
 	}
-	
-	@Test(expected=ProductNotFoundException.class)
-	public void testExecuteFail() throws Exception{
+
+	@Test(expected = ProductNotFoundException.class)
+	public void testExecuteFail() throws Exception {
 		Drone d = ctx.getFleet().getDrone(0);
-		d.move(new Coordinates(1,0));
+		d.move(new Coordinates(1, 0));
 		inst = new DeliverInstruction(0, 0, 0, 1);
 		assertEquals(2, inst.execute(ctx));
-		assertEquals(new Coordinates(1,1), d.getCoordinates());
+		assertEquals(new Coordinates(1, 1), d.getCoordinates());
 	}
 
 
 	@Test
 	public void testToString() {
-		DeliverInstruction instruction1 = new DeliverInstruction(0,0,0,0);
-		DeliverInstruction instruction2 = new DeliverInstruction(1,0,0,0);
-		DeliverInstruction instruction3 = new DeliverInstruction(0,1,0,0);
-		DeliverInstruction instruction4 = new DeliverInstruction(0,0,1,0);
+		DeliverInstruction instruction1 = new DeliverInstruction(0, 0, 0, 0);
+		DeliverInstruction instruction2 = new DeliverInstruction(1, 0, 0, 0);
+		DeliverInstruction instruction3 = new DeliverInstruction(0, 1, 0, 0);
+		DeliverInstruction instruction4 = new DeliverInstruction(0, 0, 1, 0);
 
 		assertEquals("0 D 0 0 0", instruction1.toString());
 		assertEquals("1 D 0 0 0", instruction2.toString());
@@ -84,11 +84,11 @@ public class DeliverInstructionTest {
 
 	@Test
 	public void equals() throws Exception {
-		DeliverInstruction instruction1 = new DeliverInstruction(0,0,0,0);
-		DeliverInstruction instruction2 = new DeliverInstruction(1,0,0,0);
-		DeliverInstruction instruction3 = new DeliverInstruction(0,1,0,0);
-		DeliverInstruction instruction4 = new DeliverInstruction(0,0,1,0);
-		DeliverInstruction instruction5 = new DeliverInstruction(0,0,0,1);
+		DeliverInstruction instruction1 = new DeliverInstruction(0, 0, 0, 0);
+		DeliverInstruction instruction2 = new DeliverInstruction(1, 0, 0, 0);
+		DeliverInstruction instruction3 = new DeliverInstruction(0, 1, 0, 0);
+		DeliverInstruction instruction4 = new DeliverInstruction(0, 0, 1, 0);
+		DeliverInstruction instruction5 = new DeliverInstruction(0, 0, 0, 1);
 
 		assertEquals(instruction1, instruction1);
 		assertNotEquals(instruction1, instruction2);

@@ -18,34 +18,35 @@ import java.util.List;
  */
 public class BasicStrategy extends Strategy {
 
-    /**
-     * Constructs a BasicStrategy from a context.
-     *
-     * @param context the context.
-     */
-    public BasicStrategy(Context context) {
-        this.context = context;
-        instructionsLists = new ArrayList<>();
-    }
+	/**
+	 * Constructs a BasicStrategy from a context.
+	 *
+	 * @param context the context.
+	 */
+	public BasicStrategy(Context context) {
+		this.context = context;
+		instructionsLists = new ArrayList<>();
+	}
 
-    /**
-     * Return the list of fr.unice.polytech.si3.dda.exception.instruction.
-     *
-     * @return the list of fr.unice.polytech.si3.dda.exception.instruction.
-     */
-    @Override
-    public void calculateInstructions() {
-        for (int i = 0; i < context.getMaxDrones(); i++) {
-        	instructionsLists.add(new WaitInstruction(i, context.getTurns()));
-        }
-    }
-    
+	/**
+	 * Return the list of fr.unice.polytech.si3.dda.exception.instruction.
+	 *
+	 * @return the list of fr.unice.polytech.si3.dda.exception.instruction.
+	 */
+	@Override
+	public void calculateInstructions() {
+		for (int i = 0; i < context.getMaxDrones(); i++) {
+			instructionsLists.add(new WaitInstruction(i, context.getTurns()));
+		}
+	}
+
 	/**
 	 * Accessor of instructionsLists
+	 *
 	 * @return The instructions list calculated with the last context
 	 */
-    @Override
-	public List<Instruction> getInstructions(){
+	@Override
+	public List<Instruction> getInstructions() {
 		return instructionsLists;
 	}
 }

@@ -32,7 +32,7 @@ public class WaitInstruction extends Instruction {
 	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException {
 		return turns;
 	}
-	
+
 	@Override
 	public int cost(Context ctx) throws WrongIdException {
 		return turns;
@@ -50,14 +50,14 @@ public class WaitInstruction extends Instruction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) 
+		if (this == o)
 			return true;
-		if (!(o instanceof WaitInstruction)) 
+		if (!(o instanceof WaitInstruction))
 			return false;
 
 		WaitInstruction that = (WaitInstruction) o;
 
-		if (droneNumber != that.droneNumber) 
+		if (droneNumber != that.droneNumber)
 			return false;
 		return turns == that.turns;
 	}

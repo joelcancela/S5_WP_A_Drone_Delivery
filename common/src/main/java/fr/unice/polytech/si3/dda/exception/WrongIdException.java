@@ -18,10 +18,11 @@ public class WrongIdException extends GlobalException {
 
 	/**
 	 * Normal constructor of WrongIdException
+	 *
 	 * @param message Exception message
 	 */
-    public WrongIdException(String message) {
-        super(message);
-    }
+	public WrongIdException(String message) {
+		super(message);
+	}
 
 }
