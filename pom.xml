@@ -9,6 +9,7 @@
         <module>visualiser</module>
         <module>benchmark</module>
         <module>scheduler</module>
+        <module>common</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,5 +1,8 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.common.Fleet;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
@@ -10,8 +13,6 @@ import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Fleet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class MultipleDroneStrategy implements Strategy {
     }
 
     /**
-     * Return the list of instruction representing the strategy.
+     * Return the list of fr.unice.polytech.si3.dda.exception.instruction representing the strategy.
      *
      * @return the strategy.
      * @throws WrongIdException
@@ -58,7 +59,7 @@ public class MultipleDroneStrategy implements Strategy {
         int numberOfOrder = mapping.getOrders().size();
 
         int droneIndex = 0;
-        //For all order
+        //For all fr.unice.polytech.si3.dda.exception.order
         for (int i = 0; i < numberOfOrder; i++) {
             DeliveryPoint deliveryPoint = mapping.getDeliveryPoint(i);
             List<Product> products = deliveryPoint.getOrder().getRemaining();

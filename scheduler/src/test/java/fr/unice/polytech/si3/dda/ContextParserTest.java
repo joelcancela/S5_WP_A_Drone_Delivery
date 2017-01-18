@@ -1,7 +1,5 @@
 package fr.unice.polytech.si3.dda;
 
-import static org.junit.Assert.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -10,11 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
+import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
 import fr.unice.polytech.si3.dda.exception.MalformedContextException;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
@@ -22,8 +16,14 @@ import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import static junit.framework.TestCase.assertEquals;
+
 
 public class ContextParserTest {
 	

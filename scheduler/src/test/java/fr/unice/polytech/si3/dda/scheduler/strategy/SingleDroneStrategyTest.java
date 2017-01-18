@@ -1,6 +1,8 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+
 import fr.unice.polytech.si3.dda.ContextParser;
+import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
@@ -9,9 +11,7 @@ import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.scheduler.Context;
 import fr.unice.polytech.si3.dda.util.Coordinates;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
