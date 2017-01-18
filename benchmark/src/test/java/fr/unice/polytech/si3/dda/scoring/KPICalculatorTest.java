@@ -47,7 +47,7 @@ public class KPICalculatorTest {
 				new WaitInstruction(0, 3)),
 				context);
 
-		assertEquals(14, kpiCalculator.calculateScore());
+		assertEquals(9, kpiCalculator.calculateScore());
 	}
 
 
