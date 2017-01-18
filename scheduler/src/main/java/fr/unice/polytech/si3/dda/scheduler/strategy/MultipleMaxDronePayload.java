@@ -1,6 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
-import fr.unice.polytech.si3.dda.exception.StrategyException;
+import fr.unice.polytech.si3.dda.exception.GlobalException;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class MultipleMaxDronePayload implements Strategy {
 
     @Override
-    public void calculateInstructions() throws StrategyException {
+    public void calculateInstructions() throws GlobalException{
 
     }
 
@@ -22,4 +22,11 @@ public class MultipleMaxDronePayload implements Strategy {
     public List<Instruction> getInstructions() {
         return null;
     }
+
+    public void computeTaMere(){
+
+    }
+
+
+
 }

@@ -53,9 +53,9 @@ public class Scheduler {
 	 * Launches algorithm and writes the instructions to the output file "scheduler.out"
 	 *
 	 * @throws IOException       if you can't write on the output file
-	 * @throws StrategyException
+	 * @throws GlobalException
 	 */
-	public void schedule() throws IOException, StrategyException {
+	public void schedule() throws IOException, GlobalException {
 		List<Strategy> strategies = new ArrayList<>();
 		if (forceWait) {
 			strategies.add(new BasicStrategy(new Context(ctx)));

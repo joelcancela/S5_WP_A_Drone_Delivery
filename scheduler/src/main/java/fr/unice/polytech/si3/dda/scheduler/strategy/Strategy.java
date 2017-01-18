@@ -3,7 +3,7 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import java.util.List;
 
-import fr.unice.polytech.si3.dda.exception.StrategyException;
+import fr.unice.polytech.si3.dda.exception.GlobalException;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 /**
  * 
@@ -22,7 +22,7 @@ public interface Strategy {
 	 *
 	 * @return instructions
 	 */
-	public void calculateInstructions() throws StrategyException;
+	public void calculateInstructions() throws GlobalException;
 	
 	/**
 	 * Accessor of instructionsLists

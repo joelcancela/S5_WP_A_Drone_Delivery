@@ -26,7 +26,7 @@ public class InitScoring {
         this.scheduleParser = scheduleParser;
     }
 
-    public int compute() throws NonValidCoordinatesException, MalformedContextException, MalformedContextBodyException, EmptyFileException, IOException, MalformedScheduleException, WrongIdException, OverLoadException, ProductNotFoundException {
+    public int compute() throws Exception {
         Context context = contextParser.parse();
         List<Instruction> strat = scheduleParser.parse();
 
