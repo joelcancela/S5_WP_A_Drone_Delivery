@@ -52,8 +52,9 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
             if (closestWarehouse == null) {
                 throw new ProductNotFoundException();
             }
-
+            System.out.println("\n\n *********************************");
             loadDrone(orders, i, closestWarehouse);
+            System.out.println("\n\n *********************************");
 
             DeliveryPoint closestDeliveryPoint = null;
             Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
