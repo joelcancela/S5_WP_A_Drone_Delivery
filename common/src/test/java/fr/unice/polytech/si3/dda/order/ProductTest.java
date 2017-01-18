@@ -43,7 +43,7 @@ public class ProductTest {
 	@Test
 	public void testDisplayProduct() {
 		Product p1 = new Product(100, 0);
-		assertEquals("Product [weight=100, id=0]", p1.toString());
+		assertEquals("Product id0", p1.toString());
 	}
 
 }

@@ -86,7 +86,7 @@ public class DeliveryPoint extends PointOfInterest {
 	 * @see java.lang.Object#toString()
 	 */
     public String toString() {
-        return "DeliveryPoint ["+coordinates.getX()+":"+coordinates.getY()+"] : {" + order.toString() + " , " + super.toString() + "}";
+        return id+" @("+coordinates.getX()+","+coordinates.getY()+") : " + order.toString();
     }
 
     /**
