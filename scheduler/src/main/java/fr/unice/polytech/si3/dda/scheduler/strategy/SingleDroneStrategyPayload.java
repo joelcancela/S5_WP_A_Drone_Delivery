@@ -12,7 +12,6 @@ import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
-import fr.unice.polytech.si3.dda.util.Pair;
 
 /**
  * 

@@ -1,5 +1,11 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.common.Drone;
 import fr.unice.polytech.si3.dda.common.Fleet;
@@ -8,13 +14,10 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
-
-import java.util.*;
 
 /**
  * @author Jeremy JUNAC

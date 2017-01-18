@@ -1,20 +1,19 @@
 package fr.unice.polytech.si3.dda;
 
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 import fr.unice.polytech.si3.dda.common.Context;
-import fr.unice.polytech.si3.dda.common.Drone;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.order.Order;
-import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Pair;
-
-import java.lang.reflect.Array;
-import java.util.*;
-import java.util.Map.Entry;
 
 public class ClientView extends View {
 
@@ -31,14 +30,12 @@ public class ClientView extends View {
 			System.out.println("Entrez votre numéro client: ");
 			try {
 				clientNumber = sc.nextInt();
-			} catch (Exception e) {
+			} catch (InputMismatchException e) {
 				clientNumber = -1;
 			}
 			sc.nextLine();
 		} while(clientNumber < 0 || clientNumber >= ctx.getMap().getOrders().size());
 		System.out.println("\n");
-		int turns = ctx.getTurns();
-		Map<Product, Integer> initialProducts = new HashMap<>(ctx.getMap().getOrders().get(clientNumber).getProducts());
 		// Key: n° drone, Value: Pair <n° product, remaining time>
 		List<Pair<Integer, Integer>> remainingMap = new ArrayList<>();
 		// 1er index, n° du drone, 2e index n° de l'instruction
@@ -67,7 +64,7 @@ public class ClientView extends View {
 		}
 		
 		while (maxTurnDelivery >= 0) {
-			displayExecution(initialProducts, clientNumber, maxTurnDelivery, remainingMap);
+			displayExecution(clientNumber, maxTurnDelivery, remainingMap);
 			maxTurnDelivery--;
 			Thread.sleep(tickTime);
 		}
@@ -76,10 +73,8 @@ public class ClientView extends View {
 	}
 
 
-	private void displayExecution(Map<Product, Integer> initialOrderState, int clientNumber, int remainingTurns, List<Pair<Integer, Integer>> remainingMap) {
+	private void displayExecution(int clientNumber, int remainingTurns, List<Pair<Integer, Integer>> remainingMap) {
 
-		Map<Product, Integer> initialProducts = new HashMap<>(ctx.getMap().getOrders().get(clientNumber).getProducts());
-		
 		Order currentOrder = ctx.getMap().getOrders().get(clientNumber);
 		float productsToDeliver = currentOrder.getNumberOfProducts();
 		float productsLeft = remainingMap.stream().filter(pair->pair.getSecond()>0).count();
@@ -87,7 +82,7 @@ public class ClientView extends View {
 		drawHorizontalLine(10);
 		System.out.print("\n");
 		System.out.println("N° client: " + clientNumber);
-		System.out.printf("Order: %d %% (%d turns remaining)\n\n", percentage, remainingTurns);
+		System.out.printf("Order: %d %% (%d turns remaining)%n%n", percentage, remainingTurns);
 
 		for(Pair<Integer, Integer> pair: remainingMap) {
 			System.out.printf("Item %d: ", pair.getFirst());

@@ -1,18 +1,18 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.common.Context;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.order.Product;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.List;
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 
 public class OperatorViewTest {
 

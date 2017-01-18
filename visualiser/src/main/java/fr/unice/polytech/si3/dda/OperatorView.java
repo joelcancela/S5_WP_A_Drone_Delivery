@@ -103,7 +103,7 @@ public class OperatorView extends View {
 				if (quantity <= 0)
 					continue;
 				int remaining = (int) o.getRemaining().stream().filter(e -> e.equals(p)).count();
-				System.out.printf("\tItem %d: %d/%d\n", j, quantity - remaining, quantity);
+				System.out.printf("\tItem %d: %d/%d%n", j, quantity - remaining, quantity);
 			}
 		}
 		System.out.println();
