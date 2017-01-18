@@ -52,7 +52,7 @@ public class OperatorViewTest {
 
     @Test
     public void testDisplay() throws Exception {
-		new OperatorView(ctx,instructionsList).display();
+		new OperatorView(ctx,instructionsList).display(null);
     }
 
 }

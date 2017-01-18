@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.unice.polytech.si3.dda.instruction.Instruction;
 import org.junit.Test;
 
 import fr.unice.polytech.si3.dda.common.Context;
@@ -44,7 +45,8 @@ public class MultipleMaxDronePayloadStrategyTest {
         
         
         multipleMaxDronePayloadStrategy.calculateInstructions();
-//        List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
+        List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
+        System.out.println(get);
 
     }
 }

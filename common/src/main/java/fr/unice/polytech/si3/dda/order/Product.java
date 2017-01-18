@@ -78,6 +78,6 @@ public class Product {
 	 */
 	@Override
 	public String toString() {
-		return "Product [weight=" + weight + ", id=" + id + "]";
+		return "Product id"+id;
 	}
 }

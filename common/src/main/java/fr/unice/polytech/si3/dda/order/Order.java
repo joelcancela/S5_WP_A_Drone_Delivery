@@ -148,9 +148,11 @@ public class Order {
      */
     @Override
     public String toString() {
-        return "Order{" +
-                "products=" + products +
-                '}';
+    	String str="";
+        for(Product p:products.keySet()){
+	        str+=products.get(p)+"*"+p.toString()+", ";
+        }
+        return str;
     }
     
     public Order copy()	{

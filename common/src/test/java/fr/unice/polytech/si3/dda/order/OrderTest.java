@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * Test class for Order
@@ -28,10 +29,10 @@ public class OrderTest {
 
     @Test
     public void testToString() throws Exception {
-        assertEquals("Order{products={}}", new Order().toString());
         Order order = new Order();
+        assertEquals("",order.toString());
         order.addProduct(new Product(150, 0), 3);
-        assertEquals("Order{products={Product [weight=150, id=0]=3}}", order.toString());
+        assertEquals("3*Product id0, ", order.toString());
     }
 
     @Test
