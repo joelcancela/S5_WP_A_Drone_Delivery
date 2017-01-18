@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
@@ -90,10 +89,11 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     }
 
     /**
-     * @param currentStock
-     * @return
+     * Order a stock by the weight of products
+     * @param currentStock Stock to order
+     * @return Ordered stock
      */
-    private Map<Product, Integer> orderAWharehousStcok(Map<Product, Integer> currentStock) {
+    private Map<Product, Integer> orderAWharehousStock(Map<Product, Integer> currentStock) {
         Map<Product, Integer> copy = new HashMap<>(currentStock);
         Map<Product, Integer> orderedStock = new LinkedHashMap<>();
         while (copy.size() > 0) {
@@ -113,9 +113,10 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     }
 
     /**
-     * @param orders
-     * @param indexDrone
-     * @param warehouse
+     * Load products to a drone at a warehouse
+     * @param orders List of needed products
+     * @param indexDrone Index of the drone in the fleet
+     * @param warehouse Warehouse where is the current drone
      * @throws OverLoadException
      * @throws ProductNotFoundException
      */
@@ -128,7 +129,7 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         }
 
         
-        Map<Product, Integer> orderedStock = orderAWharehousStcok(warehouse.getStock());
+        Map<Product, Integer> orderedStock = orderAWharehousStock(warehouse.getStock());
         
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
             for (int i = 0; i < tempoOrders.size(); i++) {
