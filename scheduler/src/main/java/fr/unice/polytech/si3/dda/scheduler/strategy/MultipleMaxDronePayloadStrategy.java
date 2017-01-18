@@ -24,10 +24,11 @@ import java.util.*;
  */
 public class MultipleMaxDronePayloadStrategy extends Strategy {
 
-	/**
-	 * Normal constructor of MultipleMaxDronePayloadStrategy
-	 * @param context Context used
-	 */
+    /**
+     * Normal constructor of MultipleMaxDronePayloadStrategy
+     *
+     * @param context Context used
+     */
     public MultipleMaxDronePayloadStrategy(Context context) {
         this.context = context;
         instructionsLists = new ArrayList<>();
@@ -37,54 +38,58 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     public void calculateInstructions() throws GlobalException {
         List<Order> orders = context.getMap().getOrders();
         Fleet fleet = context.getFleet();
-        Mapping mapping = context.getMap();
+        Map<Coordinates,Warehouse> warehouses = context.getMap().getWarehouses();
+        boolean ordersCompleted = false;
 
-        for (int i = 0; i < context.getMaxDrones(); i++) {
-            Drone drone = fleet.getDrone(i);
-            Warehouse closestWarehouse = mapping.getWarehouse(drone.getCoordinates());
-            for (Map.Entry<Coordinates, Warehouse> entry : mapping.getWarehouses().entrySet()) {
-                if (!entry.getValue().isEmpty()) {
-                    if (closestWarehouse.distance(drone) > entry.getValue().distance(drone))
-                        closestWarehouse = entry.getValue();
+        while (!isOrdersCompleted(orders)) {
+            for (int i = 0; i < context.getMaxDrones(); i++) {
+                Drone drone = fleet.getDrone(i);
+                Warehouse closestWarehouse = findTheNextWarehouse(orders, warehouses, fleet.getDrone(i));
+                if (closestWarehouse == null)
                     break;
-                }
-            }
-            if (closestWarehouse == null) {
-                throw new ProductNotFoundException();
-            }
 
-            loadDrone(orders, i, closestWarehouse);
+                loadDrone(orders, i, closestWarehouse);
 
-            DeliveryPoint closestDeliveryPoint = mapping.getDeliveryPoint(0);
-            Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
-            for (Product product : drone.getLoadedProducts()) {
+                DeliveryPoint closestDeliveryPoint = null;
+                Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
+                for (Product product : drone.getLoadedProducts()) {
 
-                for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
-                    if (deliveryPoint.getValue().getOrder().getRemaining().contains(product)
-                            && closestDeliveryPoint.distance(drone) > deliveryPoint.getValue().distance(drone)) {
-                        closestDeliveryPoint = deliveryPoint.getValue();
+                    for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
+                        if (deliveryPoint.getValue().getOrder().getRemaining().size() == 0) {
+                            continue;
+                        }
+                        if (closestDeliveryPoint == null || (deliveryPoint.getValue().getOrder().getRemaining().contains(product))) {
+                            closestDeliveryPoint = deliveryPoint.getValue();
+                        }
+                    }
+                    drone.move(closestDeliveryPoint.getCoordinates());
+
+                    int count = 0;
+                    for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
+                        if (drone.getNumberOf(product) == 0) continue;
+                        if (product.equals(other)) {
+                            count++;
+                            drone.unload(product);
+                            closestDeliveryPoint.deliver(product);
+                            closestDeliveryPoint.removeThisProduct(product);
+                        }
+                    }
+                    if (count > 0) {
+                        instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
                     }
                 }
-                drone.move(closestDeliveryPoint.getCoordinates());
 
-                int count = 0;
-                for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
-                    if (drone.getNumberOf(product) == 0) continue;
-                    if (product.equals(other)) {
-                        count++;
-                        drone.unload(product);
-                        closestDeliveryPoint.deliver(product);
-                        closestDeliveryPoint.removeThisProduct(product);
-                    }
-                }
-                instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
+            }
+
+            for (int j = 0; j < orders.size(); j++) {
+                ordersCompleted = orders.get(j).isCompleted();
+                if (!ordersCompleted) break;
             }
 
         }
     }
 
     /**
-     * 
      * @param currentStock
      * @return
      */
@@ -108,7 +113,6 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     }
 
     /**
-     * 
      * @param orders
      * @param indexDrone
      * @param warehouse
@@ -117,16 +121,22 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
      */
     protected void loadDrone(List<Order> orders, int indexDrone, Warehouse warehouse) throws OverLoadException, ProductNotFoundException {
         Drone drone = context.getFleet().getDrone(indexDrone);
-        List<Order> tempoOrders = new ArrayList<>(orders);
+        
+        List<Order> tempoOrders = new ArrayList<>();
+        for(Order tempoOrder : orders){
+        	tempoOrders.add(new Order(tempoOrder));
+        }
+
         
         Map<Product, Integer> orderedStock = orderAWharehousStcok(warehouse.getStock());
         
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
             for (int i = 0; i < tempoOrders.size(); i++) {
-                Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();;
+                Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();
+                ;
                 for (Map.Entry<Product, Integer> entryOrder : tempoProducts.entrySet()) {
                     if (entry.getValue() > 0
-                    		&& entry.getKey().equals(entryOrder.getKey())
+                            && entry.getKey().equals(entryOrder.getKey())
                             && entryOrder.getValue() > 0
                             && entry.getKey().getWeight() <= drone.getMaxPayload() - drone.getUsedPayload()) {
                         drone.load(entry.getKey());
