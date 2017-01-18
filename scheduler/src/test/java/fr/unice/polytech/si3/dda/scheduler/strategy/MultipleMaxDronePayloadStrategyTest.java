@@ -1,27 +1,28 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
-
-import org.junit.Test;
-
 import fr.unice.polytech.si3.dda.ContextParser;
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.GlobalException;
+import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
+import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
 
 public class MultipleMaxDronePayloadStrategyTest {
-	private MultipleMaxDronePayloadStrategy multipleMaxDronePayloadStrategy;
-	
+    private MultipleMaxDronePayloadStrategy multipleMaxDronePayloadStrategy;
+
     @Test
     public void finishAOrderAndMoveToNearestWarehouse() throws GlobalException {
         List<Product> products = new ArrayList<Product>();
@@ -29,7 +30,7 @@ public class MultipleMaxDronePayloadStrategyTest {
         products.add(new Product(20, 1));
         products.add(new Product(12, 2));
         products.add(new Product(16, 3));
-        
+
         Order order1 = new Order();
         order1.addProduct(new Product(50, 0), 2);
         order1.addProduct(new Product(12, 2), 1);
@@ -47,34 +48,45 @@ public class MultipleMaxDronePayloadStrategyTest {
                 .addDeliveryPoint(new Coordinates(0, 3), order2).build();
 
         multipleMaxDronePayloadStrategy = new MultipleMaxDronePayloadStrategy(context);
-        
-        
+
+
         multipleMaxDronePayloadStrategy.calculateInstructions();
         List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
-        System.out.println(get);
+        List<Instruction> expected = Arrays.asList(
+                new LoadInstruction(0,0,0,1),
+                new LoadInstruction(0,0,3,2),
+                new LoadInstruction(0,0,2,1),
+                new DeliverInstruction(0,0,0,1),
+                new DeliverInstruction(0,1,3,1),
+                new DeliverInstruction(0,0,3,1),
+                new DeliverInstruction(0,0,2,1),
+                new LoadInstruction(1,1,0,1),
+                new DeliverInstruction(1,0,0,1)
+        );
+        assertEquals(expected, get);
     }
-    
+
     @Test
-    public void essaiContextFromFileCompleteExample() throws Exception{
-    	File file = new File("../examples/contextFoncManyOrders.in");
-    	ContextParser p = new ContextParser(file.getAbsolutePath());
-    	Context ctx = p.parse();
-    	
-    	List<Instruction> expected = new ArrayList<Instruction>();
-    	expected.add(new LoadInstruction(0, 0, 1, 2));
-    	expected.add(new LoadInstruction(0, 0, 0, 1));
-    	expected.add(new DeliverInstruction(0, 0, 1, 1));
-    	expected.add(new DeliverInstruction(0, 0, 0, 1));
-    	expected.add(new DeliverInstruction(0, 2, 1, 1));
-    	expected.add(new LoadInstruction(0, 1, 1, 2));
-    	expected.add(new DeliverInstruction(0, 2, 1, 2));
-    	expected.add(new LoadInstruction(0, 2, 2, 1));
-    	expected.add(new DeliverInstruction(0, 1, 2, 1));
-    	
-    	multipleMaxDronePayloadStrategy = new MultipleMaxDronePayloadStrategy(ctx);
-    	multipleMaxDronePayloadStrategy.calculateInstructions();
-    	List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
-    	
-    	System.out.println(get);
+    public void essaiContextFromFileCompleteExample() throws Exception {
+        File file = new File("../examples/contextFoncManyOrders.in");
+        ContextParser p = new ContextParser(file.getAbsolutePath());
+        Context ctx = p.parse();
+
+        List<Instruction> expected = new ArrayList<Instruction>();
+        expected.add(new LoadInstruction(0, 0, 1, 2));
+        expected.add(new LoadInstruction(0, 0, 0, 1));
+        expected.add(new DeliverInstruction(0, 2, 1, 2));
+        expected.add(new DeliverInstruction(0, 0, 0, 1));
+        expected.add(new LoadInstruction(1, 2, 2, 1));
+        expected.add(new DeliverInstruction(1, 1, 2, 1));
+        expected.add(new LoadInstruction(0, 1, 1, 2));
+        expected.add(new DeliverInstruction(0, 2, 1, 1));
+        expected.add(new DeliverInstruction(0, 0, 1, 1));
+
+        multipleMaxDronePayloadStrategy = new MultipleMaxDronePayloadStrategy(ctx);
+        multipleMaxDronePayloadStrategy.calculateInstructions();
+        List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
+
+        assertEquals(expected, get);
     }
 }

@@ -60,6 +60,7 @@ public class Scheduler {
 			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
 			strategies.add(new SingleDroneStrategyLoadByOrder(new Context(ctx)));
 			strategies.add(new MultipleMaxDronePayloadStrategy(new Context(ctx)));
+			strategies.add(new SingleDroneStrategyPayload(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;
@@ -100,7 +101,7 @@ public class Scheduler {
 				Warehouse warehouse = map.getWarehouse(new Coordinates(i, j));
 				DeliveryPoint deliveryPoint = map.getDeliveryPoint(new Coordinates(i, j));
 				if (warehouse == null && deliveryPoint == null) {
-					fw.write(";");
+					fw.write(",");
 				}
 				if (warehouse != null) {
 					fw.write("W" + (warehouses++) + ";");
