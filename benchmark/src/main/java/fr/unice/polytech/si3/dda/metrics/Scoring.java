@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda.scoring;
+package fr.unice.polytech.si3.dda.metrics;
 
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
@@ -9,7 +9,12 @@ import fr.unice.polytech.si3.dda.instruction.Instruction;
 import java.util.List;
 
 /**
- * Created by alexh on 17/01/2017.
+ * Class Scoring
+ *
+ * @author Jeremy JUNAC
+ * @author Alexandre HILTCHER
+ * @author Pierre RAINERO
+ * @author Joël CANCELA VAZ
  */
 public class Scoring {
 
