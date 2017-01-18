@@ -21,7 +21,7 @@ public class Main {
 			try {
 				Context ctx = new ContextParser(args[0]).parse();
 				List<Instruction> instructionsList = new ScheduleParser(args[1]).parse();
-				Visualiser visualiser = new Visualiser(ctx,instructionsList);
+				Visualiser visualiser = new Visualiser(ctx, instructionsList);
 				visualiser.display();
 			} catch (Exception e) {
 			}

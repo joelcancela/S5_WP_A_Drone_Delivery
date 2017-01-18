@@ -21,9 +21,9 @@ public class UnloadInstruction extends Instruction {
 	/**
 	 * Instantiates a new unload fr.unice.polytech.si3.dda.exception.instruction.
 	 *
-	 * @param droneNumber the drone number
-	 * @param idWarehouse the id warehouse
-	 * @param productType the product type
+	 * @param droneNumber      the drone number
+	 * @param idWarehouse      the id warehouse
+	 * @param productType      the product type
 	 * @param numberOfProducts the number of products
 	 */
 	public UnloadInstruction(int droneNumber, int idWarehouse, int productType, int numberOfProducts) {
@@ -37,7 +37,7 @@ public class UnloadInstruction extends Instruction {
 	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException {
 		Drone d = ctx.getFleet().getDrone(droneNumber);
 		Warehouse w = ctx.getMap().getWarehouse(idWarehouse);
-		for (int i=0; i<numberOfProducts; i++) {
+		for (int i = 0; i < numberOfProducts; i++) {
 			Product p = ctx.getProducts().get(productType);
 			w.addProduct(p, 1);
 			d.unload(p);
@@ -46,13 +46,13 @@ public class UnloadInstruction extends Instruction {
 		d.move(w.getCoordinates());
 		return cost;
 	}
-	
+
 	@Override
 	public int cost(Context ctx) throws WrongIdException {
 		Drone d = ctx.getFleet().getDrone(droneNumber);
 		Warehouse w = ctx.getMap().getWarehouse(idWarehouse);
 		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
-		return distance+1;
+		return distance + 1;
 	}
 
 	/*
@@ -67,18 +67,18 @@ public class UnloadInstruction extends Instruction {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) 
+		if (this == o)
 			return true;
-		if (!(o instanceof UnloadInstruction)) 
+		if (!(o instanceof UnloadInstruction))
 			return false;
 
 		UnloadInstruction that = (UnloadInstruction) o;
 
-		if (droneNumber != that.droneNumber) 
+		if (droneNumber != that.droneNumber)
 			return false;
-		if (idWarehouse != that.idWarehouse) 
+		if (idWarehouse != that.idWarehouse)
 			return false;
-		if (productType != that.productType) 
+		if (productType != that.productType)
 			return false;
 		return numberOfProducts == that.numberOfProducts;
 	}

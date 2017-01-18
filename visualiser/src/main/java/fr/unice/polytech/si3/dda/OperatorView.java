@@ -1,10 +1,5 @@
 package fr.unice.polytech.si3.dda;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.common.Drone;
 import fr.unice.polytech.si3.dda.common.Fleet;
@@ -18,6 +13,11 @@ import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class OperatorView extends View {
 
@@ -59,7 +59,7 @@ public class OperatorView extends View {
 					// If the instruction is finish
 					indexInstDrone[nbDrone]++;
 					if (indexInstDrone[nbDrone] <= execLine.get(nbDrone).size()) {
-						execLine.get(nbDrone).get(indexInstDrone[nbDrone]-1).execute(ctx);
+						execLine.get(nbDrone).get(indexInstDrone[nbDrone] - 1).execute(ctx);
 						if (indexInstDrone[nbDrone] != execLine.get(nbDrone).size()) {
 							// If there is at least one more instruction
 							remainingTimeBeforeNextActions[nbDrone] = execLine.get(nbDrone).get(indexInstDrone[nbDrone])
@@ -103,7 +103,7 @@ public class OperatorView extends View {
 				if (quantity <= 0)
 					continue;
 				int remaining = (int) o.getRemaining().stream().filter(e -> e.equals(p)).count();
-				System.out.printf("\tItem %d: %d/%d\n", j, quantity - remaining, quantity);
+				System.out.printf("\tItem %d: %d/%d%n", j, quantity - remaining, quantity);
 			}
 		}
 		System.out.println();
@@ -175,17 +175,17 @@ public class OperatorView extends View {
 
 	private void drawCaption(int i) {
 		switch (i) {
-		case 0:
-			System.out.println(" Caption:");
-			break;
-		case 1:
-			System.out.println(" W: Warehouse");
-			break;
-		case 2:
-			System.out.println(" O: Order");
-			break;
-		default:
-			System.out.println();
+			case 0:
+				System.out.println(" Caption:");
+				break;
+			case 1:
+				System.out.println(" W: Warehouse");
+				break;
+			case 2:
+				System.out.println(" O: Order");
+				break;
+			default:
+				System.out.println();
 		}
 	}
 

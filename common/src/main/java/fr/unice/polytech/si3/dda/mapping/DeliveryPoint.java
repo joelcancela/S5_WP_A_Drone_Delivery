@@ -13,32 +13,32 @@ import fr.unice.polytech.si3.dda.util.Coordinates;
  * @author Joël CANCELA VAZ
  */
 public class DeliveryPoint extends PointOfInterest {
-    private Order order;
+	private Order order;
 
-    /**
-     * Default constructor of DeliveryPoint
-     */
-    public DeliveryPoint() {
-        this(null, 0);
-    }
+	/**
+	 * Default constructor of DeliveryPoint
+	 */
+	public DeliveryPoint() {
+		this(null, 0);
+	}
 
-    /**
-     * Normal constructor of DeliveryPoint
-     *
-     * @param order Order of the DeliveryPoint
-	 * @param id Id of the DeliveryPoint
-     * @throws IllegalArgumentException if the fr.unice.polytech.si3.dda.exception.order is null
-     */
-    public DeliveryPoint(Order order, int id) {
-        this(order, null, id);
-    }
+	/**
+	 * Normal constructor of DeliveryPoint
+	 *
+	 * @param order Order of the DeliveryPoint
+	 * @param id    Id of the DeliveryPoint
+	 * @throws IllegalArgumentException if the fr.unice.polytech.si3.dda.exception.order is null
+	 */
+	public DeliveryPoint(Order order, int id) {
+		this(order, null, id);
+	}
 
 	/**
 	 * Normal constructor of DeliveryPoint
 	 *
 	 * @param order       Order of the DeliveryPoint
 	 * @param coordinates Coordinates of the deliveryPoint
-	 * @param id Id of the DeliveryPoint
+	 * @param id          Id of the DeliveryPoint
 	 * @throws IllegalArgumentException if the fr.unice.polytech.si3.dda.exception.order is null
 	 */
 	public DeliveryPoint(Order order, Coordinates coordinates, int id) {
@@ -49,7 +49,7 @@ public class DeliveryPoint extends PointOfInterest {
 		else
 			this.order = order;
 	}
-	
+
 	public DeliveryPoint(DeliveryPoint dp) {
 		this(dp.order.copy(), dp.coordinates, dp.id);
 	}
@@ -71,42 +71,44 @@ public class DeliveryPoint extends PointOfInterest {
 		return false;
 	}
 
-    @Override
-    /**
-     * Inherited method
-     */
-    public boolean isDeliveryPoint() {
-        return true;
-    }
+	@Override
+	/**
+	 * Inherited method
+	 */
+	public boolean isDeliveryPoint() {
+		return true;
+	}
 
-    @Override
-    /*
+	@Override
+	/*
 	 * (non-Javadoc)
 	 *
 	 * @see java.lang.Object#toString()
 	 */
-    public String toString() {
-        return id+" @("+coordinates.getX()+","+coordinates.getY()+") : " + order.toString();
-    }
-
-    /**
-     * Remove a product to the list of remaining products
-     * @param product Product to remove
-     */
-    public void deliver(Product product){
-    	order.deliver(product);
+	public String toString() {
+		return id + " @(" + coordinates.getX() + "," + coordinates.getY() + ") : " + order.toString();
 	}
-    
-    /**
-     * Remove a product to the map of the fr.unice.polytech.si3.dda.exception.order
-     * @param product Product to remove
-     */
-    public void removeThisProduct(Product product){
-    	order.removeThisProduct(product);
-    }
-    
-    public DeliveryPoint copy() {
-    	return new DeliveryPoint(this);
-    }
+
+	/**
+	 * Remove a product to the list of remaining products
+	 *
+	 * @param product Product to remove
+	 */
+	public void deliver(Product product) {
+		order.deliver(product);
+	}
+
+	/**
+	 * Remove a product to the map of the fr.unice.polytech.si3.dda.exception.order
+	 *
+	 * @param product Product to remove
+	 */
+	public void removeThisProduct(Product product) {
+		order.removeThisProduct(product);
+	}
+
+	public DeliveryPoint copy() {
+		return new DeliveryPoint(this);
+	}
 
 }

@@ -18,16 +18,17 @@ public class GlobalException extends Exception {
 
 	/**
 	 * Normal constructor of GlobalException
+	 *
 	 * @param s Exception message
 	 */
-    public GlobalException(String s) {
-    	super(s);
-    }
-    
-    /**
-     * Default constructor of GlobalException
-     */
-    public GlobalException() {
-    	super();
-    }
+	public GlobalException(String s) {
+		super(s);
+	}
+
+	/**
+	 * Default constructor of GlobalException
+	 */
+	public GlobalException() {
+		super();
+	}
 }

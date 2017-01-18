@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,9 +19,9 @@ import java.util.Scanner;
  * @author Joël CANCELA VAZ
  */
 public class Visualiser {
-	
+
 	private final int tickTime = 1000;
-	
+
 	Context ctx;
 	List<Instruction> instructions;
 
@@ -34,18 +33,18 @@ public class Visualiser {
 	public void display() throws InterruptedException, WrongIdException, OverLoadException, ProductNotFoundException {
 		View view = null;
 		Scanner sc = new Scanner(System.in);
-		do{
+		do {
 			System.out.println("Client (C) or Operator (O) ?");
-			switch(sc.nextLine()) {
-			case "C":
-				view = new ClientView(ctx, instructions);
-				break;
-			case "O":
-				System.out.println("Manager");
-				view = new OperatorView(ctx, instructions);
-				break;
-			default:
-				System.out.println("Enter a valid answer.");
+			switch (sc.nextLine()) {
+				case "C":
+					view = new ClientView(ctx, instructions);
+					break;
+				case "O":
+					System.out.println("Manager");
+					view = new OperatorView(ctx, instructions);
+					break;
+				default:
+					System.out.println("Enter a valid answer.");
 			}
 		} while (view == null);
 		view.display(sc);

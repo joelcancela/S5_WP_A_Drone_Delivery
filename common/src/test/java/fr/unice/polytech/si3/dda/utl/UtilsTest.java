@@ -3,7 +3,8 @@ package fr.unice.polytech.si3.dda.utl;
 import fr.unice.polytech.si3.dda.util.Utils;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test class for Utils
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
  */
 public class UtilsTest {
 	@Test
-	public void TestStringArrayToIntArrayEmptyArray(){
+	public void TestStringArrayToIntArrayEmptyArray() {
 		String[] stringArray = {};
 		int[] intArray = Utils.stringArrayToIntArray(stringArray);
 		assertNotNull(intArray);
@@ -23,14 +24,14 @@ public class UtilsTest {
 	}
 
 	@Test
-	public void TestStringArrayToIntArrayNormalArray(){
-		String[] stringArray = {"2","124","0", "-1"};
+	public void TestStringArrayToIntArrayNormalArray() {
+		String[] stringArray = {"2", "124", "0", "-1"};
 		int[] intArray = Utils.stringArrayToIntArray(stringArray);
 		assertNotNull(intArray);
 		assertEquals(4, intArray.length);
-		assertEquals(2,intArray[0]);
-		assertEquals(124,intArray[1]);
-		assertEquals(0,intArray[2]);
-		assertEquals(-1,intArray[3]);
+		assertEquals(2, intArray[0]);
+		assertEquals(124, intArray[1]);
+		assertEquals(0, intArray[2]);
+		assertEquals(-1, intArray[3]);
 	}
 }

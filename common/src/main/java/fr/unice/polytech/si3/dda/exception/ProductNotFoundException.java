@@ -18,16 +18,17 @@ public class ProductNotFoundException extends GlobalException {
 
 	/**
 	 * Normal constructor of ProductNotFoundException
+	 *
 	 * @param s Exception message
 	 */
-    public ProductNotFoundException(String s) {
-    	super(s);
-    }
+	public ProductNotFoundException(String s) {
+		super(s);
+	}
 
-    /**
-     * Default constructor of ProductNotFoundException
-     */
-    public ProductNotFoundException() {
-    	super();
-    }
+	/**
+	 * Default constructor of ProductNotFoundException
+	 */
+	public ProductNotFoundException() {
+		super();
+	}
 }

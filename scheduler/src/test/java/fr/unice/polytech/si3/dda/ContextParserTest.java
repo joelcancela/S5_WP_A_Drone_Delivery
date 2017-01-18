@@ -1,13 +1,5 @@
 package fr.unice.polytech.si3.dda;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
 import fr.unice.polytech.si3.dda.exception.MalformedContextException;
@@ -22,18 +14,26 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static junit.framework.TestCase.assertEquals;
 
 
 public class ContextParserTest {
-	
-    @Rule
-    public TemporaryFolder temp = new TemporaryFolder();
 
-    String FILE_NAME = "new-file.txt";
-    ContextParser p;
-    File file;
-	
+	@Rule
+	public TemporaryFolder temp = new TemporaryFolder();
+
+	String FILE_NAME = "new-file.txt";
+	ContextParser p;
+	File file;
+
 	@Before
 	public void setUp() throws Exception {
 		file = new File(temp.getRoot(), FILE_NAME);
@@ -71,7 +71,7 @@ public class ContextParserTest {
 		o.addProduct(products.get(2), 1);
 		o.addProduct(products.get(0), 1);
 		map.addDeliveryPoint(new Coordinates(1, 1), new DeliveryPoint(o, 0));
-		
+
 		assertEquals(2, ctx.getMaxDrones());
 		assertEquals(25, ctx.getTurns());
 		assertEquals(500, ctx.getMaxPayload());
@@ -79,8 +79,8 @@ public class ContextParserTest {
 		//TODO: Why ??
 		//assertEquals(map, ctx.getMap());
 	}
-	
-	@Test(expected=MalformedContextException.class)
+
+	@Test(expected = MalformedContextException.class)
 	public void testParseMalformed() throws Exception {
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
 		wrt.write("7 5 2 25 500a\n"
@@ -96,8 +96,8 @@ public class ContextParserTest {
 		wrt.close();
 		Context ctx = p.parse();
 	}
-	
-	@Test(expected=MalformedContextBodyException.class)
+
+	@Test(expected = MalformedContextBodyException.class)
 	public void testParseMalformed2() throws Exception {
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
 		wrt.write("7 5 2 25 500\n"
@@ -113,8 +113,8 @@ public class ContextParserTest {
 		wrt.close();
 		Context ctx = p.parse();
 	}
-	
-	@Test(expected=MalformedContextBodyException.class)
+
+	@Test(expected = MalformedContextBodyException.class)
 	public void testParseMalformed3() throws Exception {
 		BufferedWriter wrt = new BufferedWriter(new FileWriter(file));
 		wrt.write("7 5 2 25 500\n"
