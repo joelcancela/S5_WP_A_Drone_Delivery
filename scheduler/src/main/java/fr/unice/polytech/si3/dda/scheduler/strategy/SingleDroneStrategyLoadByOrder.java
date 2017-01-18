@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.dda.common.PathFinder;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -32,24 +31,15 @@ import java.util.Map;
  * @author Joël CANCELA VAZ
  *
  */
-public class SingleDroneStrategy extends Strategy{
+public class SingleDroneStrategyLoadByOrder extends Strategy{
 	
 	/**
 	 * Normal constructor of SingleDroneStrategy
 	 * @param context Context of execution
 	 */
-	public SingleDroneStrategy(Context context){
+	public SingleDroneStrategyLoadByOrder(Context context){
 		this.context = context;
 		instructionsLists = new ArrayList<>();
-	}
-	
-	/**
-	 * Accessor of instructionsLists
-	 * @return The instructions list calculated with the last context
-	 */
-	@Override
-	public List<Instruction> getInstructions(){
-		return instructionsLists;
 	}
 	
 	/**
@@ -76,21 +66,6 @@ public class SingleDroneStrategy extends Strategy{
 			Map<Coordinates, Warehouse> warhouses =  context.getMap().getWarehouses();
 			warehouse =  findTheNextWarehouse(orders, warhouses, droneUsed);
 		}
-	}
-	
-	/**
-	 * Check if all orders are done
-	 * @param orders List of orders to do
-	 * @return true if all orders are done, false otherwise
-	 */
-	private boolean isOrdersCompleted(List<Order> orders){
-		for(int i=0; i<orders.size(); i++){
-			for(Map.Entry<Product, Integer> entry : orders.get(i).getProducts().entrySet()){
-				if(entry.getValue()>0)
-					return false;
-			}
-		}
-		return true;
 	}
 	
 	/**
@@ -158,36 +133,8 @@ public class SingleDroneStrategy extends Strategy{
 		}
 	}
 	
-	
 	/**
-	 * Find the next warehouse to go (nearest with useful products)
-	 * @param orders List of orders to do
-	 * @param warhouses List of warehouses
-	 * @param droneUsed Current drone
-	 * @return The next warehouse chosen by the strategy 
-	 */
-	private Warehouse findTheNextWarehouse(List<Order> orders, Map<Coordinates, Warehouse> warhouses, Drone droneUsed){
-		double distance = Double.MAX_VALUE;
-		Warehouse nextWareHouse =  null;
-		for(Map.Entry<Coordinates, Warehouse> entry : warhouses.entrySet()){
-			for(int i=0; i<orders.size(); i++){
-				for(Map.Entry<Product, Integer> prodcuts: orders.get(i).getProducts().entrySet()){
-					double currentDistance = droneUsed.getCoordinates().distance(entry.getKey());
-					if(prodcuts.getValue()>0
-							&& entry.getValue().howManyProduct(prodcuts.getKey()) > 0
-							&& currentDistance<distance){
-						nextWareHouse = entry.getValue();
-						distance = currentDistance;
-					}
-				}
-			}
-		}
-		
-		return nextWareHouse;
-	}
-	
-	/**
-	 * Get the next path to follow and the fr.unice.polytech.si3.dda.exception.order of deliveries
+	 * Get the next path to follow and the pointOfInterest of deliveries
 	 * @param takens List of products to take
 	 * @param warehouse Warehouse of departure
 	 * @return Pair with in the first element a map wich deliveryPoint to the products to deliver, in second element the path of pois to visit
@@ -227,7 +174,6 @@ public class SingleDroneStrategy extends Strategy{
 	private void generateInstructionsForThisPath(Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pair, Warehouse warehouse, Drone droneUsed) throws ProductNotFoundException{
 		Pair<Integer, List<PointOfInterest>> firstTravel = PathFinder.getMinimalCost(pair.getSecond());
 		addLoadInstructions(warehouse, 0);
-		
 
 		for(int i=1;i<firstTravel.getSecond().size();i++){
 			for(Map.Entry<Product, Integer> entry : pair.getFirst().get(firstTravel.getSecond().get(i)).entrySet()){

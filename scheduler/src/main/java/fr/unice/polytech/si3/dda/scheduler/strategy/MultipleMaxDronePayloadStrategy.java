@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.dda.exception.GlobalException;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
@@ -25,6 +24,10 @@ import java.util.*;
  */
 public class MultipleMaxDronePayloadStrategy extends Strategy {
 
+	/**
+	 * Normal constructor of MultipleMaxDronePayloadStrategy
+	 * @param context Context used
+	 */
     public MultipleMaxDronePayloadStrategy(Context context) {
         this.context = context;
         instructionsLists = new ArrayList<>();
@@ -80,7 +83,11 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         }
     }
 
-
+    /**
+     * 
+     * @param currentStock
+     * @return
+     */
     private Map<Product, Integer> orderAWharehousStcok(Map<Product, Integer> currentStock) {
         Map<Product, Integer> copy = new HashMap<>(currentStock);
         Map<Product, Integer> orderedStock = new LinkedHashMap<>();
@@ -100,13 +107,22 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         return orderedStock;
     }
 
-    private void loadDrone(List<Order> orders, int indexDrone, Warehouse warehouse) throws OverLoadException, ProductNotFoundException {
+    /**
+     * 
+     * @param orders
+     * @param indexDrone
+     * @param warehouse
+     * @throws OverLoadException
+     * @throws ProductNotFoundException
+     */
+    protected void loadDrone(List<Order> orders, int indexDrone, Warehouse warehouse) throws OverLoadException, ProductNotFoundException {
         Drone drone = context.getFleet().getDrone(indexDrone);
+        List<Order> tempoOrders = new ArrayList<>(orders);
 
         Map<Product, Integer> orderedStock = orderAWharehousStcok(warehouse.getStock());
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
-            for (int i = 0; i < orders.size(); i++) {
-                Map<Product, Integer> tempoProducts = orders.get(i).getProducts();
+            for (int i = 0; i < tempoOrders.size(); i++) {
+                Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();;
                 for (Map.Entry<Product, Integer> entryOrder : tempoProducts.entrySet()) {
                     if (entry.getValue() > 0
                             && entryOrder.getValue() > 0
@@ -114,6 +130,7 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                         drone.load(entry.getKey());
                         warehouse.pullOutProduct(entry.getKey());
                         orderedStock.put(entry.getKey(), orderedStock.get(entry.getKey()) - 1);
+                        tempoOrders.get(i).removeThisProduct(entryOrder.getKey());
                     }
 
                 }
@@ -121,11 +138,6 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         }
 
         addLoadInstructions(warehouse, indexDrone);
-    }
-
-    @Override
-    public List<Instruction> getInstructions() {
-        return instructionsLists;
     }
 
 }

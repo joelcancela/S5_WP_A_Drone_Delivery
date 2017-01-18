@@ -58,7 +58,7 @@ public class Scheduler {
 			strategies.add(new BasicStrategy(new Context(ctx)));
 		} else {
 			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
-			strategies.add(new SingleDroneStrategy(new Context(ctx)));
+			strategies.add(new SingleDroneStrategyLoadByOrder(new Context(ctx)));
 //			strategies.add(new MultipleMaxDronePayloadStrategy(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
