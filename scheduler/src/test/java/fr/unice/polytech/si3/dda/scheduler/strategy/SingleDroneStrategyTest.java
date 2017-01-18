@@ -63,7 +63,8 @@ public class SingleDroneStrategyTest {
         expected.add(new DeliverInstruction(0, 1, 3, 1));
         expected.add(new LoadInstruction(0, 2, 0, 1));
         expected.add(new DeliverInstruction(0, 0, 0, 1));
-
+        
+        singleDroneStrategy.calculateInstructions();
         List<Instruction> get = singleDroneStrategy.getInstructions();
         
         assertEquals(expected, get);
@@ -107,6 +108,7 @@ public class SingleDroneStrategyTest {
         expected.add(new LoadInstruction(0, 0, 2, 1));
         expected.add(new DeliverInstruction(0, 1, 2, 1));
         
+        singleDroneStrategy.calculateInstructions();
         List<Instruction> get = singleDroneStrategy.getInstructions();
         
         assertEquals(expected, get);
@@ -125,6 +127,7 @@ public class SingleDroneStrategyTest {
     	expected.add(new DeliverInstruction(0, 0, 1, 1));
     	
     	singleDroneStrategy = new SingleDroneStrategy(ctx);
+    	singleDroneStrategy.calculateInstructions();
     	List<Instruction> get = singleDroneStrategy.getInstructions();
     	
     	assertEquals(expected, get);
@@ -148,6 +151,7 @@ public class SingleDroneStrategyTest {
     	expected.add(new DeliverInstruction(0, 1, 2, 1));
     	
     	singleDroneStrategy = new SingleDroneStrategy(ctx);
+    	singleDroneStrategy.calculateInstructions();
     	List<Instruction> get = singleDroneStrategy.getInstructions();
     	
     	assertEquals(expected, get);

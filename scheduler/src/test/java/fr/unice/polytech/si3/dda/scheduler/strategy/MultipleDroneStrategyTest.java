@@ -65,6 +65,7 @@ public class MultipleDroneStrategyTest {
 
     @Test
     public void getInstructions() throws Exception {
+    	strategy.calculateInstructions();
         List<Instruction> list = strategy.getInstructions();
         List<Instruction> expect = Arrays.asList(
                 new LoadInstruction(0, 0, 0, 1),
@@ -119,6 +120,7 @@ public class MultipleDroneStrategyTest {
         Context ctx = p.parse();
 
         MultipleDroneStrategy strategy = new MultipleDroneStrategy(ctx);
+        strategy.calculateInstructions();
         List<Instruction> list = strategy.getInstructions();
         assertTrue(list.contains(new LoadInstruction(0,0,1,1)));
         assertTrue(list.contains(new DeliverInstruction(0,0,1,1)));

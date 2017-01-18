@@ -28,7 +28,8 @@ public class BasicStrategyTest {
                 .build();
 
         strategy = new BasicStrategy(context);
-
+        strategy.calculateInstructions();
+        
         assertEquals(Arrays.asList(
                 new WaitInstruction(0,25),
                 new WaitInstruction(1,25),
