@@ -11,7 +11,7 @@ import java.util.List;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class MaximizeOneDrone implements Strategy {
+public class MultipleMaxDronePayload implements Strategy {
 
     @Override
     public void calculateInstructions() throws StrategyException {
