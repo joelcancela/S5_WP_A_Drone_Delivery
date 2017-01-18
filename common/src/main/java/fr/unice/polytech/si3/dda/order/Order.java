@@ -89,6 +89,14 @@ public class Order {
 	public List<Product> getRemaining() {
 		return new ArrayList<>(remaining);
 	}
+
+	public boolean isCompleted(){
+		return remaining.size()==0;
+	}
+
+	public boolean hasStarted(){
+		return remaining.size()<numberOfProducts;
+	}
 	
 	/**
      * Remove a product to the list of remaining products

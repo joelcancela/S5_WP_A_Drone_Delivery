@@ -4,7 +4,7 @@ import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.instruction.WaitInstruction;
-import fr.unice.polytech.si3.dda.metrics.Scoring;
+import fr.unice.polytech.si3.dda.benchmark.Benchmark;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertEquals;
 /**
  * Created by alexh on 18/01/2017.
  */
-public class ScoringTest {
+public class KPICalculatorTest {
 
 
     @Test
@@ -39,7 +39,7 @@ public class ScoringTest {
                 .build();
 
 
-        Scoring scoring = new Scoring(Arrays.asList(
+        Benchmark kpiCalculator = new Benchmark(Arrays.asList(
                 new LoadInstruction(0, 0, 0, 1),
                 new LoadInstruction(0, 0, 1, 1),
                 new DeliverInstruction(0, 0, 0, 1),
@@ -47,7 +47,7 @@ public class ScoringTest {
                 new WaitInstruction(0, 3)),
                 context);
 
-        assertEquals(14, scoring.computeStrat());
+        assertEquals(14, kpiCalculator.calculateScore());
     }
 
 

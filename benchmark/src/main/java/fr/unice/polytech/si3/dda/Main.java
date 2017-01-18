@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.metrics.CountDrone;
-import fr.unice.polytech.si3.dda.metrics.InitScoring;
+import fr.unice.polytech.si3.dda.benchmark.Benchmark;
 
 /**
  * Class Main
@@ -13,18 +12,19 @@ import fr.unice.polytech.si3.dda.metrics.InitScoring;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        try {
-            ContextParser contextParser = new ContextParser(args[0]);
-            ScheduleParser scheduleParser = new ScheduleParser(args[1]);
-            InitScoring initScoring = new InitScoring(contextParser, scheduleParser);
-            CountDrone countDrone = new CountDrone(scheduleParser);
+	public static void main(String[] args) {
+		if (args.length == 2) {
+			try {
+				ContextParser contextParser = new ContextParser(args[0]);
+				ScheduleParser scheduleParser = new ScheduleParser(args[1]);
+				Benchmark kpis = new Benchmark(contextParser, scheduleParser);
+				kpis.calculateKPIs();
+				kpis.showDashboard();
 
-            System.out.println("Score : " + initScoring.compute());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
+	}
 }
