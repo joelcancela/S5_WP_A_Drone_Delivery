@@ -136,11 +136,13 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
         }
 
         Map<Product, Integer> orderedStock = orderAWharehousStock(warehouse.getStock());
-
+        
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
-            for (int i = 0; i < tempoOrders.size(); i++) {
+        	int i = 0;
+            while(i < tempoOrders.size()) {
+            	int indexToGo = 0;
+            	boolean restart = false;
                 Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();
-                ;
                 for (Map.Entry<Product, Integer> entryOrder : tempoProducts.entrySet()) {
                     if (entry.getValue() > 0
                             && entry.getKey().equals(entryOrder.getKey())
@@ -150,9 +152,16 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                         warehouse.pullOutProduct(entry.getKey());
                         orderedStock.put(entry.getKey(), orderedStock.get(entry.getKey()) - 1);
                         tempoOrders.get(i).removeThisProduct(entryOrder.getKey());
+                        
+                        indexToGo = i;
+                        restart = true;
                     }
 
                 }
+                if(restart)
+                	i = indexToGo;
+                else
+                	i++;
             }
         }
         addLoadInstructions(warehouse, indexDrone);
