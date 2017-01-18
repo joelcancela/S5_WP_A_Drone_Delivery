@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.dda.scoring;
+package fr.unice.polytech.si3.dda.metrics;
 
 import fr.unice.polytech.si3.dda.ContextParser;
 import fr.unice.polytech.si3.dda.ScheduleParser;
@@ -10,7 +10,12 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by alexh on 18/01/2017.
+ * Class InitScoring
+ *
+ * @author Jeremy JUNAC
+ * @author Alexandre HILTCHER
+ * @author Pierre RAINERO
+ * @author Joël CANCELA VAZ
  */
 public class InitScoring {
     private ContextParser contextParser;

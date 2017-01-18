@@ -7,11 +7,11 @@ import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.metrics.Scoring;
 import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
-import fr.unice.polytech.si3.dda.scoring.Scoring;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.io.File;
