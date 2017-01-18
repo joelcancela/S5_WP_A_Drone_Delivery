@@ -125,19 +125,30 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                 Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();;
                 for (Map.Entry<Product, Integer> entryOrder : tempoProducts.entrySet()) {
                     if (entry.getValue() > 0
+                    		&& entry.getKey().equals(entryOrder.getKey())
                             && entryOrder.getValue() > 0
                             && entry.getKey().getWeight() <= drone.getMaxPayload() - drone.getUsedPayload()) {
                         drone.load(entry.getKey());
                         warehouse.pullOutProduct(entry.getKey());
                         orderedStock.put(entry.getKey(), orderedStock.get(entry.getKey()) - 1);
+                        System.out.println("Je suis : "+i);
+                        System.out.println(tempoOrders.get(i));
+                        System.out.println("Je veux "+entryOrder.getValue()+" :" +entryOrder.getKey());
+                        
+                        System.out.println("i try tOU delete this : "+entryOrder.getKey());
                         tempoOrders.get(i).removeThisProduct(entryOrder.getKey());
+                        
+                        System.out.println("------------------");
                     }
 
                 }
             }
         }
-
+        System.out.println("carried by THIS BITCH :");
+        System.out.println(drone.getLoadedProducts());
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         addLoadInstructions(warehouse, indexDrone);
+        System.out.println(instructionsLists);
     }
 
 }
