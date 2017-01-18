@@ -117,6 +117,10 @@ public class Warehouse extends PointOfInterest {
             return 0;
     }
 
+    public boolean isEmpty(){
+        return stock.isEmpty();
+    }
+
     @Override
     /**
      * Inherited method
