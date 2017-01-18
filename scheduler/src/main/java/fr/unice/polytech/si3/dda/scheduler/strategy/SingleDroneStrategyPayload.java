@@ -1,18 +1,15 @@
 package fr.unice.polytech.si3.dda.scheduler.strategy;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.common.Drone;
-import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.mapping.PointOfInterest;
+import fr.unice.polytech.si3.dda.exception.OverLoadException;
+import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
-import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
-import fr.unice.polytech.si3.dda.util.Pair;
 
 /**
  * 
@@ -35,41 +32,19 @@ public class SingleDroneStrategyPayload extends MultipleMaxDronePayloadStrategy 
 	}
 	
 	@Override
-	public void calculateInstructions(){
+	public void calculateInstructions() throws OverLoadException, ProductNotFoundException{
 		Drone droneUsed =  context.getFleet().getDrone(0);
 		
 		List<Order> orders = context.getMap().getOrders();
 		Warehouse warehouse = context.getFirstWarehouse();
-		List<Map<Product, Integer>> takens = new ArrayList<>();
 		
 		while(!isOrdersCompleted(orders)){
-			//loadDrone(orders, 0, warehouse);
-
-			//Pair<Map<DeliveryPoint, Map<Product, Integer>>, List<PointOfInterest>> pairOfPath = getPathForThoseProducts(takens, warehouse);
-			//generateInstructionsForThisPath(pairOfPath, warehouse, droneUsed);
-			
-
+			loadDrone(orders, 0, warehouse);
+			findPath(0);
 			
 			Map<Coordinates, Warehouse> warhouses =  context.getMap().getWarehouses();
 			warehouse =  findTheNextWarehouse(orders, warhouses, droneUsed);
 		}
 	}
 	
-	public List<PointOfInterest> generatePath(Warehouse warehouse, int droneIndex){
-		List<PointOfInterest> path = null;
-		Drone drone = context.getFleet().getDrone(droneIndex);
-		
-		Map<Coordinates, DeliveryPoint> dps = context.getMap().getDeliveryPoints();
-		List<Product> listOfProducts =  new ArrayList<Product>(drone.getLoadedProducts());
-		
-		for(Map.Entry<Coordinates, DeliveryPoint> entry : dps.entrySet()){
-			for(int i=0; i<listOfProducts.size(); i++){
-				if(entry.getValue().getOrder().getProducts().containsKey(listOfProducts.get(i))){
-					
-				}
-			}
-		}
-		
-		return path;
-	}
 }

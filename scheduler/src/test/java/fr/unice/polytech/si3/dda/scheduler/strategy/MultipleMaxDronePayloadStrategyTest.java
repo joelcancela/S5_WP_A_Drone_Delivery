@@ -11,6 +11,8 @@ import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,18 +61,18 @@ public class MultipleMaxDronePayloadStrategyTest {
         List<Instruction> expected = new ArrayList<Instruction>();
         expected.add(new LoadInstruction(0, 0, 1, 2));
         expected.add(new LoadInstruction(0, 0, 0, 1));
-        expected.add(new DeliverInstruction(0, 0, 1, 1));
-        expected.add(new DeliverInstruction(0, 0, 0, 1));
-        expected.add(new DeliverInstruction(0, 2, 1, 1));
-        expected.add(new LoadInstruction(0, 1, 1, 2));
         expected.add(new DeliverInstruction(0, 2, 1, 2));
-        expected.add(new LoadInstruction(0, 2, 2, 1));
-        expected.add(new DeliverInstruction(0, 1, 2, 1));
+        expected.add(new DeliverInstruction(0, 0, 0, 1));
+        expected.add(new LoadInstruction(1, 2, 2, 1));
+        expected.add(new DeliverInstruction(1, 1, 2, 1));
+        expected.add(new LoadInstruction(0, 1, 1, 2));
+        expected.add(new DeliverInstruction(0, 2, 1, 1));
+        expected.add(new DeliverInstruction(0, 0, 1, 1));
 
         multipleMaxDronePayloadStrategy = new MultipleMaxDronePayloadStrategy(ctx);
         multipleMaxDronePayloadStrategy.calculateInstructions();
         List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
 
-        System.out.println(get);
+        assertEquals(expected, get);
     }
 }

@@ -42,7 +42,6 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
 
         while (!isOrdersCompleted(orders)) {
             for (int i = 0; i < context.getMaxDrones(); i++) {
-                Drone drone = fleet.getDrone(i);
                 Warehouse closestWarehouse = findTheNextWarehouse(orders, warehouses, fleet.getDrone(i));
                 if (closestWarehouse == null)
                     break;
