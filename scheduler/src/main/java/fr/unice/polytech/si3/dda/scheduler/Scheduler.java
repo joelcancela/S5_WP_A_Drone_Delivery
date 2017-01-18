@@ -64,7 +64,7 @@ public class Scheduler {
 			strategies.add(new SingleDroneStrategyPayload(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
-		Strategy bestStrategy = null;
+		Strategy bestStrategy = new BasicStrategy(new Context(ctx));
 		for (Strategy strategy : strategies) {
 			strategy.calculateInstructions();
 			List<Instruction> currentInstructions = strategy.getInstructions();
