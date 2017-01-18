@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SingleDroneStrategyTest {
-    private SingleDroneStrategy singleDroneStrategy;
+public class SingleDroneStrategyLoadByOrderTest {
+    private SingleDroneStrategyLoadByOrder singleDroneStrategy;
     private File file;
     private ContextParser p;
     private Context ctx;
@@ -51,7 +51,7 @@ public class SingleDroneStrategyTest {
                 .addDeliveryPoint(new Coordinates(1, 1), order1)
                 .addDeliveryPoint(new Coordinates(0, 3), order2).build();
 
-        singleDroneStrategy = new SingleDroneStrategy(context);
+        singleDroneStrategy = new SingleDroneStrategyLoadByOrder(context);
         
         List<Instruction> expected = new ArrayList<Instruction>();
         expected.add(new LoadInstruction(0, 0, 0, 1));
@@ -94,7 +94,7 @@ public class SingleDroneStrategyTest {
                 .build();
 
 
-        singleDroneStrategy = new SingleDroneStrategy(context);
+        singleDroneStrategy = new SingleDroneStrategyLoadByOrder(context);
         
         List<Instruction> expected = new ArrayList<Instruction>();
         expected.add(new LoadInstruction(0, 0, 0, 1));
@@ -126,7 +126,7 @@ public class SingleDroneStrategyTest {
     	expected.add(new DeliverInstruction(0, 0, 0, 1));
     	expected.add(new DeliverInstruction(0, 0, 1, 1));
     	
-    	singleDroneStrategy = new SingleDroneStrategy(ctx);
+    	singleDroneStrategy = new SingleDroneStrategyLoadByOrder(ctx);
     	singleDroneStrategy.calculateInstructions();
     	List<Instruction> get = singleDroneStrategy.getInstructions();
     	
@@ -150,7 +150,7 @@ public class SingleDroneStrategyTest {
     	expected.add(new LoadInstruction(0, 2, 2, 1));
     	expected.add(new DeliverInstruction(0, 1, 2, 1));
     	
-    	singleDroneStrategy = new SingleDroneStrategy(ctx);
+    	singleDroneStrategy = new SingleDroneStrategyLoadByOrder(ctx);
     	singleDroneStrategy.calculateInstructions();
     	List<Instruction> get = singleDroneStrategy.getInstructions();
     	

@@ -3,6 +3,7 @@ package fr.unice.polytech.si3.dda.scheduler.strategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.common.Drone;
@@ -10,7 +11,9 @@ import fr.unice.polytech.si3.dda.exception.GlobalException;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 /**
  * 
  * Interface Strategy
@@ -39,7 +42,7 @@ public class Strategy {
 	 * @return The instructions list calculated with the last context
 	 */
 	public List<Instruction> getInstructions(){
-		throw new UnsupportedOperationException();
+		return instructionsLists;
 	};
 	
 	/**
@@ -66,4 +69,47 @@ public class Strategy {
 			alreadyCounted.add(productTemp);
 		}
     }
+    
+	/**
+	 * Check if all orders are done
+	 * @param orders List of orders to do
+	 * @return true if all orders are done, false otherwise
+	 */
+	protected boolean isOrdersCompleted(List<Order> orders){
+		for(int i=0; i<orders.size(); i++){
+			for(Map.Entry<Product, Integer> entry : orders.get(i).getProducts().entrySet()){
+				if(entry.getValue()>0)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Find the next warehouse to go (nearest with useful products)
+	 * @param orders List of orders to do
+	 * @param warhouses List of warehouses
+	 * @param droneUsed Current drone
+	 * @return The next warehouse chosen by the strategy 
+	 */
+	protected Warehouse findTheNextWarehouse(List<Order> orders, Map<Coordinates, Warehouse> warhouses, Drone droneUsed){
+		double distance = Double.MAX_VALUE;
+		Warehouse nextWareHouse =  null;
+		for(Map.Entry<Coordinates, Warehouse> entry : warhouses.entrySet()){
+			for(int i=0; i<orders.size(); i++){
+				for(Map.Entry<Product, Integer> prodcuts: orders.get(i).getProducts().entrySet()){
+					double currentDistance = droneUsed.getCoordinates().distance(entry.getKey());
+					if(prodcuts.getValue()>0
+							&& entry.getValue().howManyProduct(prodcuts.getKey()) > 0
+							&& currentDistance<distance){
+						nextWareHouse = entry.getValue();
+						distance = currentDistance;
+					}
+				}
+			}
+		}
+		
+		return nextWareHouse;
+	}
 }
