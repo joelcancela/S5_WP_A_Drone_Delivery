@@ -35,14 +35,14 @@ public class SingleDroneStrategyPayload extends MultipleMaxDronePayloadStrategy 
 		Drone droneUsed = context.getFleet().getDrone(0);
 
 		List<Order> orders = context.getMap().getOrders();
-		Warehouse warehouse = context.getFirstWarehouse();
+		Warehouse warehouse;
 
 		while (!isOrdersCompleted(orders)) {
-			loadDrone(orders, 0, warehouse);
-			findPath(0);
-
 			Map<Coordinates, Warehouse> warhouses = context.getMap().getWarehouses();
 			warehouse = findTheNextWarehouse(orders, warhouses, droneUsed);
+			
+			loadDrone(orders, 0, warehouse);
+			findPath(0);
 		}
 	}
 
