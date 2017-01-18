@@ -78,15 +78,19 @@ public class Benchmark {
 
 	public int calculateScore() throws Exception {
 		Context scoreCtx = new Context(context);
-		int currentScore = 0;
+		int maxDrones = scoreCtx.getMaxDrones();
 		turns = scoreCtx.getTurns();
 		turnsleft = turns;
-		for (Instruction i1 : strategy) {
-			int cost = i1.execute(scoreCtx);
-			turnsleft = turnsleft - cost;
-			currentScore += 1 + cost;
+		for (int i = 0; i < maxDrones; i++) {
+			for (Instruction instruction : strategy) {
+				if (instruction.getDroneNumber() == i) {
+					int cost = instruction.execute(context);
+					turnsleft = turnsleft - cost;
+					score += 1 +cost;
+				}
+			}
 		}
-		return currentScore;
+		return score;
 	}
 
 	private void calculateDronesKPIs() {
