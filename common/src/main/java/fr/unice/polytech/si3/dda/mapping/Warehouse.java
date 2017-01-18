@@ -75,11 +75,12 @@ public class Warehouse extends PointOfInterest {
 	 * @see java.lang.Object#hashCode()
 	 */
 	public String toString() {
-		String str = "Warehouse" + id + " @(" + coordinates.getX() + "," + coordinates.getY() + ") : ";
+		StringBuilder s = new StringBuilder();
+		s.append("Warehouse" + id + " @(" + coordinates.getX() + "," + coordinates.getY() + ") : ");
 		for(Map.Entry<Product,Integer> e : stock.entrySet()){
-			str+=e.getValue()+"*"+e.toString()+", ";
+			s.append(e.getValue()+"*"+e.toString()+", ");
 		}
-		return str;
+		return s.toString();
 	}
 
 	/**

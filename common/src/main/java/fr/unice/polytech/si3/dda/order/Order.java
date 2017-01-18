@@ -91,7 +91,7 @@ public class Order {
 	}
 
 	public boolean isCompleted(){
-		return remaining.size()==0;
+		return remaining.isEmpty();
 	}
 
 	public boolean hasStarted(){
@@ -148,11 +148,11 @@ public class Order {
      */
     @Override
     public String toString() {
-    	String str="";
-        for(Product p:products.keySet()){
-	        str+=products.get(p)+"*"+p.toString()+", ";
+    	StringBuilder s = new StringBuilder();
+	    for(Map.Entry<Product,Integer> p : products.entrySet()){
+	        s.append(products.get(p)+"*"+p.toString()+", ");
         }
-        return str;
+        return s.toString();
     }
     
     public Order copy()	{
