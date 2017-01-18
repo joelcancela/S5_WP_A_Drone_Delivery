@@ -52,21 +52,31 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
 
             loadDrone(orders, i, closestWarehouse);
 
-            DeliveryPoint closestDeliveryPoint = mapping.getDeliveryPoint(0);
+            DeliveryPoint closestDeliveryPoint = null;
             Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
             for (Product product : drone.getLoadedProducts()) {
 
+                System.out.println("++++++++++++++++++++++");
+                System.out.println(product);
                 for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
-                    if (deliveryPoint.getValue().getOrder().getRemaining().contains(product)
-                            && closestDeliveryPoint.distance(drone) > deliveryPoint.getValue().distance(drone)) {
+                    if (deliveryPoint.getValue().getOrder().getRemaining().size() == 0) {
+                        continue;
+                    }
+                    System.out.println("####################################");
+                    System.out.println(deliveryPoint.getValue().getOrder().getRemaining());
+                    if (closestDeliveryPoint == null || (deliveryPoint.getValue().getOrder().getRemaining().contains(product))) {
                         closestDeliveryPoint = deliveryPoint.getValue();
                     }
                 }
                 drone.move(closestDeliveryPoint.getCoordinates());
 
                 int count = 0;
+                System.out.println("-------------------");
+                System.out.println("drone : " + drone.getLoadedProducts());
+                System.out.println("order : " + closestDeliveryPoint.getOrder().getRemaining());
                 for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
                     if (drone.getNumberOf(product) == 0) continue;
+                    System.out.println(product.equals(other));
                     if (product.equals(other)) {
                         count++;
                         drone.unload(product);
@@ -74,10 +84,14 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                         closestDeliveryPoint.removeThisProduct(product);
                     }
                 }
-                instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
+                if (count > 0) {
+                    System.out.println("DELIVER");
+                    instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
+                }
             }
-
+            // TODO: 18/01/2017 Si maxdrone atteind mais pas tout les order ok restart
         }
+        System.out.println(instructionsLists);
     }
 
 
