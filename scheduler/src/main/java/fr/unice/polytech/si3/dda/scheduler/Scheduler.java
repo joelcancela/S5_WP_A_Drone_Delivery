@@ -8,10 +8,7 @@ import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.benchmark.Benchmark;
-import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
-import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
-import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
-import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
+import fr.unice.polytech.si3.dda.scheduler.strategy.*;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 import java.io.File;
@@ -61,7 +58,8 @@ public class Scheduler {
 			strategies.add(new BasicStrategy(new Context(ctx)));
 		} else {
 			strategies.add(new MultipleDroneStrategy(new Context(ctx)));
-			strategies.add(new SingleDroneStrategy(new Context(ctx)));
+			strategies.add(new SingleDroneStrategyLoadByOrder(new Context(ctx)));
+			strategies.add(new MultipleMaxDronePayloadStrategy(new Context(ctx)));
 		}
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;

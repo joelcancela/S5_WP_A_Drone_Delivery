@@ -7,7 +7,6 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.instruction.LoadInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
@@ -78,15 +77,6 @@ public class MultipleDroneStrategy extends Strategy {
         }
 
     }
-    
-	/**
-	 * Accessor of instructionList
-	 * @return The instructions list calculated with the last context
-	 */
-    @Override
-	public List<Instruction> getInstructions(){
-		return instructionsLists;
-	}
 
     /**
      * Deliver move the drone and deliver the product.
