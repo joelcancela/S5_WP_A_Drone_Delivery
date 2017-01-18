@@ -8,7 +8,6 @@ import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.instruction.DeliverInstruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
@@ -38,7 +37,7 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
     public void calculateInstructions() throws GlobalException {
         List<Order> orders = context.getMap().getOrders();
         Fleet fleet = context.getFleet();
-        Map<Coordinates,Warehouse> warehouses = context.getMap().getWarehouses();
+        Map<Coordinates, Warehouse> warehouses = context.getMap().getWarehouses();
         boolean ordersCompleted = false;
 
         while (!isOrdersCompleted(orders)) {
@@ -50,34 +49,8 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
 
                 loadDrone(orders, i, closestWarehouse);
 
-                DeliveryPoint closestDeliveryPoint = null;
-                Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
-                for (Product product : drone.getLoadedProducts()) {
+                findPath(i);
 
-                    for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
-                        if (deliveryPoint.getValue().getOrder().getRemaining().size() == 0) {
-                            continue;
-                        }
-                        if (closestDeliveryPoint == null || (deliveryPoint.getValue().getOrder().getRemaining().contains(product))) {
-                            closestDeliveryPoint = deliveryPoint.getValue();
-                        }
-                    }
-                    drone.move(closestDeliveryPoint.getCoordinates());
-
-                    int count = 0;
-                    for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
-                        if (drone.getNumberOf(product) == 0) continue;
-                        if (product.equals(other)) {
-                            count++;
-                            drone.unload(product);
-                            closestDeliveryPoint.deliver(product);
-                            closestDeliveryPoint.removeThisProduct(product);
-                        }
-                    }
-                    if (count > 0) {
-                        instructionsLists.add(new DeliverInstruction(i, closestDeliveryPoint.getId(), product.getId(), count));
-                    }
-                }
 
             }
 
@@ -86,6 +59,40 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
                 if (!ordersCompleted) break;
             }
 
+        }
+    }
+
+    protected void findPath(int droneId) throws ProductNotFoundException {
+        Drone drone = context.getFleet().getDrone(droneId);
+
+        DeliveryPoint closestDeliveryPoint = null;
+        Map<Coordinates, DeliveryPoint> deliveryPoints = context.getMap().getDeliveryPoints();
+
+        for (Product product : drone.getLoadedProducts()) {
+
+            for (Map.Entry<Coordinates, DeliveryPoint> deliveryPoint : deliveryPoints.entrySet()) {
+                if (deliveryPoint.getValue().getOrder().getRemaining().size() == 0) {
+                    continue;
+                }
+                if (closestDeliveryPoint == null || (deliveryPoint.getValue().getOrder().getRemaining().contains(product))) {
+                    closestDeliveryPoint = deliveryPoint.getValue();
+                }
+            }
+            drone.move(closestDeliveryPoint.getCoordinates());
+
+            int count = 0;
+            for (Product other : closestDeliveryPoint.getOrder().getRemaining()) {
+                if (drone.getNumberOf(product) == 0) continue;
+                if (product.equals(other)) {
+                    count++;
+                    drone.unload(product);
+                    closestDeliveryPoint.deliver(product);
+                    closestDeliveryPoint.removeThisProduct(product);
+                }
+            }
+            if (count > 0) {
+                instructionsLists.add(new DeliverInstruction(droneId, closestDeliveryPoint.getId(), product.getId(), count));
+            }
         }
     }
 
@@ -121,15 +128,15 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
      */
     protected void loadDrone(List<Order> orders, int indexDrone, Warehouse warehouse) throws OverLoadException, ProductNotFoundException {
         Drone drone = context.getFleet().getDrone(indexDrone);
-        
+
         List<Order> tempoOrders = new ArrayList<>();
-        for(Order tempoOrder : orders){
-        	tempoOrders.add(new Order(tempoOrder));
+        for (Order tempoOrder : orders) {
+            tempoOrders.add(new Order(tempoOrder));
         }
 
-        
+
         Map<Product, Integer> orderedStock = orderAWharehousStcok(warehouse.getStock());
-        
+
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
             for (int i = 0; i < tempoOrders.size(); i++) {
                 Map<Product, Integer> tempoProducts = tempoOrders.get(i).getProducts();
