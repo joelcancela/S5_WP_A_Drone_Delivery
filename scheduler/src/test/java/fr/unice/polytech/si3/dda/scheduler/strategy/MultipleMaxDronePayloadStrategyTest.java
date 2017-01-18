@@ -13,7 +13,10 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
 
 public class MultipleMaxDronePayloadStrategyTest {
     private MultipleMaxDronePayloadStrategy multipleMaxDronePayloadStrategy;
@@ -47,7 +50,18 @@ public class MultipleMaxDronePayloadStrategyTest {
 
         multipleMaxDronePayloadStrategy.calculateInstructions();
         List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
-        System.out.println(get);
+        List<Instruction> expected = Arrays.asList(
+                new LoadInstruction(0,0,0,1),
+                new LoadInstruction(0,0,3,2),
+                new LoadInstruction(0,0,2,1),
+                new DeliverInstruction(0,0,0,1),
+                new DeliverInstruction(0,1,3,1),
+                new DeliverInstruction(0,0,3,1),
+                new DeliverInstruction(0,0,2,1),
+                new LoadInstruction(1,1,0,1),
+                new DeliverInstruction(1,0,0,1)
+        );
+        assertEquals(expected, get);
     }
 
     @Test
