@@ -52,9 +52,7 @@ public class ClientView extends View {
 		int maxTurnDelivery = 0;
 		for (List<Instruction> droneInst: execLine) {
 			int turnBeforeDelivery = 0;
-			System.out.println(droneInst);
 			for (Instruction inst : droneInst) {
-				System.out.println(inst.cost(ctx));
 				turnBeforeDelivery += inst.cost(ctx);
 				if (inst instanceof DeliverInstruction) {
 					DeliverInstruction di = (DeliverInstruction) inst;

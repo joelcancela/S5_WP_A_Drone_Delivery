@@ -19,10 +19,6 @@ public abstract class View {
 		instructions = instructionsList;
 	}
 
-	protected void clearScreen() {
-		System.out.print("\033[" + "2J");
-	}
-
 	public abstract void display(Scanner sc) throws InterruptedException, WrongIdException, OverLoadException, ProductNotFoundException;
 
 	protected void drawHorizontalLine(int width) {
