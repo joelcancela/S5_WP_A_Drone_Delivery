@@ -150,7 +150,7 @@ public class Order {
     public String toString() {
     	StringBuilder s = new StringBuilder();
 	    for(Map.Entry<Product,Integer> p : products.entrySet()){
-	        s.append(products.get(p)+"*"+p.toString()+", ");
+	        s.append(p.getValue()+"*"+p.getKey().toString()+", ");
         }
         return s.toString();
     }
