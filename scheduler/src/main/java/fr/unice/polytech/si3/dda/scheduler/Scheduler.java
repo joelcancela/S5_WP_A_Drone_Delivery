@@ -7,7 +7,7 @@ import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
-import fr.unice.polytech.si3.dda.metrics.Scoring;
+import fr.unice.polytech.si3.dda.benchmark.Benchmark;
 import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
 import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
@@ -55,7 +55,7 @@ public class Scheduler {
 	 * @throws IOException       if you can't write on the output file
 	 * @throws GlobalException
 	 */
-	public void schedule() throws IOException, GlobalException {
+	public void schedule() throws Exception {
 		List<Strategy> strategies = new ArrayList<>();
 		if (forceWait) {
 			strategies.add(new BasicStrategy(new Context(ctx)));
@@ -69,7 +69,7 @@ public class Scheduler {
 			 strategy.calculateInstructions();
 			 List<Instruction> currentInstructions = strategy.getInstructions();
 
-			int cost = new Scoring(currentInstructions, new Context(ctx)).computeStrat();
+			int cost = new Benchmark(currentInstructions, new Context(ctx)).calculateScore();
 			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);
 			if (cost < minCost) {
 				minCost = cost;
