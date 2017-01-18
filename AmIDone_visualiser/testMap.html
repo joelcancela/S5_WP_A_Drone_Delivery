@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/map.js"></script>
+</head>
+<body>
+    <label>JSON file (client.json or manager.json)</label>
+    <input id="input_json" type="file" onchange="setJson(event)">
+    <label>Map file (map.csv)</label>
+    <input id="input_csv" type="file" onchange="setMap(event)">
+    <button onclick="init()">Start</button>
+
+    <div id="map" width="500" height="500">
+        <canvas id="map_canvas" onload="init()">
+        </canvas>
+    </div>
+</body>
+</html>
