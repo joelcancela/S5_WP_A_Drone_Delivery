@@ -65,8 +65,8 @@ public class Scheduler {
 		int minCost = Integer.MAX_VALUE;
 		Strategy bestStrategy = null;
 		for (Strategy strategy : strategies) {
-			List<Instruction> currentInstructions = strategy.getInstructions();
-
+			 strategy.calculateInstructions();
+			 List<Instruction> currentInstructions = strategy.getInstructions();
 
 			int cost = computeStrat(currentInstructions, new Context(ctx));
 			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);

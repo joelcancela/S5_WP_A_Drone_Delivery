@@ -54,7 +54,7 @@ public class MultipleDroneStrategy implements Strategy {
      * @throws Exception
      */
     @Override
-    public List<Instruction> getInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException {
+    public void calculateInstructions() throws WrongIdException, OverLoadException, ProductNotFoundException {
         int numberOfDrones = fleet.getDronesNumber();
         int numberOfOrder = mapping.getOrders().size();
 
@@ -78,10 +78,16 @@ public class MultipleDroneStrategy implements Strategy {
             }
         }
 
-
-        return instructionList;
-
     }
+    
+	/**
+	 * Accessor of instructionList
+	 * @return The instructions list calculated with the last context
+	 */
+    @Override
+	public List<Instruction> getInstructions(){
+		return instructionList;
+	}
 
     /**
      * Deliver move the drone and deliver the product.

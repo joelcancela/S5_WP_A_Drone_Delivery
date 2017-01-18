@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class BasicStrategy implements Strategy {
     private Context context;
+	private List<Instruction> instructionsLists;
 
     /**
      * Constructs a BasicStrategy from a context.
@@ -26,6 +27,7 @@ public class BasicStrategy implements Strategy {
      */
     public BasicStrategy(Context context) {
         this.context = context;
+        instructionsLists = new ArrayList<>();
     }
 
     /**
@@ -34,13 +36,18 @@ public class BasicStrategy implements Strategy {
      * @return the list of fr.unice.polytech.si3.dda.exception.instruction.
      */
     @Override
-    public List<Instruction> getInstructions() {
-        List<Instruction> list = new ArrayList<>();
-
+    public void calculateInstructions() {
         for (int i = 0; i < context.getMaxDrones(); i++) {
-            list.add(new WaitInstruction(i, context.getTurns()));
+        	instructionsLists.add(new WaitInstruction(i, context.getTurns()));
         }
-
-        return list;
     }
+    
+	/**
+	 * Accessor of instructionsLists
+	 * @return The instructions list calculated with the last context
+	 */
+    @Override
+	public List<Instruction> getInstructions(){
+		return instructionsLists;
+	}
 }
