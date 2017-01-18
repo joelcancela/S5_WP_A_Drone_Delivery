@@ -39,6 +39,10 @@ public class Pair<F, S> {
     public F getFirst() {
         return first;
     }
+    
+    public void setFirst(F first) {
+		this.first = first;
+	}
 
     /**
      * Gets the second.
@@ -49,7 +53,11 @@ public class Pair<F, S> {
         return second;
     }
 
-    /* (non-Javadoc)
+    public void setSecond(S second) {
+		this.second = second;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
     @Override

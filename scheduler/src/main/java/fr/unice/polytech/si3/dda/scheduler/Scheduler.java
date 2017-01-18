@@ -1,24 +1,25 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
 
-import fr.unice.polytech.si3.dda.common.Context;
-import fr.unice.polytech.si3.dda.exception.*;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
-import fr.unice.polytech.si3.dda.mapping.Mapping;
-import fr.unice.polytech.si3.dda.mapping.Warehouse;
-import fr.unice.polytech.si3.dda.benchmark.Benchmark;
-import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
-import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
-import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
-import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
-import fr.unice.polytech.si3.dda.util.Coordinates;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.unice.polytech.si3.dda.benchmark.Benchmark;
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.exception.GlobalException;
+import fr.unice.polytech.si3.dda.exception.MalformedContextException;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
+import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
+import fr.unice.polytech.si3.dda.mapping.Mapping;
+import fr.unice.polytech.si3.dda.mapping.Warehouse;
+import fr.unice.polytech.si3.dda.scheduler.strategy.BasicStrategy;
+import fr.unice.polytech.si3.dda.scheduler.strategy.MultipleDroneStrategy;
+import fr.unice.polytech.si3.dda.scheduler.strategy.SingleDroneStrategy;
+import fr.unice.polytech.si3.dda.scheduler.strategy.Strategy;
+import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
  * Class Scheduler
