@@ -136,10 +136,6 @@ public class MultipleMaxDronePayloadStrategy extends Strategy {
             tempoOrders.add(new Order(tempoOrder));
         }
 
-
-        Map<Product, Integer> orderedStock = orderAWharehousStcok(warehouse.getStock());
-
-
         Map<Product, Integer> orderedStock = orderAWharehousStock(warehouse.getStock());
 
         for (Map.Entry<Product, Integer> entry : orderedStock.entrySet()) {
