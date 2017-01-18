@@ -1,19 +1,19 @@
 package fr.unice.polytech.si3.dda;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map.Entry;
-
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.common.Drone;
+import fr.unice.polytech.si3.dda.common.Fleet;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.mapping.DeliveryPoint;
 import fr.unice.polytech.si3.dda.mapping.Mapping;
 import fr.unice.polytech.si3.dda.mapping.Warehouse;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
-import fr.unice.polytech.si3.dda.scheduler.Context;
-import fr.unice.polytech.si3.dda.scheduler.Drone;
-import fr.unice.polytech.si3.dda.scheduler.Fleet;
 import fr.unice.polytech.si3.dda.util.Coordinates;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class OperatorView extends View {
 
@@ -42,7 +42,7 @@ public class OperatorView extends View {
 		drawHorizontalLine(10);
 		System.out.println();
 		int i=0;
-		for (Entry<Coordinates, DeliveryPoint> entry: ctx.getMap().getDeliveryPoints().entrySet()) {
+		for (Map.Entry<Coordinates, DeliveryPoint> entry: ctx.getMap().getDeliveryPoints().entrySet()) {
 			Order o = entry.getValue().getOrder();
 			System.out.printf("Order %d: %s\n", i++, entry.getKey());
 			for (int j=0; j < ctx.getProducts().size(); j++) {
@@ -62,7 +62,7 @@ public class OperatorView extends View {
 		drawHorizontalLine(10);
 		System.out.println();
 		int i=0;
-		for (Entry<Coordinates, Warehouse> entry: ctx.getMap().getWarehouses().entrySet()) {
+		for (Map.Entry<Coordinates, Warehouse> entry: ctx.getMap().getWarehouses().entrySet()) {
 			Warehouse w = entry.getValue();
 			System.out.printf("Warehouse %d: %s\n", i++, entry.getKey());
 			for (int j=0; j < ctx.getProducts().size(); j++) {
