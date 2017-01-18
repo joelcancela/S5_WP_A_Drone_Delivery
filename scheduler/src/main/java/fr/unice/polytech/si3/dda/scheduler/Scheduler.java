@@ -53,7 +53,7 @@ public class Scheduler {
 	 * Launches algorithm and writes the instructions to the output file "scheduler.out"
 	 *
 	 * @throws IOException       if you can't write on the output file
-	 * @throws StrategyException
+	 * @throws GlobalException
 	 */
 	public void schedule() throws Exception {
 		List<Strategy> strategies = new ArrayList<>();
@@ -68,7 +68,6 @@ public class Scheduler {
 		for (Strategy strategy : strategies) {
 			 strategy.calculateInstructions();
 			 List<Instruction> currentInstructions = strategy.getInstructions();
-
 
 			int cost = new Benchmark(currentInstructions, new Context(ctx)).calculateScore();
 			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);

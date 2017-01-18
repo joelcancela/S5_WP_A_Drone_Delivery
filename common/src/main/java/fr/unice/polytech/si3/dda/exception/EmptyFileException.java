@@ -8,7 +8,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class EmptyFileException extends Exception {
+public class EmptyFileException extends GlobalException {
 
 	private static final long serialVersionUID = -6706222643913609287L;
 

@@ -8,7 +8,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class MalformedScheduleException extends Exception {
+public class MalformedScheduleException extends GlobalException {
 	
 	/**
 	 * Generated serialId

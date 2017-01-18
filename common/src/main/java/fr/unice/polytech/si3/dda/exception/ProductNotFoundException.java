@@ -9,7 +9,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class ProductNotFoundException extends StrategyException {
+public class ProductNotFoundException extends GlobalException {
 
 	/**
 	 * Generated serialId

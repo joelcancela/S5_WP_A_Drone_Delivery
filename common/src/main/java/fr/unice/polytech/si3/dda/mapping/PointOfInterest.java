@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.mapping;
 
+import fr.unice.polytech.si3.dda.common.Drone;
 import fr.unice.polytech.si3.dda.util.Coordinates;
 
 /**
@@ -67,6 +68,16 @@ public class PointOfInterest {
      */
     public int distance(PointOfInterest poi) {
         return (int) Math.ceil(this.getCoordinates().distance(poi.getCoordinates()));
+    }
+
+    /**
+     * Get the distance from the drone
+     *
+     * @param drone the drone
+     * @return Distance from the drone
+     */
+    public int distance(Drone drone) {
+        return (int) Math.ceil(this.getCoordinates().distance(drone.getCoordinates()));
     }
 
     /**

@@ -12,7 +12,7 @@ import fr.unice.polytech.si3.dda.common.Context;
  * @author Joël CANCELA VAZ
  *
  */
-public class MalformedContextBodyException extends Exception {
+public class MalformedContextBodyException extends GlobalException{
 	
 	/**
 	 * Generated serialId

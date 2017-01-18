@@ -9,7 +9,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class OverLoadException extends StrategyException {
+public class OverLoadException extends GlobalException {
 
 	/**
 	 * Generated serialId

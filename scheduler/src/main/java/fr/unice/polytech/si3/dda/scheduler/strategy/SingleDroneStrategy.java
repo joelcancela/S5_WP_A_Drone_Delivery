@@ -222,7 +222,6 @@ public class SingleDroneStrategy implements Strategy{
 	
 	/**
 	 * Generate instructions for a path
-	 * @param instructionsLists List of fr.unice.polytech.si3.dda.exception.instruction for the current strategy
 	 * @param pair Associations of a deliveryPoint and products to deliver
 	 * @param warehouse Current warehouse
 	 * @param droneUsed Current drone
