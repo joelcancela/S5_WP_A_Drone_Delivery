@@ -2,10 +2,7 @@ package fr.unice.polytech.si3.dda;
 
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.common.Context.ContextBuilder;
-import fr.unice.polytech.si3.dda.exception.EmptyFileException;
-import fr.unice.polytech.si3.dda.exception.MalformedContextBodyException;
-import fr.unice.polytech.si3.dda.exception.MalformedContextException;
-import fr.unice.polytech.si3.dda.exception.NonValidCoordinatesException;
+import fr.unice.polytech.si3.dda.exception.*;
 import fr.unice.polytech.si3.dda.order.Order;
 import fr.unice.polytech.si3.dda.order.Product;
 import fr.unice.polytech.si3.dda.util.Coordinates;
@@ -46,13 +43,9 @@ public class ContextParser {
      * Parses a file and creates a context
      *
      * @return a context with the data parsed from the file
-     * @throws IOException                   if you can't read the file
-     * @throws NonValidCoordinatesException  if the coordinates are invalid
-     * @throws EmptyFileException            if the file is empty
-     * @throws MalformedContextException     if the file is malformed
-     * @throws MalformedContextBodyException if the context body is malformed
+     * @throws Exception                   if you can't read the file
      */
-    public Context parse() throws IOException, NonValidCoordinatesException, EmptyFileException, MalformedContextException, MalformedContextBodyException {
+    public Context parse() throws Exception {
         // Parse the first line
         ContextBuilder cb = parseFirstLine();
         try {
@@ -79,7 +72,7 @@ public class ContextParser {
      * @throws IOException               if you can't read the file
      * @throws MalformedContextException if the context is malformed
      */
-    private ContextBuilder parseFirstLine() throws EmptyFileException, IOException, MalformedContextException {
+    private ContextBuilder parseFirstLine() throws Exception {
         try {
             String line = br.readLine();
             if (line == null)
@@ -103,7 +96,7 @@ public class ContextParser {
      * @throws IOException               if you can't read the file
      * @throws MalformedContextException if the context is malformed
      */
-    private List<Product> parseProducts() throws IOException, MalformedContextException {
+    private List<Product> parseProducts() throws Exception {
         try {
             int productId = 0;
             List<Product> products = new ArrayList<>();
@@ -128,7 +121,7 @@ public class ContextParser {
      * @throws IOException               if you can't read the file
      * @throws MalformedContextException if the context is malformed
      */
-    private Map<Coordinates, int[]> parseWarehouses() throws IOException, MalformedContextException {
+    private Map<Coordinates, int[]> parseWarehouses() throws Exception {
         try {
             Map<Coordinates, int[]> warehouses = new LinkedHashMap<>();
             String line = br.readLine();
@@ -156,7 +149,7 @@ public class ContextParser {
      * @throws IOException               if you can't read the file
      * @throws MalformedContextException if the context is malformed
      */
-    private Map<Coordinates, Order> parseOrders(List<Product> products) throws IOException, MalformedContextException {
+    private Map<Coordinates, Order> parseOrders(List<Product> products) throws Exception {
         try {
             Map<Coordinates, Order> orders = new LinkedHashMap<>();
             String line = br.readLine();
@@ -176,7 +169,7 @@ public class ContextParser {
                     throw new MalformedContextException();
             }
             return orders;
-        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
+        } catch (Exception e) {
             throw new MalformedContextException();
         }
     }

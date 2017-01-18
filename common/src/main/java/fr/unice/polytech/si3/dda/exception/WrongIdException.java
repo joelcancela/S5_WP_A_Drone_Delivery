@@ -9,7 +9,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class WrongIdException extends StrategyException {
+public class WrongIdException extends GlobalException {
 
 	/**
 	 * Generated serialId

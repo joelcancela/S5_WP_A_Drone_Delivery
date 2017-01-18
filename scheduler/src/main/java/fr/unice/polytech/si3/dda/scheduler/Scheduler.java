@@ -69,8 +69,6 @@ public class Scheduler {
 			 strategy.calculateInstructions();
 			 List<Instruction> currentInstructions = strategy.getInstructions();
 
-
-
 			int cost = new Scoring(currentInstructions, new Context(ctx)).computeStrat();
 			System.out.println("Strategy "+strategy.getClass().getSimpleName()+", cost :" + cost);
 			if (cost < minCost) {

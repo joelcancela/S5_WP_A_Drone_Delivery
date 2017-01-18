@@ -9,7 +9,7 @@ package fr.unice.polytech.si3.dda.exception;
  * @author Pierre RAINERO
  * @author Joël CANCELA VAZ
  */
-public class StrategyException extends Exception {
+public class GlobalException extends Exception {
 
 	/**
 	 * Generated serialId
@@ -17,17 +17,17 @@ public class StrategyException extends Exception {
 	private static final long serialVersionUID = -6359662948436845688L;
 
 	/**
-	 * Normal constructor of StrategyException
+	 * Normal constructor of GlobalException
 	 * @param s Exception message
 	 */
-    public StrategyException(String s) {
+    public GlobalException(String s) {
     	super(s);
     }
     
     /**
-     * Default constructor of StrategyException
+     * Default constructor of GlobalException
      */
-    public StrategyException() {
+    public GlobalException() {
     	super();
     }
 }
