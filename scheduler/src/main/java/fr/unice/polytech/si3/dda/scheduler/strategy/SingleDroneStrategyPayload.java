@@ -64,7 +64,9 @@ public class SingleDroneStrategyPayload extends MultipleMaxDronePayloadStrategy 
 		
 		for(Map.Entry<Coordinates, DeliveryPoint> entry : dps.entrySet()){
 			for(int i=0; i<listOfProducts.size(); i++){
-				
+				if(entry.getValue().getOrder().getProducts().containsKey(listOfProducts.get(i))){
+					
+				}
 			}
 		}
 		
