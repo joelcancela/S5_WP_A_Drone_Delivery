@@ -49,8 +49,8 @@ public class MultipleMaxDronePayloadStrategyTest {
         multipleMaxDronePayloadStrategy = new MultipleMaxDronePayloadStrategy(context);
         
         
-        multipleMaxDronePayloadStrategy.calculateInstructions();
-        List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
+//        multipleMaxDronePayloadStrategy.calculateInstructions();
+//        List<Instruction> get = multipleMaxDronePayloadStrategy.getInstructions();
 
     }
 }
