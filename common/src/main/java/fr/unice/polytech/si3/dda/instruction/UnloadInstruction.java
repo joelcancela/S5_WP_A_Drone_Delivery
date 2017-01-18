@@ -42,11 +42,19 @@ public class UnloadInstruction extends Instruction {
 			w.addProduct(p, 1);
 			d.unload(p);
 		}
-		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
+		int cost = cost(ctx);
 		d.move(w.getCoordinates());
-		return distance+1;
+		return cost;
 	}
 	
+	@Override
+	public int cost(Context ctx) throws WrongIdException {
+		Drone d = ctx.getFleet().getDrone(droneNumber);
+		Warehouse w = ctx.getMap().getWarehouse(idWarehouse);
+		int distance = (int) Math.ceil(d.getCoordinates().distance(w.getCoordinates()));
+		return distance+1;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

@@ -34,6 +34,13 @@ public class DeliverInstruction extends Instruction {
 		this.numberOfProducts = numberOfProducts;
 	}
 
+	/**
+	 * @return the orderNumber
+	 */
+	public int getOrderNumber() {
+		return orderNumber;
+	}
+
 	@Override
 	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException {
 		Drone d = ctx.getFleet().getDrone(droneNumber);
@@ -43,8 +50,16 @@ public class DeliverInstruction extends Instruction {
 			dp.getOrder().deliver(p);
 			d.unload(p);
 		}
-		int distance = (int) Math.ceil(d.getCoordinates().distance(dp.getCoordinates()));
+		int cost = cost(ctx);
 		d.move(dp.getCoordinates());
+		return cost;
+	}
+	
+	@Override
+	public int cost(Context ctx) throws WrongIdException {
+		Drone d = ctx.getFleet().getDrone(droneNumber);
+		DeliveryPoint dp = ctx.getMap().getDeliveryPoint(orderNumber);
+		int distance = (int) Math.ceil(d.getCoordinates().distance(dp.getCoordinates()));
 		return distance+1;
 	}
 

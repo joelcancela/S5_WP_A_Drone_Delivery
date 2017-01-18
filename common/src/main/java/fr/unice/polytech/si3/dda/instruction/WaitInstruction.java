@@ -32,6 +32,11 @@ public class WaitInstruction extends Instruction {
 	public int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException {
 		return turns;
 	}
+	
+	@Override
+	public int cost(Context ctx) throws WrongIdException {
+		return turns;
+	}
 
 	/*
 	 * (non-Javadoc)

@@ -1,19 +1,21 @@
 package fr.unice.polytech.si3.dda;
 
-import fr.unice.polytech.si3.dda.common.Context;
-import fr.unice.polytech.si3.dda.instruction.Instruction;
-import fr.unice.polytech.si3.dda.order.Product;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import static org.junit.Assert.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
-public class OperatorViewTest {
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import fr.unice.polytech.si3.dda.common.Context;
+import fr.unice.polytech.si3.dda.instruction.Instruction;
+
+public class VisualiserTest {
 
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
@@ -44,6 +46,7 @@ public class OperatorViewTest {
         wrt = new BufferedWriter(new FileWriter(schedule));
         wrt.write("0 L 0 0 2\n"
                 + "0 D 0 0 2\n"
+                + "1 W 2\n"
                 + "1 L 0 2 1\n"
                 + "1 D 0 2 1\n");
         wrt.close();
@@ -52,7 +55,7 @@ public class OperatorViewTest {
 
     @Test
     public void testDisplay() throws Exception {
-		new OperatorView(ctx,instructionsList).display(null);
+		new Visualiser(ctx, instructionsList).display();
     }
 
 }

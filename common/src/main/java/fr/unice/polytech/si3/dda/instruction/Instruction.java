@@ -31,7 +31,18 @@ public abstract class Instruction {
 	 */
 	public abstract int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
 
+	public abstract int cost(Context ctx) throws WrongIdException;
+	
 	public int getDroneNumber() {
 		return droneNumber;
 	}
+	
+	public int getProductType() {
+		return productType;
+	}
+	
+	public int getNumberOfProducts() {
+		return numberOfProducts;
+	}
+	
 }

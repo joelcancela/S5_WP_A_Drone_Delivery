@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.dda;
 
 import java.util.List;
+import java.util.Scanner;
 
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
@@ -18,10 +19,15 @@ public abstract class View {
 		instructions = instructionsList;
 	}
 
-	public abstract void display() throws InterruptedException, WrongIdException, OverLoadException, ProductNotFoundException;
-
 	protected void clearScreen() {
 		System.out.print("\033[" + "2J");
 	}
 
+	public abstract void display(Scanner sc) throws InterruptedException, WrongIdException, OverLoadException, ProductNotFoundException;
+
+	protected void drawHorizontalLine(int width) {
+		for (int i = 0; i < width; i++)
+			System.out.print("-");
+	}
+	
 }
