@@ -13,13 +13,10 @@ import java.util.*;
 
 public class ClientView extends View {
 
-	Context ctx;
-	List<Instruction> instructions;
 	private final int tickTime = 2000;
 
 	public ClientView(Context context, List<Instruction> instructionsList) {
-		ctx = context;
-		instructions = instructionsList;
+		super(context, instructionsList);
 	}
 
 	@Override
@@ -27,6 +24,7 @@ public class ClientView extends View {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Entrez votre numéro client: ");
 		int clientNumber = sc.nextInt();
+		sc.nextLine();
 		System.out.println("\n");
 		int turns = ctx.getTurns();
 		Map<Product, Integer> initialProducts = new HashMap<>(ctx.getMap().getOrders().get(clientNumber).getProducts());

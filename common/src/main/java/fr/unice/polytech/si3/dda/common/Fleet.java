@@ -14,7 +14,7 @@ import fr.unice.polytech.si3.dda.mapping.Warehouse;
  * @author Joël CANCELA VAZ
  */
 public class Fleet {
-    private List<Drone> register;
+    private List<Drone> drones;
 
     /**
      * Constructs a default fleet from the context.
@@ -24,10 +24,10 @@ public class Fleet {
      * @param firstWarehouse the first warehouse.
      */
     public Fleet(int maxDrones, int maxPayload, Warehouse firstWarehouse) {
-        register = new ArrayList<>();
+        drones = new ArrayList<>();
 
         for (int i = 0; i < maxDrones; i++) {
-            register.add(new Drone(maxPayload, firstWarehouse.getCoordinates()));
+            drones.add(new Drone(maxPayload, firstWarehouse.getCoordinates()));
         }
     }
 
@@ -37,7 +37,7 @@ public class Fleet {
      * @return the number of drone contaioned by the fleet.
      */
     public int getDronesNumber() {
-        return register.size();
+        return drones.size();
     }
 
     /**
@@ -47,7 +47,11 @@ public class Fleet {
      * @return the drone at index i.
      */
     public Drone getDrone(int i) {
-        return register.get(i);
+        return drones.get(i);
+    }
+    
+    public List<Drone> getDrones() {
+    	return new ArrayList<>(drones);
     }
 
 
