@@ -99,4 +99,9 @@ public class DeliverInstruction extends Instruction {
 		result = 31 * result + numberOfProducts;
 		return result;
 	}
+
+	public boolean isDeliverInstruction() {
+		return true;
+	}
+
 }
