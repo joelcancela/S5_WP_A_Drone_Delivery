@@ -89,8 +89,10 @@ function generateWarehouses(){
     var droneDone = "";
 
     newContent="<tr><th>Id</th><th>Coordinates</th></tr>";
+    for(var i=0;i<nbWarehouse;i++){
+        
+    }
 
-    
 }
 
 function displayDetailsIndex(index) {
@@ -141,6 +143,7 @@ function startSimulation() {
     document.getElementById("inputs").style.display = 'none';
     document.getElementById("mainContent").classList.remove("hidden");
 
+    initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
 }
 
