@@ -20,7 +20,18 @@
 </head>
 <body>
 <div class="container">
-    <h2>Customer #<span id="clientNumber">x</span></h2>
+    <div class="row">
+        <h2>Customer #<span id="clientNumber">x</span></h2>
+        <div class="inputContainer pull-right">
+            <label>JSON file (customer.json)
+                <input id="input_json" type="file" onchange="getJson(event)">
+            </label>
+            <label>Map file (map.csv)
+                <input id="input_csv" type="file" onchange="getCSV(event)">
+            </label>
+            <button onclick="startSimulation()">Start</button>
+        </div>
+    </div>
     <div class="row">
         <div id="map" class="map">
             <p>WOW SUCH MAP VERY ACCURATE</p>
