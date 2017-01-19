@@ -4,7 +4,6 @@ var dronesDepartures;
 
 function init() {
     initValues();
-    getJson();
 }
 
 function initValues(){
@@ -13,13 +12,17 @@ function initValues(){
 }
 
 
-var getJson = function () {
-    $.getJSON("../log.json", function (json) {
-        console.log(json);
-        operatorJson = json;
-        generateDrones(json);
-    });
-};
+function getJson(event) {
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function () {
+        operatorJson = JSON.parse(reader.result);
+        generateDrones(operatorJson);
+    };
+    reader.readAsText(input.files[0]);
+}
+
 
 function generateDrones(){
     var newContent;
@@ -39,6 +42,10 @@ function generateDrones(){
     }
 
     document.getElementById("dronesTable").innerHTML = newContent;
+}
+
+function startSimulation() {
+    document.getElementById("inputs").style.display = 'none';
 }
 
 $('document').ready(function () {
