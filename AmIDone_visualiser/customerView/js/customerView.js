@@ -1,11 +1,9 @@
-var customerId;
+var orderId;
 
 var init = function () {
     setVars();
-};
-
-var setVars = function () {
-    customerId = console.log(getQueryVariable("customerId"));
+    bindVars();
+    getJson();
 };
 
 function getQueryVariable(variable) {
@@ -20,6 +18,17 @@ function getQueryVariable(variable) {
     console.log('Query variable %s not found', variable);
 }
 
+var setVars = function () {
+    orderId = getQueryVariable("customerId");
+};
+
+var bindVars = function () {
+    var clientNumber = document.getElementById("clientNumber").innerHTML = orderId;
+};
+
+var getJson = $.getJSON("../log.json", function(json) {
+    console.log(json);
+});
 
 //Initialisation call
 $('document').ready(function () {
