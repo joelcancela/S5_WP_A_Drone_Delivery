@@ -3,6 +3,7 @@ var actualTime;
 var dronesDepartures;
 var interval;
 var lastTime;
+var detailsIndex;
 
 function init() {
     initValues();
@@ -12,6 +13,7 @@ function initValues(){
     actualTime = 0;
     dronesDepartures = [];
     lastTime=0;
+    detailsIndex=-1;
 }
 
 
@@ -41,6 +43,8 @@ function generatesInfos(){
     if(actualTime>lastTime)
         clearInterval(interval);
     else{
+        if(detailsIndex!=-1)
+            displayDetailsIndex(detailsIndex);
         generateDrones();
         actualTime++;
     }
@@ -73,19 +77,43 @@ function generateDrones(){
         document.getElementById("drone" + i).addEventListener("click", displayDetails);
 }
 
+function displayDetailsIndex(index) {
+    var newContent;
+    var inventory="";
+
+    if(operatorJson.drones[index][actualTime]!=undefined){
+        for (var key in operatorJson.drones[index][actualTime].inventory) {
+            if (operatorJson.drones[index][actualTime].inventory.hasOwnProperty(key)) {
+                var val = operatorJson.drones[index][actualTime].inventory[key];
+                inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+            }
+        }
+
+        newContent = "<div class='table-responsive'><table class='table'>" +
+            "<tr><th>ID</th><td>"+index+"</td></tr>" +
+            "<tr><th>Departure</th><td>("+operatorJson.drones[index][actualTime].departure.x+" ; "+operatorJson.drones[index][actualTime].departure.y+")</td></tr>" +
+            "<tr><th>Arrival</th><td>("+operatorJson.drones[index][actualTime].arrival.x+" ; "+operatorJson.drones[index][actualTime].arrival.y+")</td></tr>" +
+            "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
+            "<tr></tr></table></div>";
+    }else{
+        newContent = "<div class='table-responsive'><table class='table'>" +
+            "<tr><th>ID</th><td>"+index+"</td></tr>" +
+            "<tr><th>Departure</th><td>x</td></tr>" +
+            "<tr><th>Arrival</th><td>x</td></tr>" +
+            "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
+            "<tr></tr></table></div>";
+    }
+
+    document.getElementById("detailsContent").innerHTML = newContent;
+}
+
 function displayDetails(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(5, 6));
-    var newContent;
 
-    newContent = "<div class='table-responsive'><table class='table'>" +
-        "<tr><th>ID</th><td>"+index+"</td></tr>" +
-        "<tr><th>Departure</th><td>("+operatorJson.drones[index][actualTime].departure.x+" ; "+operatorJson.drones[index][actualTime].departure.y+")</td></tr>" +
-        "<tr><th>Arrival</th><td>("+operatorJson.drones[index][actualTime].arrival.x+" ; "+operatorJson.drones[index][actualTime].arrival.y+")</td></tr>" +
-        "<tr><th>Inventory</th><td>"+operatorJson.drones[index][actualTime].inventory+"</td></tr>" +
-        "<tr></tr></table></div>";
+    displayDetailsIndex(index);
 
-    document.getElementById("detailsContent").innerHTML = newContent
+    detailsIndex = index;
 }
 
 function startSimulation() {
