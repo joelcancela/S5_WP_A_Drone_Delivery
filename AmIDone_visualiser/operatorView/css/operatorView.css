@@ -1,0 +1,12 @@
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none; color:  #ff9933;
+}
+
+.done {
+    font-weight: bold;
+    color: #47c515;
+}
+
+.finish {
+    background-color: #d2d0d0;
+}
