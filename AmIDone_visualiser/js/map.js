@@ -214,7 +214,9 @@ function drawPath(dx, dy, ax, ay) {
     ctx.lineWidth = "3";
     ctx.strokeStyle = COLOR.PATH;
     ctx.moveTo(dx * xCase + xCase / 2, dy * yCase + yCase / 2);
-    ctx.lineTo(ax * xCase + xCase / 2, ay * yCase + yCase / 2);
+    //ctx.lineTo(ax * xCase + xCase / 2, ay * yCase + yCase / 2);
+    var middle = {"x": dx + (ay - dx)/2, "y": dy + (ay - dy)/2};
+    ctx.quadraticCurveTo(20,100,ax * xCase + xCase / 2, ay * yCase + yCase / 2)
     ctx.stroke();
 }
 
