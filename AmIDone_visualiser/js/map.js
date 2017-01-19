@@ -25,7 +25,7 @@ var ticks = -1;
 var renderSinceTick = -1;
 
 
-function init_map(json_log) {
+function initMap(json_log) {
     drones = json_log.drones;
     var contextIn = json_log.context;
     buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);
@@ -40,12 +40,6 @@ function init_map(json_log) {
     window.onresize = refreshSize;
     //init_drones();
     setInterval(render, FRAME_FREQ * 1000);
-}
-
-function init_drones() {
-    drones.forEach(function (d) {
-        addPath(d[0].departure, d[0].arrival, d[0].remaining);
-    });
 }
 
 
@@ -79,7 +73,7 @@ function setJson(event) {
         /*drones = json_log.drones;
         var contextIn = json_log.context;
         buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);*/
-        init(JSON.parse(text));
+        initMap(JSON.parse(text));
     };
     reader.readAsText(input.files[0]);
 }
