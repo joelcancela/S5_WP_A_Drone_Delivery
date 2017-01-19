@@ -1,10 +1,14 @@
 var orderId;
 var jsonCustomer;
 
+//Initialisation call
+$('document').ready(function () {
+    init();
+});
+
 var init = function () {
     setVars();
     bindVars();
-    getJson();
 };
 
 function getQueryVariable(variable) {
@@ -29,23 +33,35 @@ var bindVars = function () {
 
 };
 
-var getJson = function () {
-    $.getJSON("../log.json", function (json) {
-        jsonCustomer = json;
+
+///JSON-related functions
+
+function getJson(event) {
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function () {
+        jsonCustomer = JSON.parse(reader.result);
         console.log(jsonCustomer);
-        fillTableFirst(json);
-    });
-};
+        fillTableFirst(jsonCustomer);
+    };
+    reader.readAsText(input.files[0]);
+}
+
 
 var fillTableFirst = function (json) {
-    var trHTML="";
+    var trHTML = "";
     $.each(json.context, function (key, value) {
         trHTML += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
     });
     $('#ordersTable').append(trHTML);
 };
 
-//Initialisation call
-$('document').ready(function () {
-    init();
-});
+
+function getCSV(event) {
+
+}
+
+function startSimulation() {
+
+}
