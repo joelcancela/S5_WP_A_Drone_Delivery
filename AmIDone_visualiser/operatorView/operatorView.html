@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Jeremy JUNAC, Alexandre HILTCHER, Pierre RAINERO, Joël CANCELA VAZ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -18,7 +19,44 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body onload="init();">
+
+<div class="container">
+    <div class="row" id="view">
+        <div class="class='col-sm-9">
+
+        </div>
+        <div class="class='col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Details</div>
+                <div class="panel-body">Panel Content</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="objects">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#drone">Drones</a></li>
+            <li><a data-toggle="tab" href="#order">Orders</a></li>
+            <li><a data-toggle="tab" href="#warehouse">Warehouses</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="drone" class="tab-pane fade in active">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dronesTable">
+
+                    </table>
+                </div>
+            </div>
+            <div id="order" class="tab-pane fade">
+                LES ORDERS
+            </div>
+            <div id="warehouse" class="tab-pane fade">
+                LES WAREHOUSES
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>

@@ -1,1 +1,126 @@
-{"a" : "b", "c" : "d"}
+{
+	"context": {
+		"nbDrone": 2
+	},
+	"drones": [
+		[{
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 0,
+				"y": 0
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 1
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 4
+		}, {
+			"departure": {
+				"x": 2,
+				"y": 2
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 3
+		}, {
+			"departure": {
+				"x": 1,
+				"y": 1
+			},
+			"arrival": {
+				"x": 3,
+				"y": 2
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 4
+		}, {
+			"departure": {
+				"x": 3,
+				"y": 2
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 2
+		}, {
+			"departure": {
+				"x": 2,
+				"y": 2
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 3
+		}, {
+			"departure": {
+				"x": 1,
+				"y": 1
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+				"1": 2
+			},
+			"timeRemaining": 1
+		}],
+		[{
+			"departure": {
+				"x": 1,
+				"y": 3
+			},
+			"arrival": {
+				"x": 4,
+				"y": 6
+			},
+			"inventory": {
+				"2": 1
+			},
+			"timeRemaining": 6
+		}, {
+			"departure": {
+				"x": 4,
+				"y": 6
+			},
+			"arrival": {
+				"x": 4,
+				"y": 6
+			},
+			"inventory": {
+				"2": 1
+			},
+			"timeRemaining": 1
+		}]
+	]
+}
