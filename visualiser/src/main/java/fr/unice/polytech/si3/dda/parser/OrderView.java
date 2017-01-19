@@ -89,7 +89,15 @@ public class OrderView {
         for (Coordinates coordinate : context.getMap().getDeliveryPoints().keySet()) {
             if (first) first = false;
             else stringBuilder.append(",");
-            stringBuilder.append("{ \"x\" : " + coordinate.getX() + ", \"y\" : " + coordinate.getY() + "}");
+            stringBuilder.append("{ \"x\" : " + coordinate.getX() + ", \"y\" : " + coordinate.getY());
+            stringBuilder.append(", \"order\" : [");
+            boolean firstProduct = true;
+            for (Product product : context.getMap().getDeliveryPoint(coordinate).getOrder().getProducts().keySet()) {
+                if (firstProduct) firstProduct = false;
+                else stringBuilder.append(",");
+                stringBuilder.append("{\"" + product.getId() + "\" : " + context.getMap().getDeliveryPoint(coordinate).getOrder().getProducts().get(product) + "}");
+            }
+            stringBuilder.append("]}");
         }
         stringBuilder.append("]}");
 
@@ -142,7 +150,7 @@ public class OrderView {
             Map<Integer, Integer> map = new HashMap<>();
             for (Product product : warehouse.getStock().keySet())
                 map.put(product.getId(), warehouse.getStock().get(product));
-            poiList.addStep(new PoiStep(map, context.getTurns()));
+            poiList.addStep(new PoiStep(map, 0));
             warehouseList.add(poiList);
         }
 
@@ -152,13 +160,12 @@ public class OrderView {
             Map<Integer, Integer> map = new HashMap<>();
             for (Product product : deliveryPoint.getOrder().getProducts().keySet())
                 map.put(product.getId(), deliveryPoint.getOrder().getProducts().get(product));
-            poiList.addStep(new PoiStep(map, context.getTurns()));
+            poiList.addStep(new PoiStep(map));
             deliveryPointList.add(poiList);
         }
 
         int count;
         for (Instruction instruction : instructions) {
-            System.out.println(instruction);
             count = instruction.execute(tempContext);
             if (instruction.isLoadInstruction()) {
                 PoiList warehouse = warehouseList.get(((LoadInstruction) instruction).getIdWarehouse());
@@ -168,7 +175,8 @@ public class OrderView {
             } else if (instruction.isDeliverInstruction()) {
                 PoiList deliveryPoint = deliveryPointList.get(((DeliverInstruction) instruction).getOrderNumber());
                 PoiStep poiStep = new PoiStep(deliveryPoint.getLast().getInventory(), count);
-                poiStep.addItem(instruction.getProductType(), instruction.getNumberOfProducts());
+                if (deliveryPoint.getFirst().getTimeRemaining() == -1) deliveryPoint.getOrderSteps().remove(0);
+                poiStep.removeItem(instruction.getProductType(), instruction.getNumberOfProducts());
                 deliveryPoint.addStep(poiStep);
             } else if (instruction.isUnloadInstruction()) {
                 PoiList warehouse = warehouseList.get(((LoadInstruction) instruction).getIdWarehouse());

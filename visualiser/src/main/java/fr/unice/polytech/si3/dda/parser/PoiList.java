@@ -25,8 +25,11 @@ public class PoiList {
         return orderSteps.get(0);
     }
 
+    public List<PoiStep> getOrderSteps() {
+        return orderSteps;
+    }
+
     public String toJson() {
-        orderSteps.get(0).setTimeRemaining(0);
         StringBuilder stringBuilder = new StringBuilder();
         boolean first = true;
         stringBuilder.append("[");

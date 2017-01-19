@@ -9,11 +9,15 @@ import java.util.Map;
 public class PoiStep {
 
     private Map<Integer, Integer> inventory;
-    private int timeRemaining;
+    private int timeRemaining = -1 ;
 
     public PoiStep(Map<Integer, Integer> inventory, int timeRemaining) {
         this.inventory = inventory;
         this.timeRemaining = timeRemaining;
+    }
+
+    public PoiStep(Map<Integer, Integer> inventory) {
+        this.inventory = inventory;
     }
 
     public Map<Integer, Integer> getInventory() {
