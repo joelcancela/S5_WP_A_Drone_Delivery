@@ -1,9 +1,27 @@
+.orange {
+    background-color: #ff9933;
+}
+
 .inputContainer {
-    text-align:center;
+    text-align: center;
     position: fixed;
     top: 2%;
-    right:4%;
-    left:4%;
-    background-color:#ffffff;
-    border-radius:4px;
+    right: 4%;
+    left: 4%;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.form-control:focus {
+    border-color: #ff9933;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 153, 51, 0.6);
+}
+
+.btn-warning {
+    border-color: #ff9933 !important;
 }

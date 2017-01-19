@@ -6,10 +6,19 @@ body {
     padding-top: 50px;
 }
 
-.vertical-offset-100 {
-    padding-top: 100px;
+.vertical-offset-20 {
+    padding-top: 20px;
 }
 
 .input-group {
     padding-top: 10px !important;
+}
+
+.logo {
+    width: 300px;
+    height: 100px;
+}
+
+h1.panel-title {
+    font-size: 18px !important;
 }
