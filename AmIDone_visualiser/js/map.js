@@ -25,7 +25,10 @@ var ticks = -1;
 var renderSinceTick = -1;
 
 
-function init() {
+function init(json_log) {
+    drones = json_log.drones;
+    var contextIn = json_log.context;
+    buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);
     canvas = document.getElementById(CANVAS_ID);
     ctx = canvas.getContext("2d");
     refreshSize();
@@ -73,9 +76,10 @@ function setJson(event) {
     reader.onload = function () {
         var text = reader.result;
         var json_log = JSON.parse(text);
-        drones = json_log.drones;
+        /*drones = json_log.drones;
         var contextIn = json_log.context;
-        buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);
+        buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);*/
+        init(JSON.parse(text));
     };
     reader.readAsText(input.files[0]);
 }
