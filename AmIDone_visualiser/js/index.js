@@ -1,5 +1,5 @@
-var customerView = "/customerView/customerView.html";
-var operatorView = "/operatorView/operatorView.html";
+var customerView = "./customerView/customerView.html";
+var operatorView = "./operatorView/operatorView.html";
 
 var init = function () {
     twoWayLoginEvents();
@@ -28,12 +28,12 @@ var twoWayLoginEvents = function () {
 
     customerForm.onsubmit = function () {
         var customerId = $('#customerId').val();
-        window.location = window.location.href + (customerView + "?customerId=" + customerId);
+        document.location = customerView + "?customerId=" + customerId;
         return false;
     };
 
     operatorForm.onsubmit = function () {
-        window.location = window.location.href + (operatorView);
+        document.location = operatorView;
         return false;
     };
 };
