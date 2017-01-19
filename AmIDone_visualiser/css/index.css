@@ -22,3 +22,7 @@ body {
 h1.panel-title {
     font-size: 18px !important;
 }
+
+.panel-default>.panel-heading {
+    background-color: rgba(165, 165, 165, 0.39) !important;
+}
