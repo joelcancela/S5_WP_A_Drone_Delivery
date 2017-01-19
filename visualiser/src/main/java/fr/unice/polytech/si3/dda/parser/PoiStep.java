@@ -40,23 +40,8 @@ public class PoiStep {
         inventory.put(productId, inventory.get(productId) - nb);
     }
 
-    public String toJson() {
-        StringBuilder stringBuilder = new StringBuilder();
-        boolean firstTab = true;
-        while (timeRemaining >= 0) {
-            if (firstTab) firstTab = false;
-            else stringBuilder.append(",");
-            stringBuilder.append("{\"inventory\" : [");
-            boolean first = true;
-            for (Integer i : inventory.keySet()) {
-                if (first) first = false;
-                else stringBuilder.append(",");
-                stringBuilder.append("{\"" + i + "\" : " + inventory.get(i) + "}");
-            }
-            stringBuilder.append("], \"remaining\" :" + timeRemaining + "}");
-            timeRemaining -= 1;
-        }
-        return stringBuilder.toString();
+    public void decrRemaining(){
+        timeRemaining -= 1;
     }
 
 
