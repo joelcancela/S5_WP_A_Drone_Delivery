@@ -10,3 +10,7 @@ a:link, a:visited, a:hover, a:active {
 .finish {
     background-color: #d2d0d0;
 }
+
+.canvasCss {
+    height:70vh;
+}

@@ -2,25 +2,33 @@
  * Created by Jeremy on 18/01/2017.
  */
 
-const COLOR = {"BACKGROUND" : "#F0EDE5"};
+const COLOR = {"BACKGROUND": "#F0EDE5", "PATH": "#00B3FD"};
 
 const DIV_ID = "map";
 const CANVAS_ID = "map_canvas";
 
-const FRAME_PER_SECOND = 30;
-const TICK = 1/FRAME_PER_SECOND;
+const FRAME_PER_SECOND = 60;
+const FRAME_FREQ = 1 / FRAME_PER_SECOND;
+
+const TIME_BETWEEN_TICK = 2;
+
+const RENDER_BEFORE_TICK = FRAME_PER_SECOND * TIME_BETWEEN_TICK;
 
 var map;
 var ctx, canvas;
 var drones;
 var paths = [];
 
-var ticks = 0;
-//var json_log;
-var drones
+var xCase, yCase;
+
+var ticks = -1;
+var renderSinceTick = -1;
 
 
-function init() {
+function initMap(json_log) {
+    drones = json_log.drones;
+    var contextIn = json_log.context;
+    buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);
     canvas = document.getElementById(CANVAS_ID);
     ctx = canvas.getContext("2d");
     refreshSize();
@@ -30,12 +38,8 @@ function init() {
     ctx.msImageSmoothingEnabled = true;
     ctx.imageSmoothingEnabled = true;
     window.onresize = refreshSize;
-    init_drones();
-    setInterval(render, TICK * 1000);
-}
-
-function init_drones() {
-    
+    //init_drones();
+    setInterval(render, FRAME_FREQ * 1000);
 }
 
 
@@ -43,45 +47,65 @@ function init_drones() {
 // GET SET ADD REMOVE
 // ##################
 
-function addPath(departure, arrival, remainingTurn) {
-    var remaining = remainingTurn;
-    paths.push({"departure":departure, "arrival":arrival, "total":remaining, "remaining":remaining});
+function addPath(departure, arrival, remaining) {
+    var remainingTicks = remaining * RENDER_BEFORE_TICK;
+    paths.push({"departure": departure, "arrival": arrival, "total": remainingTicks, "remaining": remainingTicks});
 }
 
-function removePath(departure,arrival) {
-    paths.slide(paths.indexOf({"departure":departure, "arrival":arrival}), 1);
+function removePath(departure, arrival, total, remaining) {
+    paths.slide(paths.indexOf({"departure": departure, "arrival": arrival, "total": total, "remaining": remaining}), 1);
 }
 
 
 function addDrone(drone) {
     // Add a drone object: {departure:{x:_,y:_}, arrival:{x:_,y:_}, inventory:{0:_, 1:_,...}, remaining:_}
-    drones.push(drone);
+    drones.push(drone.append("total", 0));
+
 }
 
 function setJson(event) {
     var input = event.target;
 
     var reader = new FileReader();
-    reader.onload = function(){
+    reader.onload = function () {
         var text = reader.result;
         var json_log = JSON.parse(text);
-        drones = json_log.drones;
+        /*drones = json_log.drones;
+        var contextIn = json_log.context;
+        buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);*/
+        initMap(JSON.parse(text));
     };
     reader.readAsText(input.files[0]);
+}
+
+function buildMap(rows, cols, warehouses, deliveryPoints) {
+    map = [];
+    for (var i = 0; i < rows; i++) {
+        map.push([]);
+        for (var j = 0; j < cols; j++) {
+            map[i].push('');
+        }
+    }
+    warehouses.forEach(function (w) {
+        map[w.y][w.x] = 'W';
+    });
+    deliveryPoints.forEach(function (dp) {
+        map[dp.y][dp.x] = 'O';
+    });
 }
 
 function setMap(event) {
     var input = event.target;
 
     var reader = new FileReader();
-    reader.onload = function(){
+    reader.onload = function () {
         map = [];
         var text = reader.result;
         var lines = text.split("\n");
-        for(var i = 0; i < lines.length; i++){
+        for (var i = 0; i < lines.length; i++) {
             map.push([]);
             var cells = lines[i].split(",");
-            for(var j = 0; j < cells.length; j++){
+            for (var j = 0; j < cells.length; j++) {
                 map[i].push(cells[j].charAt(0));
             }
         }
@@ -95,40 +119,38 @@ function setMap(event) {
 // ##################
 
 function tick() {
-    paths.forEach(function(e){
-        e.remaining--;
-        if (e.remaining < 0) {
-            paths.forEach(function (item, index, object) {
-                if (item === e) {
-                    object.splice(index, 1);
-                }
-            });
+    ticks++;
+    drones.forEach(function (d) {
+        if (d[ticks] == undefined)
+            return;
+        if (ticks == 0 || d[ticks - 1].remaining == 0) {
+            addPath(d[ticks].departure, d[ticks].arrival, d[ticks].remaining);
         }
     });
-    drones.forEach(function (e) {
-        e.remaining--;
-        if (e.remaining < 0) {
-            paths.forEach(function (item, index, object) {
-                if (item === e) {
-                    object.splice(index, 1);
-                }
-            });
-        }
-    });
+
+
 }
 
 function render() {
-    ticks++;
-    if (ticks%FRAME_PER_SECOND == 0){
+    renderSinceTick++;
+    paths.forEach(function (e) {
+        e.remaining--;
+        if (e.remaining < 0) {
+            paths.forEach(function (item, index, object) {
+                if (item === e)
+                    object.splice(index, 1);
+            });
+        }
+    });
+    if (renderSinceTick % RENDER_BEFORE_TICK == 0) {
         tick();
-        ticks = 0;
+        renderSinceTick = 0;
     }
-    console.log("refresh");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = COLOR.BACKGROUND;
-    ctx.fillRect(0,0, canvas.width, canvas.height);
-    paths.forEach(function (e) {
-        drawPath(e.departure.x, e.departure.y, e.arrival.x, e.arrival.y);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    paths.forEach(function (p) {
+        drawPath(p.departure.x, p.departure.y, p.arrival.x, p.arrival.y);
     });
     drawMap();
     drawDrones();
@@ -138,17 +160,31 @@ function render() {
 // DISPLAY FUNCTIONS
 // ##################
 
-function drawDrones(path) {
-    paths.forEach(function (e) {
-        console.log("draw drone");
+function drawDrones() {
+
+    function drawDrone(x, y) {
+        var xPx = x * xCase + xCase / 2;
+        var yPx = y * yCase + yCase / 2;
         ctx.beginPath();
-        var x = path.departure.x + ((path.total - path.remaining) / path.total) * (path.arrival.x - path.departure.x);
-        var y = path.departure.y + ((path.total - path.remaining) / path.total) * (path.arrival.y - path.departure.y);
-        console.log(x + "," + y);
-        ctx.arc(x * xCase + xCase / 2, y * yCase + yCase / 2, 20, 0, 2 * Math.PI, false);
+        ctx.arc(xPx, yPx, xCase / 3, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
+    }
+
+    paths.forEach(function (path) {
+        var x = path.departure.x + ((path.total - path.remaining) / path.total) * (path.arrival.x - path.departure.x);
+        var y = path.departure.y + ((path.total - path.remaining) / path.total) * (path.arrival.y - path.departure.y);
+        drawDrone(x, y);
     });
+
+    drones.forEach(function (d) {
+        if (d[ticks] == undefined)
+            return;
+        if (d[ticks].remaining == 0) {
+            drawDrone(d[ticks].arrival.x, d[ticks].arrival.y);
+        }
+    });
+
 }
 
 function drawMap() {
@@ -175,31 +211,30 @@ function drawMap() {
 function drawPath(dx, dy, ax, ay) {
     //TODO: Pour le moment, en ligne droite
     ctx.beginPath();
-    ctx.lineWidth="3";
-    ctx.strokeStyle="#00B3FD";
-    ctx.moveTo(dx * xCase + xCase/2, dy * yCase + yCase/2);
-    ctx.lineTo(ax * xCase + xCase/2, ay * yCase + yCase/2);
+    ctx.lineWidth = "3";
+    ctx.strokeStyle = COLOR.PATH;
+    ctx.moveTo(dx * xCase + xCase / 2, dy * yCase + yCase / 2);
+    //ctx.lineTo(ax * xCase + xCase / 2, ay * yCase + yCase / 2);
+    var middle = {"x": dx + (ay - dx)/2, "y": dy + (ay - dy)/2};
+    ctx.quadraticCurveTo(20,100,ax * xCase + xCase / 2, ay * yCase + yCase / 2)
     ctx.stroke();
 }
 
 function refreshSize() {
-    /*var ratioW = 1600 / window.innerWidth, ratioH = 900 / window.innerHeight;
-     if (ratioW > ratioH) {
-     ctx.canvas.width = window.innerWidth * POURCENTAGE_CANVAS.LARGEUR;
-     ctx.canvas.height = (900 / ratioW) * POURCENTAGE_CANVAS.HAUTEUR;
-     } else {
-     ctx.canvas.width = (1600 / ratioH) * POURCENTAGE_CANVAS.LARGEUR;
-     ctx.canvas.height = window.innerHeight * POURCENTAGE_CANVAS.HAUTEUR;
-     }
-     xCase = canvas.width / 16;
-     yCase = canvas.height / 9;*/
-    ctx.canvas.width = parent.innerWidth;
-    ctx.canvas.height = parent.innerHeight;
+
+    var ratio = map[0].length / map.length;
+    var preferedWidth = ratio * parent.innerHeight;
+
+
+    if (preferedWidth < parent.innerWidth) {
+        ctx.canvas.width = preferedWidth;
+        ctx.canvas.height = parent.innerHeight;
+    } else {
+        var preferedHeight = (1/ratio) * parent.innerWidth;
+        ctx.canvas.width = parent.innerWidth;
+        ctx.canvas.height = preferedHeight;
+    }
     xCase = canvas.width / map[0].length;
     yCase = canvas.height / map.length;
     render();
-}
-
-function distance(dx, dy, ax, ay) {
-    return Math.sqrt(Math.pow(dx - ax, 2)+Math.pow(dy - ay, 2));
 }
