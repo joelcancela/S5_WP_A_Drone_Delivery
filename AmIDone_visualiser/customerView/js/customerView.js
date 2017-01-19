@@ -71,7 +71,6 @@ function parseRemainingTurns(json, typeOccurence, occurrence) {
     var tick = json.deliveries[orderId];
     var turns = 0;
     $.each(tick, function (key, value) {//foreach tick
-        //0 31 1 35
         var tickKey = value.inventory[typeOccurence];
         // console.dir(tickKey);
         var tickValue = tickKey[Object.keys(tickKey)[0]];

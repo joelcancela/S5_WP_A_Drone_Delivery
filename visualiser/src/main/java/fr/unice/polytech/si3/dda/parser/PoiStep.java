@@ -1,5 +1,6 @@
 package fr.unice.polytech.si3.dda.parser;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,28 +9,40 @@ import java.util.Map;
 public class PoiStep {
 
     private Map<Integer, Integer> inventory;
-    private int timeRemaining;
+    private int timeRemaining = -1 ;
 
     public PoiStep(Map<Integer, Integer> inventory, int timeRemaining) {
         this.inventory = inventory;
         this.timeRemaining = timeRemaining;
     }
 
-
-    public String toJson() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{\"inventory\" : [");
-        boolean first = true;
-        for (Integer i : inventory.keySet()) {
-            if (first) first = false;
-            else stringBuilder.append(",");
-            stringBuilder.append("{\"" + i + "\" : " + inventory.get(i));
-        }
-        stringBuilder.append("], \"inventory\" :" + timeRemaining + "}");
-        return stringBuilder.toString();
+    public PoiStep(Map<Integer, Integer> inventory) {
+        this.inventory = inventory;
     }
 
+    public Map<Integer, Integer> getInventory() {
+        return new HashMap<>(inventory);
+    }
 
+    public int getTimeRemaining() {
+        return timeRemaining;
+    }
+
+    public void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
+    }
+
+    public void addItem(int productId, int nb){
+        inventory.put(productId, inventory.get(productId) + nb);
+    }
+
+    public void removeItem(int productId, int nb){
+        inventory.put(productId, inventory.get(productId) - nb);
+    }
+
+    public void decrRemaining(){
+        timeRemaining -= 1;
+    }
 
 
 }
