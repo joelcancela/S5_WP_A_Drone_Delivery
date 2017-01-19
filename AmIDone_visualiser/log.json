@@ -17,15 +17,856 @@
 		}],
 		"deliveryPoints": [{
 			"x": 1,
-			"y": 1
+			"y": 1,
+			"order": [{
+				"1": 1
+			}, {
+				"0": 1
+			}]
 		}, {
 			"x": 4,
-			"y": 6
+			"y": 6,
+			"order": [{
+				"2": 1
+			}]
 		}, {
 			"x": 2,
-			"y": 2
+			"y": 2,
+			"order": [{
+				"1": 3
+			}]
 		}]
 	},
+	"warehouse": [
+		[{
+			"inventory": [{
+				"0": 5
+			}, {
+				"1": 2
+			}, {
+				"2": 0
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"0": 5
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 5
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"0": 4
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 4
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 0
+		}],
+		[{
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 2
+			}, {
+				"2": 0
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 0
+		}],
+		[{
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 1
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 5
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}, {
+				"2": 0
+			}],
+			"remaining": 0
+		}]
+	],
+	"deliveries": [
+		[{
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 30
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 29
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 28
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 27
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 26
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 25
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 24
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 23
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 22
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 21
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 20
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 19
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 18
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 17
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 16
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 15
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 14
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 13
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 12
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 11
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 10
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 9
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 8
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 7
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 6
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 5
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 1
+			}, {
+				"1": 1
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 1
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 1
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 1
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 1
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"0": 0
+			}, {
+				"1": 0
+			}],
+			"remaining": 0
+		}],
+		[{
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 30
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 29
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 28
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 27
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 26
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 25
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 24
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 23
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 22
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 21
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 20
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 19
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 18
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 17
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 16
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 15
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 14
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 13
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 12
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 11
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 10
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 9
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 8
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 7
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 6
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 5
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"2": 1
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 6
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 5
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"2": 0
+			}],
+			"remaining": 0
+		}],
+		[{
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 30
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 29
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 28
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 27
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 26
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 25
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 24
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 23
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 22
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 21
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 20
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 19
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 18
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 17
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 16
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 15
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 14
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 13
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 12
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 11
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 10
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 9
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 8
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 7
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 6
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 5
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"1": 3
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"1": 1
+			}],
+			"remaining": 4
+		}, {
+			"inventory": [{
+				"1": 1
+			}],
+			"remaining": 3
+		}, {
+			"inventory": [{
+				"1": 1
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"1": 1
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"1": 1
+			}],
+			"remaining": 0
+		}, {
+			"inventory": [{
+				"1": 0
+			}],
+			"remaining": 2
+		}, {
+			"inventory": [{
+				"1": 0
+			}],
+			"remaining": 1
+		}, {
+			"inventory": [{
+				"1": 0
+			}],
+			"remaining": 0
+		}]
+	],
 	"drones": [
 		[{
 			"departure": {
