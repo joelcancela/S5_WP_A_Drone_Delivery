@@ -85,34 +85,12 @@ function generateDrones(){
 
 function generateWarehouses(){
     var newContent;
-    var nbDrone = operatorJson.context.warehouses.length;
+    var nbWarehouse = operatorJson.context.warehouses.length;
     var droneDone = "";
 
-    newContent="<tr><th>Id</th><th>Coordinates</th><th>Departure Turn</th><th>Arrival position</th><th>Arrival Turn</th><th>Remaining turns</th></tr>";
-/*
-    for(var i=0;i<nbDrone;i++){
-        if(actualTime==0){
-            dronesDepartures[i] = 0;
-        }else {
-            if(operatorJson.drones[i][actualTime]!=undefined && operatorJson.drones[i][actualTime].remaining == 0){
-                dronesDepartures[i] = actualTime;
-                droneDone = "class='done'";
-            }else
-                droneDone = "";
-        }
-        if(operatorJson.drones[i][actualTime]!=undefined)
-            newContent += "<tr style='cursor:  pointer;' "+droneDone+" id='drone"+i+"'><td>"+i+"</td>" +
-                "<td>("+operatorJson.drones[i][actualTime].departure.x+" ; "+operatorJson.drones[i][actualTime].departure.y+")</td>" +
-                "<td>"+dronesDepartures[i]+"</td><td>("+operatorJson.drones[i][actualTime].arrival.x+" ; "+operatorJson.drones[i][actualTime].arrival.y+")</td>" +
-                "<td>"+(actualTime+operatorJson.drones[i][actualTime].remaining)+"</td><td>"+operatorJson.drones[i][actualTime].remaining+"</td></tr>";
-        else
-            newContent += "<tr style='cursor:  pointer;' id='drone"+i+"' class='finish'><td>"+i+"</td><td>//</td><td>//</td><td>//</td><td>//</td><td>//</td></tr>";
-    }
+    newContent="<tr><th>Id</th><th>Coordinates</th></tr>";
 
-    document.getElementById("dronesTable").innerHTML = newContent;
-
-    for(var i=0;i<nbDrone;i++)
-        document.getElementById("drone" + i).addEventListener("click", displayDetails);*/
+    
 }
 
 function displayDetailsIndex(index) {
