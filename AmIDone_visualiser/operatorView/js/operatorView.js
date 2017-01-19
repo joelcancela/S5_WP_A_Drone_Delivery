@@ -3,7 +3,7 @@ var actualTime;
 var dronesDepartures;
 var interval;
 var lastTime;
-var detailsIndex;
+var detailsDroneIndex;
 
 function init() {
     initValues();
@@ -13,7 +13,7 @@ function initValues(){
     actualTime = 0;
     dronesDepartures = [];
     lastTime=0;
-    detailsIndex=-1;
+    detailsDroneIndex=-1;
 }
 
 
@@ -24,6 +24,7 @@ function getJson(event) {
     reader.onload = function () {
         operatorJson = JSON.parse(reader.result);
         generateDrones(operatorJson);
+        generateWarehouses(operatorJson);
 
         var nbDrone = operatorJson.context.nbDrone;
 
@@ -43,9 +44,11 @@ function generatesInfos(){
     if(actualTime>lastTime)
         clearInterval(interval);
     else{
-        if(detailsIndex!=-1)
-            displayDetailsIndex(detailsIndex);
+        if(detailsDroneIndex!=-1)
+            displayDetailsDroneIndex(detailsDroneIndex);
+
         generateDrones();
+        generateWarehouses();
         actualTime++;
     }
 
@@ -56,7 +59,7 @@ function generateDrones(){
     var nbDrone = operatorJson.context.nbDrone;
     var droneDone = "";
 
-    newContent="<tr><th>Id</th><th>Departure</th><th>Departure Turn</th><th>Arrival position</th><th>Arrival Turn</th><th>Remaining turns</th></tr>";
+    newContent="<thead><tr><th>Id</th><th>Departure</th><th>Departure Turn</th><th>Arrival position</th><th>Arrival Turn</th><th>Remaining turns</th></tr></thead><tbody>";
 
     for(var i=0;i<nbDrone;i++){
         if(actualTime==0){
@@ -77,10 +80,11 @@ function generateDrones(){
             newContent += "<tr style='cursor:  pointer;' id='drone"+i+"' class='finish'><td>"+i+"</td><td>//</td><td>//</td><td>//</td><td>//</td><td>//</td></tr>";
     }
 
+    newContent += "</tbody>";
     document.getElementById("dronesTable").innerHTML = newContent;
 
     for(var i=0;i<nbDrone;i++)
-        document.getElementById("drone" + i).addEventListener("click", displayDetails);
+        document.getElementById("drone" + i).addEventListener("click", displayDetailsDrone);
 }
 
 function generateWarehouses(){
@@ -88,14 +92,17 @@ function generateWarehouses(){
     var nbWarehouse = operatorJson.context.warehouses.length;
     var droneDone = "";
 
-    newContent="<tr><th>Id</th><th>Coordinates</th></tr>";
+    newContent="<thead><tr><th>Id</th><th>Coordinates</th></tr></thead><tbody>";
     for(var i=0;i<nbWarehouse;i++){
-        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td>";
+        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td><td>("+operatorJson.context.warehouses[i].x+" ; "+operatorJson.context.warehouses[i].y+")</td>";
     }
+
+    newContent += "</tbody>";
+    document.getElementById("warehousesTable").innerHTML = newContent;
 
 }
 
-function displayDetailsIndex(index) {
+function displayDetailsDroneIndex(index) {
     var newContent;
     var inventory="";
 
@@ -111,6 +118,7 @@ function displayDetailsIndex(index) {
             "<tr><th>ID</th><td>"+index+"</td></tr>" +
             "<tr><th>Departure</th><td>("+operatorJson.drones[index][actualTime].departure.x+" ; "+operatorJson.drones[index][actualTime].departure.y+")</td></tr>" +
             "<tr><th>Arrival</th><td>("+operatorJson.drones[index][actualTime].arrival.x+" ; "+operatorJson.drones[index][actualTime].arrival.y+")</td></tr>" +
+            "<tr><th>Arrival in </th><td>"+operatorJson.drones[index][actualTime].remaining+"</td></tr>" +
             "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
             "<tr></tr></table></div>";
     }else{
@@ -120,6 +128,7 @@ function displayDetailsIndex(index) {
             "<tr><th>ID</th><td>"+index+"</td></tr>" +
             "<tr><th>Departure</th><td>//</td></tr>" +
             "<tr><th>Arrival</th><td>//</td></tr>" +
+            "<tr><th>Arrival in </th><td>//</td></tr>" +
             "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
             "<tr></tr></table></div>";
     }
@@ -127,13 +136,13 @@ function displayDetailsIndex(index) {
     document.getElementById("detailsContent").innerHTML = newContent;
 }
 
-function displayDetails(evt) {
+function displayDetailsDrone(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(5, 6));
 
-    displayDetailsIndex(index);
+    displayDetailsDroneIndex(index);
 
-    detailsIndex = index;
+    detailsDroneIndex = index;
 }
 
 function startSimulation() {
@@ -143,8 +152,11 @@ function startSimulation() {
     document.getElementById("inputs").style.display = 'none';
     document.getElementById("mainContent").classList.remove("hidden");
 
-    initMap(operatorJson);
+    setTimeout(function(){
+        initMap(operatorJson);
+    }, 1400);
     interval = setInterval(generatesInfos, 2000);
+
 }
 
 $('document').ready(function () {
