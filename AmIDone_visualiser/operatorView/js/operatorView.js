@@ -83,6 +83,18 @@ function generateDrones(){
         document.getElementById("drone" + i).addEventListener("click", displayDetails);
 }
 
+function generateWarehouses(){
+    var newContent;
+    var nbWarehouse = operatorJson.context.warehouses.length;
+    var droneDone = "";
+
+    newContent="<tr><th>Id</th><th>Coordinates</th></tr>";
+    for(var i=0;i<nbWarehouse;i++){
+        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td>";
+    }
+
+}
+
 function displayDetailsIndex(index) {
     var newContent;
     var inventory="";
@@ -131,6 +143,7 @@ function startSimulation() {
     document.getElementById("inputs").style.display = 'none';
     document.getElementById("mainContent").classList.remove("hidden");
 
+    initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
 }
 
