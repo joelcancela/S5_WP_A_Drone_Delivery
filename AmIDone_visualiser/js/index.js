@@ -1,5 +1,5 @@
-var customerView = "customerView/customerView.html";
-var operatorView = "operatorView/operatorView.html";
+var customerView = "/customerView/customerView.html";
+var operatorView = "/operatorView/operatorView.html";
 
 var init = function () {
     twoWayLoginEvents();
