@@ -1,0 +1,256 @@
+{
+	"context": {
+		"nbDrone": 2,
+		"map": {
+			"rows": 7,
+			"cols": 5
+		},
+		"warehouses": [{
+			"x": 0,
+			"y": 0
+		}, {
+			"x": 3,
+			"y": 2
+		}, {
+			"x": 1,
+			"y": 3
+		}],
+		"deliveryPoints": [{
+			"x": 1,
+			"y": 1
+		}, {
+			"x": 4,
+			"y": 6
+		}, {
+			"x": 2,
+			"y": 2
+		}]
+	},
+	"drones": [
+		[{
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 0,
+				"y": 0
+			},
+			"inventory": {
+			},
+			"remaining": 0
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 0,
+				"y": 0
+			},
+			"inventory": {
+				"1": 2
+			},
+			"remaining": 0
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"0": 1,
+				"1": 2
+			},
+			"remaining": 4
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"0": 1,
+				"1": 2
+			},
+			"remaining": 3
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"0": 1,
+				"1": 2
+			},
+			"remaining": 2
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"0": 1,
+				"1": 2
+			},
+			"remaining": 1
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 2,
+				"y": 2
+			},
+			"inventory": {
+				"0": 1,
+				"1": 2
+			},
+			"remaining": 0
+		}, {
+			"departure": {
+				"x": 2,
+				"y": 2
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+			},
+			"remaining": 3
+		}, {
+			"departure": {
+				"x": 2,
+				"y": 2
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+			},
+			"remaining": 2
+		}, {
+			"departure": {
+				"x": 2,
+				"y": 2
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+			},
+			"remaining": 1
+		}, {
+			"departure": {
+				"x": 2,
+				"y": 2
+			},
+			"arrival": {
+				"x": 1,
+				"y": 1
+			},
+			"inventory": {
+				"0": 0,
+				"1": 0
+			},
+			"remaining": 0
+		}],
+		[{
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 1,
+				"y": 3
+			},
+			"inventory": {
+				"2": 1
+			},
+			"remaining": 5
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 1,
+				"y": 3
+			},
+			"inventory": {
+				"2": 1
+			},
+			"remaining": 4
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 1,
+				"y": 3
+			},
+			"inventory": {
+				"2": 1
+			},
+			"remaining": 3
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 1,
+				"y": 3
+			},
+			"inventory": {
+				"2": 1
+			},
+			"remaining": 2
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 1,
+				"y": 3
+			},
+			"inventory": {
+				"2": 1
+			},
+			"remaining": 1
+		}, {
+			"departure": {
+				"x": 0,
+				"y": 0
+			},
+			"arrival": {
+				"x": 1,
+				"y": 3
+			},
+			"inventory": {
+				"2": 1
+			},
+			"remaining": 0
+		}]
+	]
+}
