@@ -24,40 +24,6 @@
 <body>
 
 <div class="container">
-    <div class="row" id="view">
-        <div class="class='col-sm-9">
-
-        </div>
-        <div class="class='col-sm-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Details</div>
-                <div class="panel-body">Panel Content</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="objects">
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#drone">Drones</a></li>
-            <li><a data-toggle="tab" href="#order">Orders</a></li>
-            <li><a data-toggle="tab" href="#warehouse">Warehouses</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="drone" class="tab-pane fade in active">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="dronesTable">
-
-                    </table>
-                </div>
-            </div>
-            <div id="order" class="tab-pane fade">
-                LES ORDERS
-            </div>
-            <div id="warehouse" class="tab-pane fade">
-                LES WAREHOUSES
-            </div>
-        </div>
-    </div>
 
     <div class="inputContainer" id="inputs">
         <div class="panel panel-default">
@@ -68,6 +34,43 @@
                 </label>
                 <br/>
                 <button onclick="startSimulation()" class="btn btn-primary" style="margin-top: 4px">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" class="hidden">
+        <div class="row" id="view">
+            <div class="class='col-sm-9">
+
+            </div>
+            <div class="class='col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Details</div>
+                    <div class="panel-body">Panel Content</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="objects">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#drone">Drones</a></li>
+                <li><a data-toggle="tab" href="#order">Orders</a></li>
+                <li><a data-toggle="tab" href="#warehouse">Warehouses</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="drone" class="tab-pane fade in active">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dronesTable">
+
+                        </table>
+                    </div>
+                </div>
+                <div id="order" class="tab-pane fade">
+                    LES ORDERS
+                </div>
+                <div id="warehouse" class="tab-pane fade">
+                    LES WAREHOUSES
+                </div>
             </div>
         </div>
     </div>

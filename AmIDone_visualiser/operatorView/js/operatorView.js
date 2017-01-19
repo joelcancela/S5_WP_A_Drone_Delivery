@@ -46,6 +46,7 @@ function generateDrones(){
 
 function startSimulation() {
     document.getElementById("inputs").style.display = 'none';
+    document.getElementById("mainContent").classList.remove("hidden");
 }
 
 $('document').ready(function () {
