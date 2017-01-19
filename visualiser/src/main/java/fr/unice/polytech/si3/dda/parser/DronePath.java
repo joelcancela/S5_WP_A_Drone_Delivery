@@ -100,6 +100,7 @@ public class DronePath {
             stringBuilder.append(",\"y\" : " + move.start.getCoordinates().getY() + "},");
 
             if (move.end == null) move.end = move.start;
+
             stringBuilder.append("\"arrival\" : ");
             stringBuilder.append("{\"x\" : " + move.end.getCoordinates().getX());
             stringBuilder.append(",\"y\" : " + move.end.getCoordinates().getY() + "}");
