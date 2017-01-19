@@ -63,5 +63,6 @@ function getCSV(event) {
 }
 
 function startSimulation() {
-
+    document.getElementById("inputs").style.display = 'none';
+    document.getElementById("mainContent").classList.remove("hidden");
 }

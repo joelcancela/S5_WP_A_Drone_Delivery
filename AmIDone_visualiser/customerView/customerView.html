@@ -12,6 +12,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/customerView.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -19,18 +20,21 @@
     <![endif]-->
 </head>
 <body>
-<div class="container">
+<div class="inputContainer" id="inputs">
+    <div class="panel panel-default">
+        <div class="panel-heading">Load context simulation</div>
+        <div class="panel-body">
+            <label class="btn btn-default btn-file">JSON file (customer.json)
+                <input id="input_json" type="file" onchange="getJson(event)" class="hidden">
+            </label>
+            <br/>
+            <button onclick="startSimulation()" class="btn btn-primary" style="margin-top: 4px">Start</button>
+        </div>
+    </div>
+</div>
+<div class="container hidden" id="mainContent">
     <div class="row">
         <h2>Customer #<span id="clientNumber">x</span></h2>
-        <div class="inputContainer pull-right">
-            <label>JSON file (customer.json)
-                <input id="input_json" type="file" onchange="getJson(event)">
-            </label>
-            <label>Map file (map.csv)
-                <input id="input_csv" type="file" onchange="getCSV(event)">
-            </label>
-            <button onclick="startSimulation()">Start</button>
-        </div>
     </div>
     <div class="row">
         <div id="map" class="map">
@@ -42,7 +46,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Order #<span id="orderNumber">x</span> status</div>
             <div class="panel-body">
-                <span>Listing and status of each delivery</span>
+                <span>Listing and delivery status of each item</span>
             </div>
             <div class="table-responsive">
                 <!-- Table -->
