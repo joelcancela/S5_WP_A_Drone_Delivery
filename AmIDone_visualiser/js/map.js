@@ -25,7 +25,7 @@ var ticks = -1;
 var renderSinceTick = -1;
 
 
-function init(json_log) {
+function init_map(json_log) {
     drones = json_log.drones;
     var contextIn = json_log.context;
     buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);
