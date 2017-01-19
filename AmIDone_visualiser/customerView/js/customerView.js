@@ -1,4 +1,5 @@
 var orderId;
+var jsonCustomer;
 
 var init = function () {
     setVars();
@@ -24,11 +25,25 @@ var setVars = function () {
 
 var bindVars = function () {
     var clientNumber = document.getElementById("clientNumber").innerHTML = orderId;
+    var orderNumber = document.getElementById("orderNumber").innerHTML = orderId;
+
 };
 
-var getJson = $.getJSON("../log.json", function(json) {
-    console.log(json);
-});
+var getJson = function () {
+    $.getJSON("../log.json", function (json) {
+        jsonCustomer = json;
+        console.log(jsonCustomer);
+        fillTableFirst(json);
+    });
+};
+
+var fillTableFirst = function (json) {
+    var trHTML="";
+    $.each(json.context, function (key, value) {
+        trHTML += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
+    });
+    $('#ordersTable').append(trHTML);
+};
 
 //Initialisation call
 $('document').ready(function () {
