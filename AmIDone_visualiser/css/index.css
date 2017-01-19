@@ -1,0 +1,15 @@
+html, body, .container {
+    height: 100%;
+}
+
+body {
+    padding-top: 50px;
+}
+
+.vertical-offset-100 {
+    padding-top: 100px;
+}
+
+.input-group{
+    padding-top: 10px !important;
+}

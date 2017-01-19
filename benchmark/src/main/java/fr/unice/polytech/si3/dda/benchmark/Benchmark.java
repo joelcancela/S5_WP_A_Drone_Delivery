@@ -86,7 +86,7 @@ public class Benchmark {
             score = 0;
             for (Instruction instruction : strategy) {
                 if (instruction.getDroneNumber() == i) {
-                    int cost = instruction.execute(context);
+                    int cost = instruction.execute(scoreCtx);
                     score += cost;
                     turnsleft = turnsleft - cost;
                 }
