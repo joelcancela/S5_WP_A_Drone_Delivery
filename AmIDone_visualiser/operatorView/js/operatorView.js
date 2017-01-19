@@ -90,7 +90,7 @@ function generateWarehouses(){
 
     newContent="<tr><th>Id</th><th>Coordinates</th></tr>";
     for(var i=0;i<nbWarehouse;i++){
-        
+        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td>";
     }
 
 }
