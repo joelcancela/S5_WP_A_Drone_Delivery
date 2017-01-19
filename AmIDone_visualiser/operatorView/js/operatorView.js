@@ -1,6 +1,7 @@
 var operatorJson;
 var actualTime;
 var dronesDepartures;
+var interval;
 
 function init() {
     initValues();
@@ -23,6 +24,17 @@ function getJson(event) {
     reader.readAsText(input.files[0]);
 }
 
+function generatesInfos(){
+    if(actualTime==4)
+        clearInterval(interval);
+    else{
+        console.log("ok");
+        generateDrones();
+        actualTime++;
+    }
+
+}
+
 
 function generateDrones(){
     var newContent;
@@ -34,11 +46,11 @@ function generateDrones(){
         if(actualTime==0){
             dronesDepartures[i] = 0;
         }else {
-            if(operatorJson.drones[i][actualTime].timeRemaining == 0){
+            if(operatorJson.drones[i][actualTime].remaining == 0){
                 dronesDepartures[i] = actualTime;
             }
         }
-        newContent += "<tr style='cursor:  pointer;'><td>"+i+"</td><td>("+operatorJson.drones[i][actualTime].departure.x+" ; "+operatorJson.drones[i][actualTime].departure.y+")</td><td>"+dronesDepartures[i]+"</td><td>("+operatorJson.drones[i][actualTime].arrival.x+" ; "+operatorJson.drones[i][actualTime].arrival.y+")</td><td>"+(actualTime+operatorJson.drones[i][actualTime].timeRemaining)+"</td><td>"+operatorJson.drones[i][actualTime].timeRemaining+"</td></tr>";
+        newContent += "<tr style='cursor:  pointer;'><td>"+i+"</td><td>("+operatorJson.drones[i][actualTime].departure.x+" ; "+operatorJson.drones[i][actualTime].departure.y+")</td><td>"+dronesDepartures[i]+"</td><td>("+operatorJson.drones[i][actualTime].arrival.x+" ; "+operatorJson.drones[i][actualTime].arrival.y+")</td><td>"+(actualTime+operatorJson.drones[i][actualTime].remaining)+"</td><td>"+operatorJson.drones[i][actualTime].remaining+"</td></tr>";
     }
 
     document.getElementById("dronesTable").innerHTML = newContent;
@@ -47,6 +59,8 @@ function generateDrones(){
 function startSimulation() {
     document.getElementById("inputs").style.display = 'none';
     document.getElementById("mainContent").classList.remove("hidden");
+
+    interval = setInterval(generatesInfos, 2000);
 }
 
 $('document').ready(function () {
