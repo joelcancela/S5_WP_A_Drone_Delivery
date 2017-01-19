@@ -99,7 +99,7 @@ public class Scheduler {
 		int deliveryPoints = 0;
 
 		for (int i = 0; i < map.getRows(); i++) {
-			for (int j = 0; j < map.getCols(); j++) {
+			for (int j = 0; j < map.getCols()-1; j++) {
 				Warehouse warehouse = map.getWarehouse(new Coordinates(i, j));
 				DeliveryPoint deliveryPoint = map.getDeliveryPoint(new Coordinates(i, j));
 				if (warehouse == null && deliveryPoint == null) {

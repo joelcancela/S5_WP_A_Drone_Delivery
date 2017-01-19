@@ -91,4 +91,14 @@ public class LoadInstruction extends Instruction {
 		result = 31 * result + numberOfProducts;
 		return result;
 	}
+
+	public int getIdWarehouse() {
+		return idWarehouse;
+	}
+
+
+	public boolean isLoadInstruction(){
+		return true;
+	}
+
 }

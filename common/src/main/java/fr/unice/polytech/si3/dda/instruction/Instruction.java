@@ -16,34 +16,49 @@ import fr.unice.polytech.si3.dda.exception.WrongIdException;
  */
 public abstract class Instruction {
 
-	protected int droneNumber;
-	protected int idWarehouse;
-	protected int productType;
-	protected int numberOfProducts;
+    protected int droneNumber;
+    protected int idWarehouse;
+    protected int productType;
+    protected int numberOfProducts;
 
-	/**
-	 * Execute an fr.unice.polytech.si3.dda.exception.instruction
-	 *
-	 * @param ctx Context used
-	 * @return Cost of fr.unice.polytech.si3.dda.exception.instruction
-	 * @throws ProductNotFoundException
-	 * @throws WrongIdException
-	 * @throws OverLoadException
-	 */
-	public abstract int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
+    /**
+     * Execute an fr.unice.polytech.si3.dda.exception.instruction
+     *
+     * @param ctx Context used
+     * @return Cost of fr.unice.polytech.si3.dda.exception.instruction
+     * @throws ProductNotFoundException
+     * @throws WrongIdException
+     * @throws OverLoadException
+     */
+    public abstract int execute(Context ctx) throws ProductNotFoundException, WrongIdException, OverLoadException;
 
-	public abstract int cost(Context ctx) throws WrongIdException;
+    public abstract int cost(Context ctx) throws WrongIdException;
 
-	public int getDroneNumber() {
-		return droneNumber;
-	}
+    public int getDroneNumber() {
+        return droneNumber;
+    }
 
-	public int getProductType() {
-		return productType;
-	}
+    public int getProductType() {
+        return productType;
+    }
 
-	public int getNumberOfProducts() {
-		return numberOfProducts;
-	}
+    public int getNumberOfProducts() {
+        return numberOfProducts;
+    }
 
+    public boolean isDeliverInstruction() {
+        return false;
+    }
+
+    public boolean isLoadInstruction() {
+        return false;
+    }
+
+    public boolean isUnloadInstruction() {
+        return false;
+    }
+
+    public boolean isWaitInstruction() {
+        return false;
+    }
 }

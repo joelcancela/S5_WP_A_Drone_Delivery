@@ -12,6 +12,8 @@ var twoWayLoginEvents = function () {
     var operatorSubBtn = document.getElementById("opSub");
     var customerForm = document.getElementById("custForm");
     var operatorForm = document.getElementById("opForm");
+    $("#custForm").attr("autocomplete", "off");
+    $("#opForm").attr("autocomplete", "off");
 
     customerRadioBtn.onchange = function () {
         operatorRadioBtn.checked = !this.checked;

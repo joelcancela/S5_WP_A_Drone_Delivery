@@ -1,0 +1,48 @@
+.orange {
+    background-color: #ff9933;
+}
+
+.coolGrey{
+    background-color : rgba(165, 165, 165, 0.39);
+}
+
+.coolGrey2{
+    background-color : #e7e7e7;
+}
+
+.inputContainer {
+    text-align: center;
+    position: fixed;
+    top: 30%;
+    right: 15%;
+    left: 15%;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.form-control:focus {
+    border-color: #ff9933;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 153, 51, 0.6);
+}
+
+.btn-warning {
+    border-color: #ff9933 !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #e7e7e7;
+}
+
+.container .text-muted {
+    margin: 20px 0;
+    text-align: center;
+}
