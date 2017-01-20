@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#Keep the cd as root project
 #Don't forget to mvn clean install
 mvn -q exec:java -pl scheduler -Dexec.args="$*"
 echo ""

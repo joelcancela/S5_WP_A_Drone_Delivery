@@ -35,9 +35,10 @@ public class SchedulerTest {
 		List<String> str = Files.readAllLines(Paths.get("scheduler.out"));
 		new File("scheduler.out").delete();
 
-		assertEquals("0 W 25", str.get(0));
-		assertEquals("1 W 25", str.get(1));
-		assertEquals("2 W 25", str.get(2));
+		assertEquals("3", str.get(0));
+		assertEquals("0 W 25", str.get(1));
+		assertEquals("1 W 25", str.get(2));
+		assertEquals("2 W 25", str.get(3));
 	}
 
 

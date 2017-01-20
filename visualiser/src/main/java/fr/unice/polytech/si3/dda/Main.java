@@ -5,10 +5,12 @@ import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.instruction.Instruction;
 import fr.unice.polytech.si3.dda.parser.OrderView;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -33,16 +35,17 @@ public class Main {
 //		}
 
 		if (args.length == 2){
-			File file = new File("AmIDone_visualiser/log.json");
+			File file = new File("log.json");
 			try {
 				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
 				bufferedWriter.write(new OrderView(args[0], args[1]).toJson());
 				bufferedWriter.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+				if (Desktop.isDesktopSupported())
+					Desktop.getDesktop().open(new File("AmIDone_visualiser/index.html"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 		}
 	}
 }

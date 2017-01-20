@@ -46,3 +46,17 @@
     margin: 20px 0;
     text-align: center;
 }
+
+.vertical-offset-20 {
+    padding-top: 20px;
+}
+
+
+.vertical-offset-50 {
+    padding-top: 50px;
+}
+
+
+.vertical-offset-100 {
+    padding-top: 100px;
+}
