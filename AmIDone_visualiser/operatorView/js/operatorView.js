@@ -53,6 +53,7 @@ function generatesInfos(){
 
         generateDrones();
         generateWarehouses();
+        tick();
         actualTime++;
     }
 
@@ -115,16 +116,24 @@ function generateOrders(){
     newContent="<thead><tr><th>Id</th><th>Coordinates</th><th>Status</th></tr></thead><tbody>";
 }
 
+function unsetFocus(){
+    for(var i=0; i < operatorJson.context.nbDrone; i++){
+        unsetFocusDrone(i);
+    }
+    for(var i=0; i < operatorJson.context.warehouses.length; i++){
+        unsetFocusWarehouse(i);
+    }
+}
+
 
 function displayDetailsWarehouse(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(9, 10));
 
-    for(var i=0; i < operatorJson.context.nbDrone; i++){
-        unsetFocus(i);
-    }
+    unsetFocus();
 
     displayDetailsWarehouseIndex(index);
+    setFocusWarehouse(index);
 
     detailsWarehousIndex = index;
     detailsDroneIndex = -1;
@@ -135,12 +144,10 @@ function displayDetailsDrone(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(5, 6));
 
-    for(var i=0; i < operatorJson.context.nbDrone; i++){
-        unsetFocus(i);
-    }
+    unsetFocus()
 
     displayDetailsDroneIndex(index);
-    setFocus(index);
+    setFocusDrone(index);
 
     detailsDroneIndex = index;
     detailsWarehousIndex = -1;
@@ -155,15 +162,8 @@ function displayDetailsWarehouseIndex(index) {
     if(operatorJson.warehouse[index][actualTime]!=undefined) {
         var remainingToJump = operatorJson.warehouse[index][actualTime].remaining;
 
-        console.log("Tick : "+actualTime);
-        console.log("Remaining : "+remainingToJump);
-        console.log(actualTime==remainingToJump+actualTime);
-
         if(actualTime!=remainingToJump && actualTime<remainingToJump+actualTime)
             remainingToJump = 0;
-
-        console.log(remainingToJump+actualTime);
-        console.log("---------------------");
 
         for (var key in operatorJson.warehouse[index][actualTime+remainingToJump].inventory) {
             if (operatorJson.warehouse[index][actualTime+remainingToJump].inventory.hasOwnProperty(key)) {
@@ -241,7 +241,7 @@ function startSimulation() {
 
     initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
-    setTimeout(function(){ startMap()}, 400);
+    startMap();
 
 }
 

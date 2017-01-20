@@ -9,7 +9,7 @@ const SIZE_IMG = {"DRONE": 1, "POI": 0.8};
 const DIV_ID = "map";
 const CANVAS_ID = "map_canvas";
 
-const FRAME_PER_SECOND = 60;
+const FRAME_PER_SECOND = 30;
 const FRAME_FREQ = 1 / FRAME_PER_SECOND;
 
 const TIME_BETWEEN_TICK = 2;
@@ -44,10 +44,10 @@ function initMap(json_log) {
     ctx = canvas.getContext("2d");
     refreshSize();
     // Improve render
-    ctx.mozImageSmoothingEnabled = true;
+    /*ctx.mozImageSmoothingEnabled = true;
     ctx.webkitImageSmoothingEnabled = true;
     ctx.msImageSmoothingEnabled = true;
-    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingEnabled = true;*/
     window.onresize = refreshSize;
 }
 
@@ -169,7 +169,7 @@ function tick() {
 }
 
 function render() {
-    renderSinceTick++;
+    //renderSinceTick++;
     paths.forEach(function (e) {
         e.remaining--;
         if (e.remaining < 0) {
@@ -179,10 +179,10 @@ function render() {
             });
         }
     });
-    if (renderSinceTick % RENDER_BEFORE_TICK == 0) {
+    /*if (renderSinceTick % RENDER_BEFORE_TICK == 0) {
         tick();
         renderSinceTick = 0;
-    }
+    }*/
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = COLOR.BACKGROUND;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
