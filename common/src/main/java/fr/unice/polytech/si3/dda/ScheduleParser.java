@@ -35,6 +35,7 @@ public class ScheduleParser {
 
 	public List<fr.unice.polytech.si3.dda.instruction.Instruction> parse() throws IOException, EmptyFileException, MalformedScheduleException {
 		List<fr.unice.polytech.si3.dda.instruction.Instruction> instructions = new ArrayList<>();
+		String skipFirstLine = br.readLine();
 		String line = br.readLine();
 		if (line == null)
 			throw new EmptyFileException();
