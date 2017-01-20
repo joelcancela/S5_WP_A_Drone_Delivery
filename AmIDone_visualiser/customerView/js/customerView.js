@@ -1,6 +1,8 @@
 var orderId;
 var jsonCustomer;
 var ticks;
+var productsOrdered = [];
+var numberOfProducts;
 
 //Initialisation call
 $('document').ready(function () {
@@ -51,18 +53,27 @@ function startSimulation() {
 }
 
 function initDisplay() {
+    createJSONvars(jsonCustomer);
     fillTableFirstTime(jsonCustomer);
     ticks = jsonCustomer.deliveries[orderId].length;
 }
 
-function fillTableFirstTime(json) {
-    var trHTML = "";
+function createJSONvars(json) {
     $.each(json.context.deliveryPoints[orderId].order, function (key, value) {
         var typeOfProduct = Object.keys(value)[0];
         var numberOfProducts = value[typeOfProduct];
         for (var i = 0; i < numberOfProducts; i++) {
-            trHTML += '<tr><td>' + 'Product type#' + typeOfProduct + '</td><td>' + parseRemainingTurns(json, key, i+1) + '</td></tr>';
+            productsOrdered.push(typeOfProduct);
         }
+    });
+    numberOfProducts = productsOrdered.length;
+    console.dir(productsOrdered);
+}
+
+function fillTableFirstTime(json) {
+    var trHTML = "";
+    $.each(productsOrdered, function (key, value) {
+        trHTML += '<tr><td>' + 'Product type#' + value + '</td><td>' + parseRemainingTurns(json, value, key + 1) + '</td></tr>';
     });
     $('#ordersTable').append(trHTML);
 }
@@ -78,6 +89,7 @@ function parseRemainingTurns(json, typeOccurence, occurrence) {
         if (tickValue < occurrence) {
             return turns;
         }
+
         turns++;
     });
     return turns;
@@ -86,9 +98,6 @@ function parseRemainingTurns(json, typeOccurence, occurrence) {
 
 //TODO
 
-function getCSV(event) {
-
-}
 
 function onTick() {
 
