@@ -2,7 +2,7 @@
  * Created by Jeremy on 18/01/2017.
  */
 
-const COLOR = {"BACKGROUND": "#F0EDE5", "PATH": "#00B3FD"};
+const COLOR = {"BACKGROUND": "#F0EDE5", "PATH": "#00B3FD", "FOCUS": "#FF0000"};
 const SIZE_IMG = {"DRONE": 1, "POI": 0.8};
 
 const DIV_ID = "map";
@@ -20,6 +20,7 @@ var img = {};
 var map;
 var ctx, canvas;
 var drones;
+var focus;
 var paths = [];
 
 var xCase, yCase;
@@ -30,7 +31,12 @@ var renderSinceTick = -1;
 
 function initMap(json_log) {
     //initImg();
-    drones = json_log.drones;
+    //drones = json_log.drones;
+    drones = [];
+    focus = [];
+    json_log.drones.forEach(function (d) {
+        addDrone(d);
+    });
     var contextIn = json_log.context;
     buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);
     canvas = document.getElementById(CANVAS_ID);
@@ -43,6 +49,9 @@ function initMap(json_log) {
     ctx.imageSmoothingEnabled = true;
     window.onresize = refreshSize;
     //init_drones();
+}
+
+function startMap() {
     setInterval(render, FRAME_FREQ * 1000);
 }
 
@@ -51,9 +60,9 @@ function initMap(json_log) {
 // GET SET ADD REMOVE
 // ##################
 
-function addPath(departure, arrival, remaining) {
+function addPath(departure, arrival, remaining, droneId) {
     var remainingTicks = remaining * RENDER_BEFORE_TICK;
-    paths.push({"departure": departure, "arrival": arrival, "total": remainingTicks, "remaining": remainingTicks});
+    paths.push({"departure": departure, "arrival": arrival, "total": remainingTicks, "remaining": remainingTicks, "droneId": droneId});
 }
 
 function removePath(departure, arrival, total, remaining) {
@@ -63,8 +72,16 @@ function removePath(departure, arrival, total, remaining) {
 
 function addDrone(drone) {
     // Add a drone object: {departure:{x:_,y:_}, arrival:{x:_,y:_}, inventory:{0:_, 1:_,...}, remaining:_}
-    drones.push(drone.append("total", 0));
+    drones.push(drone);
+    focus.push(0);
+}
 
+function setFocus(droneId) {
+    focus[droneId] = 1;
+}
+
+function unsetFocus(droneId) {
+    focus[droneId] = 0;
 }
 
 function setJson(event) {
@@ -128,7 +145,7 @@ function tick() {
         if (d[ticks] == undefined)
             return;
         if (ticks == 0 || d[ticks - 1].remaining == 0) {
-            addPath(d[ticks].departure, d[ticks].arrival, d[ticks].remaining);
+            addPath(d[ticks].departure, d[ticks].arrival, d[ticks].remaining, drones.indexOf(d));
         }
     });
 
@@ -154,7 +171,7 @@ function render() {
     ctx.fillStyle = COLOR.BACKGROUND;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     paths.forEach(function (p) {
-        drawPath(p.departure.x, p.departure.y, p.arrival.x, p.arrival.y);
+        drawPath(p.departure.x, p.departure.y, p.arrival.x, p.arrival.y, focus[p.droneId]);
     });
     drawMap();
     drawDrones();
@@ -166,27 +183,33 @@ function render() {
 
 function drawDrones() {
 
-    function drawDrone(x, y, img) {
+    function drawDrone(x, y, img, droneId) {
         drawObject(img, x, y, SIZE_IMG.DRONE);
     }
 
     paths.forEach(function (path) {
         var control = getControlPoint(path.departure.x, path.departure.y, path.arrival.x, path.arrival.y, 1);
         var end = getQuadraticBezierXYatPercent(path.departure, control, path.arrival, (path.total - path.remaining) / path.total);
-
-        drawDrone(end.x, end.y, document.getElementById('img_flying'));
+        var id = 'img_flying';
+        if (focus[path.droneId] != 0)
+            id += "_red";
+        drawDrone(end.x, end.y, document.getElementById(id));
     });
 
     drones.forEach(function (d) {
         if (d[ticks] == undefined)
             return;
         if (d[ticks].remaining == 0) {
+            var id;
             if (d[ticks].type == "unload" || d[ticks].type == "deliver")
-                drawDrone(d[ticks].arrival.x, d[ticks].arrival.y, document.getElementById('img_unloading'));
+                id = 'img_unloading';
             else if (d[ticks].type == "load")
-                drawDrone(d[ticks].arrival.x, d[ticks].arrival.y, document.getElementById('img_loading'));
+                id = 'img_loading';
             else
-                drawDrone(d[ticks].arrival.x, d[ticks].arrival.y, document.getElementById('img_flying'));
+                id = "img_flying";
+            if (focus[drones.indexOf(d)] != 0)
+                id += "_red";
+            drawDrone(d[ticks].arrival.x, d[ticks].arrival.y, document.getElementById(id), drones.indexOf(d))
         }
     });
 
@@ -214,8 +237,7 @@ function drawObject(img, x, y, size) {
 }
 
 
-function drawPath(dx, dy, ax, ay) {
-    //TODO: Pour le moment, en ligne droite
+function drawPath(dx, dy, ax, ay, focus) {
     var dxPx = dx * xCase + xCase / 2;
     var dyPx = dy * yCase + yCase / 2;
     var axPx = ax * xCase + xCase / 2;
@@ -223,7 +245,10 @@ function drawPath(dx, dy, ax, ay) {
     var control = getControlPoint(dxPx, dyPx, axPx, ayPx, xCase);
     ctx.lineWidth = "5";
     ctx.beginPath();
-    ctx.strokeStyle = COLOR.PATH;
+    if (focus == 0)
+        ctx.strokeStyle = COLOR.PATH;
+    else
+        ctx.strokeStyle = COLOR.FOCUS;
     ctx.moveTo(dxPx, dyPx);
     //ctx.lineTo(ax * xCase + xCase / 2, ay * yCase + yCase / 2);
     ctx.quadraticCurveTo(control.x, control.y, axPx, ayPx);
