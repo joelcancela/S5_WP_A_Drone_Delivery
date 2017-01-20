@@ -4,6 +4,7 @@ var dronesDepartures;
 var interval;
 var lastTime;
 var detailsDroneIndex;
+var detailsWarehousIndex;
 
 function init() {
     initValues();
@@ -14,6 +15,7 @@ function initValues(){
     dronesDepartures = [];
     lastTime=0;
     detailsDroneIndex=-1;
+    detailsWarehousIndex=-1;
 }
 
 
@@ -90,7 +92,6 @@ function generateDrones(){
 function generateWarehouses(){
     var newContent;
     var nbWarehouse = operatorJson.context.warehouses.length;
-    var droneDone = "";
 
     newContent="<thead><tr><th>Id</th><th>Coordinates</th></tr></thead><tbody>";
     for(var i=0;i<nbWarehouse;i++){
@@ -100,11 +101,65 @@ function generateWarehouses(){
     newContent += "</tbody>";
     document.getElementById("warehousesTable").innerHTML = newContent;
 
+    for(var i=0;i<nbWarehouse;i++)
+        document.getElementById("warehouse" + i).addEventListener("click", displayDetailsWarehouse);
+}
+
+
+function displayDetailsWarehouse(evt) {
+    var id = evt.target.parentElement.id;
+    var index = parseInt(id.substring(9, 10));
+
+    displayDetailsWarehouseIndex(index);
+
+    detailsWarehousIndex = index;
+    detailsDroneIndex = -1;
+}
+
+
+function displayDetailsDrone(evt) {
+    var id = evt.target.parentElement.id;
+    var index = parseInt(id.substring(5, 6));
+
+    for(var i=0; i < operatorJson.context.nbDrone; i++){
+        unsetFocus(i);
+    }
+
+
+    displayDetailsDroneIndex(index);
+    setFocus(index);
+
+    detailsDroneIndex = index;
+    detailsWarehousIndex = -1;
+}
+
+function displayDetailsWarehouseIndex(index) {
+    var newContent = "";
+    var inventory="";
+
+    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Drone'></span>";
+
+    for (var key in operatorJson.warehouse[index].inventory) {
+        if (operatorJson.warehouse[index].inventory.hasOwnProperty(key)) {
+            var val = operatorJson.warehouse[index].inventory[key];
+            inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+        }
+    }
+
+    newContent += "<div class='table-responsive'><table class='table'>" +
+        "<tr><th>ID</th><td>"+index+"</td></tr>" +
+        "<tr><th>Coordinates</th><td>("+operatorJson.context.warehouses[index].x+" ; "+operatorJson.context.warehouses[index].y+")</td></tr>" +
+        "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
+        "<tr></tr></table></div>";
+
+    document.getElementById("detailsContent").innerHTML = newContent;
 }
 
 function displayDetailsDroneIndex(index) {
-    var newContent;
+    var newContent ="";
     var inventory="";
+
+    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/flying.png' alt='Drone'></span>";
 
     if(operatorJson.drones[index][actualTime]!=undefined){
         for (var key in operatorJson.drones[index][actualTime].inventory) {
@@ -114,7 +169,7 @@ function displayDetailsDroneIndex(index) {
             }
         }
 
-        newContent = "<div class='table-responsive'><table class='table'>" +
+        newContent += "<div class='table-responsive'><table class='table'>" +
             "<tr><th>ID</th><td>"+index+"</td></tr>" +
             "<tr><th>Departure</th><td>("+operatorJson.drones[index][actualTime].departure.x+" ; "+operatorJson.drones[index][actualTime].departure.y+")</td></tr>" +
             "<tr><th>Arrival</th><td>("+operatorJson.drones[index][actualTime].arrival.x+" ; "+operatorJson.drones[index][actualTime].arrival.y+")</td></tr>" +
@@ -124,7 +179,7 @@ function displayDetailsDroneIndex(index) {
     }else{
         inventory = "//";
 
-        newContent = "<div class='table-responsive'><table class='table'>" +
+        newContent += "<div class='table-responsive'><table class='table'>" +
             "<tr><th>ID</th><td>"+index+"</td></tr>" +
             "<tr><th>Departure</th><td>//</td></tr>" +
             "<tr><th>Arrival</th><td>//</td></tr>" +
@@ -136,15 +191,6 @@ function displayDetailsDroneIndex(index) {
     document.getElementById("detailsContent").innerHTML = newContent;
 }
 
-function displayDetailsDrone(evt) {
-    var id = evt.target.parentElement.id;
-    var index = parseInt(id.substring(5, 6));
-
-    displayDetailsDroneIndex(index);
-
-    detailsDroneIndex = index;
-}
-
 function startSimulation() {
     if(lastTime==0)
         return;
@@ -154,6 +200,7 @@ function startSimulation() {
 
     initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
+    startMap();
 
 }
 

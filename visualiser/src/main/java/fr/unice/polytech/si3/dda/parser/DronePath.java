@@ -30,14 +30,6 @@ public class DronePath {
         this.path = new ArrayList<>();
         this.droneId = droneId;
         this.context = context;
-        Move move = new Move(context.getFirstWarehouse(), new HashMap<Integer, Integer>());
-//        move.end = context.getFirstWarehouse();
-        move.remaining = 0;
-        path.add(move);
-        System.out.println("---------------------");
-        System.out.println(path.size());
-        System.out.println(path.get(0).inventory);
-        System.out.println("---------------------");
 
     }
 
@@ -66,15 +58,16 @@ public class DronePath {
                 path.get(path.size() - 1).addEnd(instruction);
                 move = new Move(pointOfInterest, path.get(path.size() - 1).inventory);
                 path.add(move);
-                if (instruction.isLoadInstruction()) {
-                    if (move.inventory.containsKey(instruction.getProductType())) {
-                    move.inventory.put(instruction.getProductType(), instruction.getNumberOfProducts() + move.inventory.get(instruction.getProductType()));
-                    } else {
-                        move.inventory.put(instruction.getProductType(), instruction.getNumberOfProducts());
-                    }
-                } else if (instruction.isDeliverInstruction() || instruction.isUnloadInstruction()) {
-                    move.inventory.put(instruction.getProductType(), move.inventory.get(instruction.getProductType()) - instruction.getNumberOfProducts());
-                }
+
+//                if (instruction.isLoadInstruction()) {
+//                    if (move.inventory.containsKey(instruction.getProductType())) {
+//                        move.inventory.put(instruction.getProductType(), instruction.getNumberOfProducts() + move.inventory.get(instruction.getProductType()));
+//                    } else {
+//                        move.inventory.put(instruction.getProductType(), instruction.getNumberOfProducts());
+//                    }
+//                } else if (instruction.isDeliverInstruction() || instruction.isUnloadInstruction()) {
+//                    move.inventory.put(instruction.getProductType(), move.inventory.get(instruction.getProductType()) - instruction.getNumberOfProducts());
+//                }
             } else {
                 path.get(path.size() - 1).addEnd(instruction);
             }
@@ -87,15 +80,17 @@ public class DronePath {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         boolean first = true;
-        for (int j = 1; j < path.size(); j++) {
+        for (int j = 0; j < path.size(); j++) {
             Move move = path.get(j);
             while (move.remaining > 0) {
                 if (first) first = false;
                 else stringBuilder.append(",");
                 stringBuilder.append(moveToJson(j));
             }
-            if (!first) stringBuilder.append(",");
-            stringBuilder.append("{\"departure\" : ");
+            if (first) first = false;
+            else stringBuilder.append(",");
+            stringBuilder.append("{ \"type\" : \"" + move.type + "\"");
+            stringBuilder.append(",\"departure\" : ");
             stringBuilder.append("{\"x\" : " + move.start.getCoordinates().getX());
             stringBuilder.append(",\"y\" : " + move.start.getCoordinates().getY() + "},");
 
@@ -126,7 +121,8 @@ public class DronePath {
     private String moveToJson(int n) {
         Move move = path.get(n);
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("{\"departure\" : ");
+        stringBuilder.append("{ \"type\" : \"" + move.type + "\"");
+        stringBuilder.append(",\"departure\" : ");
         stringBuilder.append("{\"x\" : " + move.start.getCoordinates().getX());
         stringBuilder.append(",\"y\" : " + move.start.getCoordinates().getY() + "},");
 
@@ -137,12 +133,10 @@ public class DronePath {
 
         stringBuilder.append(",\"inventory\" :{");
         boolean firstInv = true;
-        for (Integer i : path.get(n-1).inventory.keySet()) {
+        if (n == 0) n = 1;
+        for (Integer i : path.get(n - 1).inventory.keySet()) {
             if (firstInv) firstInv = false;
             else stringBuilder.append(",");
-            System.out.println(n);
-            System.out.println(path.get(n - 1).inventory);
-            System.out.println(path.get(n).inventory);
             stringBuilder.append("\"" + i + "\" : " + path.get(n - 1).inventory.get(i));
         }
         stringBuilder.append("}");
@@ -153,6 +147,7 @@ public class DronePath {
     }
 
     private class Move {
+        String type;
         PointOfInterest start;
         PointOfInterest end;
         //ProductId, NumberOfProduct
@@ -165,18 +160,23 @@ public class DronePath {
         }
 
         public void addEnd(Instruction instruction) throws WrongIdException {
+            type = instruction.getType();
             if (instruction.isLoadInstruction()) {
                 end = context.getMap().getWarehouse(((LoadInstruction) instruction).getIdWarehouse());
+                if (inventory.containsKey(instruction.getProductType())) {
+                    inventory.put(instruction.getProductType(), instruction.getNumberOfProducts() + inventory.get(instruction.getProductType()));
+                } else {
+                    inventory.put(instruction.getProductType(), instruction.getNumberOfProducts());
+                }
             } else if (instruction.isDeliverInstruction() || instruction.isUnloadInstruction()) {
                 if (instruction.isUnloadInstruction())
                     end = context.getMap().getWarehouse(((UnloadInstruction) instruction).getIdWarehouse());
                 else
                     end = context.getMap().getDeliveryPoint(((DeliverInstruction) instruction).getOrderNumber());
-            }
-            else
+                inventory.put(instruction.getProductType(), inventory.get(instruction.getProductType()) - instruction.getNumberOfProducts());
+            } else
                 remaining = context.getTurns();
-            remaining += end.distance(start) + 1;
+            remaining += end.distance(start);
         }
-
     }
 }

@@ -101,4 +101,8 @@ public class UnloadInstruction extends Instruction {
         return true;
     }
 
+    @Override
+    public String getType() {
+        return "unload";
+    }
 }

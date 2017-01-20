@@ -76,4 +76,9 @@ public class WaitInstruction extends Instruction {
 	public boolean isWaitInstruction(){
 		return true;
 	}
+
+	@Override
+	public String getType() {
+		return "wait";
+	}
 }
