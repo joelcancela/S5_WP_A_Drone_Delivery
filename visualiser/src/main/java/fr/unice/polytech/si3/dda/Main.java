@@ -33,7 +33,7 @@ public class Main {
 //		}
 
 		if (args.length == 2){
-			File file = new File("../AmIDone_visualiser/log.json");
+			File file = new File("AmIDone_visualiser/log.json");
 			try {
 				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
 				bufferedWriter.write(new OrderView(args[0], args[1]).toJson());
