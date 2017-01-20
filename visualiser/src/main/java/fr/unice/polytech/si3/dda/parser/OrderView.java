@@ -57,6 +57,7 @@ public class OrderView {
         for (Integer i : droneInstruction.keySet()) {
             DronePath dronePath = new DronePath(i, context);
             for (Instruction instruction : droneInstruction.get(i)) {
+                System.out.println(instruction);
                 dronePath.addMove(instruction);
             }
             dronePaths.add(dronePath);
@@ -167,26 +168,31 @@ public class OrderView {
         }
 
 
-        Map<Integer, Integer> counts = new HashMap<>();
+//        Map<Integer, Integer> counts = new HashMap<>();
+        int count;
         for (Instruction instruction : instructions) {
-            if (counts.containsKey(instruction.getDroneNumber()))
-                counts.put(instruction.getDroneNumber(), counts.get(instruction.getDroneNumber()) + instruction.execute(tempContext));
-            else
-                counts.put(instruction.getDroneNumber(), instruction.execute(tempContext));
+            count = instruction.execute(tempContext);
+//            if (counts.containsKey(instruction.getDroneNumber()))
+//                counts.put(instruction.getDroneNumber(), counts.get(instruction.getDroneNumber()) + instruction.execute(tempContext));
+//            else
+//                counts.put(instruction.getDroneNumber(), instruction.execute(tempContext));
 
             if (instruction.isLoadInstruction()) {
                 PoiList warehouse = warehouseList.get(((LoadInstruction) instruction).getIdWarehouse());
-                PoiStep poiStep = new PoiStep(warehouse.getLast().getInventory(), counts.get(instruction.getDroneNumber()));
+//                PoiStep poiStep = new PoiStep(warehouse.getLast().getInventory(), counts.get(instruction.getDroneNumber()));
+                PoiStep poiStep = new PoiStep(warehouse.getLast().getInventory(), count);
                 poiStep.removeItem(instruction.getProductType(), instruction.getNumberOfProducts());
                 warehouse.addStep(poiStep);
             } else if (instruction.isDeliverInstruction()) {
                 PoiList deliveryPoint = deliveryPointList.get(((DeliverInstruction) instruction).getOrderNumber());
-                PoiStep poiStep = new PoiStep(deliveryPoint.getLast().getInventory(), counts.get(instruction.getDroneNumber()));
+//                PoiStep poiStep = new PoiStep(deliveryPoint.getLast().getInventory(), counts.get(instruction.getDroneNumber()));
+                PoiStep poiStep = new PoiStep(deliveryPoint.getLast().getInventory(), count);
                 poiStep.removeItem(instruction.getProductType(), instruction.getNumberOfProducts());
                 deliveryPoint.addStep(poiStep);
             } else if (instruction.isUnloadInstruction()) {
                 PoiList warehouse = warehouseList.get(((LoadInstruction) instruction).getIdWarehouse());
-                PoiStep poiStep = new PoiStep(warehouse.getLast().getInventory(), counts.get(instruction.getDroneNumber()));
+//                PoiStep poiStep = new PoiStep(warehouse.getLast().getInventory(), counts.get(instruction.getDroneNumber()));
+                PoiStep poiStep = new PoiStep(warehouse.getLast().getInventory(), count);
                 poiStep.addItem(instruction.getProductType(), instruction.getNumberOfProducts());
                 warehouse.addStep(poiStep);
             }

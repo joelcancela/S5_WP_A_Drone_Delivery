@@ -104,4 +104,8 @@ public class DeliverInstruction extends Instruction {
 		return true;
 	}
 
+	@Override
+	public String getType() {
+		return "deliver";
+	}
 }
