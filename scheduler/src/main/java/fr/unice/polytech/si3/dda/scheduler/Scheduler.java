@@ -70,7 +70,7 @@ public class Scheduler {
 
 			List<Instruction> currentInstructions = strategy.getInstructions();
 
-			int cost = new Benchmark(currentInstructions, new Context(ctx)).calculateScore();
+			int cost = calculateScore(currentInstructions, new Context(ctx));
 			System.out.println("Strategy " + strategy.getClass().getSimpleName() + ", cost: " + cost);
 			if (cost < minCost) {
 				minCost = cost;
@@ -79,6 +79,7 @@ public class Scheduler {
 		}
 		System.out.println("Chosen strategy: " + bestStrategy.getClass().getSimpleName() + ", cost: " + minCost);
 		FileWriter fw = new FileWriter(scheduleOutFile);
+		fw.write(bestStrategy.getInstructions().size()+"\n");
 		for (Instruction instruction : bestStrategy.getInstructions()) {
 			fw.write(instruction.toString());
 			fw.write("\n");
