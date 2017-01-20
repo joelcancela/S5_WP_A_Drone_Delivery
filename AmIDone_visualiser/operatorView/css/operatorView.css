@@ -2,6 +2,13 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none; color:  #ff9933;
 }
 
+body {
+    background-color: #dcdcdc;
+}
+.background {
+    background-color: #dcdcdc;
+}
+
 .done {
     font-weight: bold;
     color: #47c515;
@@ -17,4 +24,6 @@ a:link, a:visited, a:hover, a:active {
 
 .mainCss {
     background-color: #ffffff;
+    border-style: none;
+    padding-top: 30px;
 }

@@ -51,6 +51,8 @@ function getJson(event) {
 
 //When press start
 function startSimulation() {
+    if(jsonCustomer==undefined)
+        return;
     document.getElementById("inputs").style.display = 'none';
     document.getElementById("mainContent").classList.remove("hidden");
     initDisplay();
