@@ -48,6 +48,8 @@ function generatesInfos(){
     else{
         if(detailsDroneIndex!=-1)
             displayDetailsDroneIndex(detailsDroneIndex);
+        if(detailsWarehousIndex!=-1)
+            displayDetailsWarehouseIndex(detailsWarehousIndex);
 
         generateDrones();
         generateWarehouses();
@@ -106,9 +108,21 @@ function generateWarehouses(){
 }
 
 
+function generateOrders(){
+    var newContent;
+    var nbOrders = operatorJson.context.deliveryPoints.length;
+
+    
+}
+
+
 function displayDetailsWarehouse(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(9, 10));
+
+    for(var i=0; i < operatorJson.context.nbDrone; i++){
+        unsetFocus(i);
+    }
 
     displayDetailsWarehouseIndex(index);
 
@@ -125,7 +139,6 @@ function displayDetailsDrone(evt) {
         unsetFocus(i);
     }
 
-
     displayDetailsDroneIndex(index);
     setFocus(index);
 
@@ -139,9 +152,9 @@ function displayDetailsWarehouseIndex(index) {
 
     newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Drone'></span>";
 
-    for (var key in operatorJson.warehouse[index].inventory) {
-        if (operatorJson.warehouse[index].inventory.hasOwnProperty(key)) {
-            var val = operatorJson.warehouse[index].inventory[key];
+    for (var key in operatorJson.warehouse[index][actualTime].inventory) {
+        if (operatorJson.warehouse[index][actualTime].inventory.hasOwnProperty(key)) {
+            var val = operatorJson.warehouse[index][actualTime].inventory[key];
             inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
         }
     }
