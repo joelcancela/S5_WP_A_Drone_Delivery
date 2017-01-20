@@ -152,9 +152,7 @@ function startSimulation() {
     document.getElementById("inputs").style.display = 'none';
     document.getElementById("mainContent").classList.remove("hidden");
 
-    setTimeout(function(){
-        initMap(operatorJson);
-    }, 1400);
+    initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
 
 }

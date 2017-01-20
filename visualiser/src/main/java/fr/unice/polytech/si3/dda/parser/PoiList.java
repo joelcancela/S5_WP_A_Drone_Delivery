@@ -33,10 +33,35 @@ public class PoiList {
         StringBuilder stringBuilder = new StringBuilder();
         boolean first = true;
         stringBuilder.append("[");
-        for (PoiStep poiStep : orderSteps) {
+        for (int i = 1; i < orderSteps.size(); i++) {
             if (first) first = false;
             else stringBuilder.append(",");
-            stringBuilder.append(poiStep.toJson());
+            boolean firstTab = true;
+            while (orderSteps.get(i).getTimeRemaining() > 0) {
+                if (firstTab) firstTab = false;
+                else stringBuilder.append(",");
+                stringBuilder.append("{\"inventory\" : [");
+                boolean firstInv = true;
+                for (Integer integer : orderSteps.get(i).getInventory().keySet()) {
+                    if (firstInv) firstInv = false;
+                    else stringBuilder.append(",");
+                    stringBuilder.append("{\"" + integer + "\" : " + orderSteps.get(i - 1).getInventory().get(integer) + "}");
+                }
+                stringBuilder.append("], \"remaining\" :" + orderSteps.get(i).getTimeRemaining() + "}");
+                orderSteps.get(i).decrRemaining();
+            }
+            if (firstTab) firstTab = false;
+            else stringBuilder.append(",");
+            stringBuilder.append("{\"inventory\" : [");
+            boolean firstInv = true;
+            for (Integer integer : orderSteps.get(i).getInventory().keySet()) {
+                if (firstInv) firstInv = false;
+                else stringBuilder.append(",");
+                stringBuilder.append("{\"" + integer + "\" : " + orderSteps.get(i).getInventory().get(integer) + "}");
+            }
+            stringBuilder.append("], \"remaining\" :" + 0 + "}");
+            orderSteps.get(i).decrRemaining();
+
         }
         stringBuilder.append("]");
         return stringBuilder.toString();

@@ -28,6 +28,7 @@
 	},
 	"drones": [
 		[{
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -40,6 +41,7 @@
 			},
 			"remaining": 0
 		}, {
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -53,6 +55,7 @@
 			},
 			"remaining": 0
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -67,6 +70,7 @@
 			},
 			"remaining": 4
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -81,6 +85,7 @@
 			},
 			"remaining": 3
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -95,6 +100,7 @@
 			},
 			"remaining": 2
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -109,6 +115,7 @@
 			},
 			"remaining": 1
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -123,6 +130,7 @@
 			},
 			"remaining": 0
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 2,
 				"y": 2
@@ -135,6 +143,7 @@
 			},
 			"remaining": 3
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 2,
 				"y": 2
@@ -147,6 +156,7 @@
 			},
 			"remaining": 2
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 2,
 				"y": 2
@@ -159,6 +169,7 @@
 			},
 			"remaining": 1
 		}, {
+			"type": "deliver",
 			"departure": {
 				"x": 2,
 				"y": 2
@@ -174,6 +185,7 @@
 			"remaining": 0
 		}],
 		[{
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -187,6 +199,7 @@
 			},
 			"remaining": 5
 		}, {
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -200,6 +213,7 @@
 			},
 			"remaining": 4
 		}, {
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -213,6 +227,7 @@
 			},
 			"remaining": 3
 		}, {
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -226,6 +241,7 @@
 			},
 			"remaining": 2
 		}, {
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
@@ -239,6 +255,7 @@
 			},
 			"remaining": 1
 		}, {
+			"type": "load",
 			"departure": {
 				"x": 0,
 				"y": 0
