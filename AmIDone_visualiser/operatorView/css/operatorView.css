@@ -14,3 +14,7 @@ a:link, a:visited, a:hover, a:active {
 .canvasCss {
     height:70vh;
 }
+
+.mainCss {
+    background-color: #ffffff;
+}

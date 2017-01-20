@@ -3,7 +3,8 @@ var actualTime;
 var dronesDepartures;
 var interval;
 var lastTime;
-var detailsIndex;
+var detailsDroneIndex;
+var detailsWarehousIndex;
 
 function init() {
     initValues();
@@ -13,7 +14,8 @@ function initValues(){
     actualTime = 0;
     dronesDepartures = [];
     lastTime=0;
-    detailsIndex=-1;
+    detailsDroneIndex=-1;
+    detailsWarehousIndex=-1;
 }
 
 
@@ -24,6 +26,7 @@ function getJson(event) {
     reader.onload = function () {
         operatorJson = JSON.parse(reader.result);
         generateDrones(operatorJson);
+        generateWarehouses(operatorJson);
 
         var nbDrone = operatorJson.context.nbDrone;
 
@@ -43,9 +46,11 @@ function generatesInfos(){
     if(actualTime>lastTime)
         clearInterval(interval);
     else{
-        if(detailsIndex!=-1)
-            displayDetailsIndex(detailsIndex);
+        if(detailsDroneIndex!=-1)
+            displayDetailsDroneIndex(detailsDroneIndex);
+
         generateDrones();
+        generateWarehouses();
         actualTime++;
     }
 
@@ -56,7 +61,7 @@ function generateDrones(){
     var nbDrone = operatorJson.context.nbDrone;
     var droneDone = "";
 
-    newContent="<tr><th>Id</th><th>Departure</th><th>Departure Turn</th><th>Arrival position</th><th>Arrival Turn</th><th>Remaining turns</th></tr>";
+    newContent="<thead><tr><th>Id</th><th>Departure</th><th>Departure Turn</th><th>Arrival position</th><th>Arrival Turn</th><th>Remaining turns</th></tr></thead><tbody>";
 
     for(var i=0;i<nbDrone;i++){
         if(actualTime==0){
@@ -77,27 +82,84 @@ function generateDrones(){
             newContent += "<tr style='cursor:  pointer;' id='drone"+i+"' class='finish'><td>"+i+"</td><td>//</td><td>//</td><td>//</td><td>//</td><td>//</td></tr>";
     }
 
+    newContent += "</tbody>";
     document.getElementById("dronesTable").innerHTML = newContent;
 
     for(var i=0;i<nbDrone;i++)
-        document.getElementById("drone" + i).addEventListener("click", displayDetails);
+        document.getElementById("drone" + i).addEventListener("click", displayDetailsDrone);
 }
 
 function generateWarehouses(){
     var newContent;
     var nbWarehouse = operatorJson.context.warehouses.length;
-    var droneDone = "";
 
-    newContent="<tr><th>Id</th><th>Coordinates</th></tr>";
+    newContent="<thead><tr><th>Id</th><th>Coordinates</th></tr></thead><tbody>";
     for(var i=0;i<nbWarehouse;i++){
-        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td>";
+        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td><td>("+operatorJson.context.warehouses[i].x+" ; "+operatorJson.context.warehouses[i].y+")</td>";
     }
 
+    newContent += "</tbody>";
+    document.getElementById("warehousesTable").innerHTML = newContent;
+
+    for(var i=0;i<nbWarehouse;i++)
+        document.getElementById("warehouse" + i).addEventListener("click", displayDetailsWarehouse);
 }
 
-function displayDetailsIndex(index) {
-    var newContent;
+
+function displayDetailsWarehouse(evt) {
+    var id = evt.target.parentElement.id;
+    var index = parseInt(id.substring(9, 10));
+
+    displayDetailsWarehouseIndex(index);
+
+    detailsWarehousIndex = index;
+    detailsDroneIndex = -1;
+}
+
+
+function displayDetailsDrone(evt) {
+    var id = evt.target.parentElement.id;
+    var index = parseInt(id.substring(5, 6));
+
+    for(var i=0; i < operatorJson.context.nbDrone; i++){
+        unsetFocus(i);
+    }
+
+
+    displayDetailsDroneIndex(index);
+    setFocus(index);
+
+    detailsDroneIndex = index;
+    detailsWarehousIndex = -1;
+}
+
+function displayDetailsWarehouseIndex(index) {
+    var newContent = "";
     var inventory="";
+
+    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Drone'></span>";
+
+    for (var key in operatorJson.warehouse[index].inventory) {
+        if (operatorJson.warehouse[index].inventory.hasOwnProperty(key)) {
+            var val = operatorJson.warehouse[index].inventory[key];
+            inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+        }
+    }
+
+    newContent += "<div class='table-responsive'><table class='table'>" +
+        "<tr><th>ID</th><td>"+index+"</td></tr>" +
+        "<tr><th>Coordinates</th><td>("+operatorJson.context.warehouses[index].x+" ; "+operatorJson.context.warehouses[index].y+")</td></tr>" +
+        "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
+        "<tr></tr></table></div>";
+
+    document.getElementById("detailsContent").innerHTML = newContent;
+}
+
+function displayDetailsDroneIndex(index) {
+    var newContent ="";
+    var inventory="";
+
+    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/flying.png' alt='Drone'></span>";
 
     if(operatorJson.drones[index][actualTime]!=undefined){
         for (var key in operatorJson.drones[index][actualTime].inventory) {
@@ -107,33 +169,26 @@ function displayDetailsIndex(index) {
             }
         }
 
-        newContent = "<div class='table-responsive'><table class='table'>" +
+        newContent += "<div class='table-responsive'><table class='table'>" +
             "<tr><th>ID</th><td>"+index+"</td></tr>" +
             "<tr><th>Departure</th><td>("+operatorJson.drones[index][actualTime].departure.x+" ; "+operatorJson.drones[index][actualTime].departure.y+")</td></tr>" +
             "<tr><th>Arrival</th><td>("+operatorJson.drones[index][actualTime].arrival.x+" ; "+operatorJson.drones[index][actualTime].arrival.y+")</td></tr>" +
+            "<tr><th>Arrival in </th><td>"+operatorJson.drones[index][actualTime].remaining+"</td></tr>" +
             "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
             "<tr></tr></table></div>";
     }else{
         inventory = "//";
 
-        newContent = "<div class='table-responsive'><table class='table'>" +
+        newContent += "<div class='table-responsive'><table class='table'>" +
             "<tr><th>ID</th><td>"+index+"</td></tr>" +
             "<tr><th>Departure</th><td>//</td></tr>" +
             "<tr><th>Arrival</th><td>//</td></tr>" +
+            "<tr><th>Arrival in </th><td>//</td></tr>" +
             "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
             "<tr></tr></table></div>";
     }
 
     document.getElementById("detailsContent").innerHTML = newContent;
-}
-
-function displayDetails(evt) {
-    var id = evt.target.parentElement.id;
-    var index = parseInt(id.substring(5, 6));
-
-    displayDetailsIndex(index);
-
-    detailsIndex = index;
 }
 
 function startSimulation() {
@@ -145,6 +200,8 @@ function startSimulation() {
 
     initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
+    setTimeout(function(){ startMap()}, 2000);
+
 }
 
 $('document').ready(function () {

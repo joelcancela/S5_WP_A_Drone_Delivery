@@ -2,7 +2,8 @@
  * Created by Jeremy on 18/01/2017.
  */
 
-const COLOR = {"BACKGROUND": "#F0EDE5", "PATH": "#00B3FD", "FOCUS": "#FF0000"};
+const COLOR = {"BACKGROUND": "#FFFFFF", "PATH": "#00B3FD", "FOCUS": "#FF0000"};
+
 const SIZE_IMG = {"DRONE": 1, "POI": 0.8};
 
 const DIV_ID = "map";
@@ -30,8 +31,6 @@ var renderSinceTick = -1;
 
 
 function initMap(json_log) {
-    //initImg();
-    //drones = json_log.drones;
     drones = [];
     focus = [];
     json_log.drones.forEach(function (d) {
@@ -48,7 +47,6 @@ function initMap(json_log) {
     ctx.msImageSmoothingEnabled = true;
     ctx.imageSmoothingEnabled = true;
     window.onresize = refreshSize;
-    //init_drones();
 }
 
 function startMap() {
@@ -65,13 +63,7 @@ function addPath(departure, arrival, remaining, droneId) {
     paths.push({"departure": departure, "arrival": arrival, "total": remainingTicks, "remaining": remainingTicks, "droneId": droneId});
 }
 
-function removePath(departure, arrival, total, remaining) {
-    paths.slide(paths.indexOf({"departure": departure, "arrival": arrival, "total": total, "remaining": remaining}), 1);
-}
-
-
 function addDrone(drone) {
-    // Add a drone object: {departure:{x:_,y:_}, arrival:{x:_,y:_}, inventory:{0:_, 1:_,...}, remaining:_}
     drones.push(drone);
     focus.push(0);
 }
@@ -90,10 +82,6 @@ function setJson(event) {
     var reader = new FileReader();
     reader.onload = function () {
         var text = reader.result;
-        var json_log = JSON.parse(text);
-        /*drones = json_log.drones;
-        var contextIn = json_log.context;
-        buildMap(contextIn.map.rows, contextIn.map.cols, contextIn.warehouses, contextIn.deliveryPoints);*/
         initMap(JSON.parse(text));
     };
     reader.readAsText(input.files[0]);
@@ -250,7 +238,6 @@ function drawPath(dx, dy, ax, ay, focus) {
     else
         ctx.strokeStyle = COLOR.FOCUS;
     ctx.moveTo(dxPx, dyPx);
-    //ctx.lineTo(ax * xCase + xCase / 2, ay * yCase + yCase / 2);
     ctx.quadraticCurveTo(control.x, control.y, axPx, ayPx);
     ctx.stroke();
 }
