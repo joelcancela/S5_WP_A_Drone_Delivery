@@ -40,26 +40,26 @@ public class PoiList {
             while (orderSteps.get(i).getTimeRemaining() > 0) {
                 if (firstTab) firstTab = false;
                 else stringBuilder.append(",");
-                stringBuilder.append("{\"inventory\" : [");
+                stringBuilder.append("{\"inventory\" : {");
                 boolean firstInv = true;
                 for (Integer integer : orderSteps.get(i).getInventory().keySet()) {
                     if (firstInv) firstInv = false;
                     else stringBuilder.append(",");
-                    stringBuilder.append("{\"" + integer + "\" : " + orderSteps.get(i - 1).getInventory().get(integer) + "}");
+                    stringBuilder.append("\"" + integer + "\" : " + orderSteps.get(i - 1).getInventory().get(integer));
                 }
-                stringBuilder.append("], \"remaining\" :" + orderSteps.get(i).getTimeRemaining() + "}");
+                stringBuilder.append("}, \"remaining\" :" + orderSteps.get(i).getTimeRemaining() + "}");
                 orderSteps.get(i).decrRemaining();
             }
             if (firstTab) firstTab = false;
             else stringBuilder.append(",");
-            stringBuilder.append("{\"inventory\" : [");
+            stringBuilder.append("{\"inventory\" : {");
             boolean firstInv = true;
             for (Integer integer : orderSteps.get(i).getInventory().keySet()) {
                 if (firstInv) firstInv = false;
                 else stringBuilder.append(",");
-                stringBuilder.append("{\"" + integer + "\" : " + orderSteps.get(i).getInventory().get(integer) + "}");
+                stringBuilder.append("\"" + integer + "\" : " + orderSteps.get(i).getInventory().get(integer));
             }
-            stringBuilder.append("], \"remaining\" :" + 0 + "}");
+            stringBuilder.append("}, \"remaining\" :" + 0 + "}");
             orderSteps.get(i).decrRemaining();
 
         }
