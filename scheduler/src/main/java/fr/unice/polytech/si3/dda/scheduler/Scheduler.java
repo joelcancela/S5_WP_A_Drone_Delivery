@@ -1,7 +1,6 @@
 package fr.unice.polytech.si3.dda.scheduler;
 
 
-import fr.unice.polytech.si3.dda.benchmark.Benchmark;
 import fr.unice.polytech.si3.dda.common.Context;
 import fr.unice.polytech.si3.dda.exception.GlobalException;
 import fr.unice.polytech.si3.dda.exception.MalformedContextException;
@@ -70,7 +69,7 @@ public class Scheduler {
 
 			List<Instruction> currentInstructions = strategy.getInstructions();
 
-			int cost = new Benchmark(currentInstructions, new Context(ctx)).calculateScore();
+			int cost = calculateScore(currentInstructions, new Context(ctx));
 			System.out.println("Strategy " + strategy.getClass().getSimpleName() + ", cost: " + cost);
 			if (cost < minCost) {
 				minCost = cost;
@@ -79,7 +78,7 @@ public class Scheduler {
 		}
 		System.out.println("Chosen strategy: " + bestStrategy.getClass().getSimpleName() + ", cost: " + minCost);
 		FileWriter fw = new FileWriter(scheduleOutFile);
-		fw.write(bestStrategy.getInstructions().size()+"\n");
+		fw.write(bestStrategy.getInstructions().size() + "\n");
 		for (Instruction instruction : bestStrategy.getInstructions()) {
 			fw.write(instruction.toString());
 			fw.write("\n");
@@ -100,7 +99,7 @@ public class Scheduler {
 		int deliveryPoints = 0;
 
 		for (int i = 0; i < map.getRows(); i++) {
-			for (int j = 0; j < map.getCols()-1; j++) {
+			for (int j = 0; j < map.getCols() - 1; j++) {
 				Warehouse warehouse = map.getWarehouse(new Coordinates(i, j));
 				DeliveryPoint deliveryPoint = map.getDeliveryPoint(new Coordinates(i, j));
 				if (warehouse == null && deliveryPoint == null) {
@@ -117,5 +116,25 @@ public class Scheduler {
 
 		}
 		fw.close();
+	}
+
+	private int calculateScore(List<Instruction> currentStrategy, Context context) throws Exception {
+		Context scoreCtx = new Context(context);
+		int maxDrones = scoreCtx.getMaxDrones();
+		int maxValue = 0;
+		int score = 0;
+		for (int i = 0; i < maxDrones; i++) {
+			score = 0;
+			for (Instruction instruction : currentStrategy) {
+				if (instruction.getDroneNumber() == i) {
+					int cost = instruction.execute(scoreCtx);
+					score += cost;
+				}
+			}
+			if (score > maxValue)
+				maxValue = score;
+		}
+		score = maxValue;
+		return maxValue;
 	}
 }
