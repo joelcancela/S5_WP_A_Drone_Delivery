@@ -162,7 +162,7 @@ function displayDetailsWarehouseIndex(index) {
     if(operatorJson.warehouse[index][actualTime]!=undefined) {
         var remainingToJump = operatorJson.warehouse[index][actualTime].remaining;
 
-        if(actualTime!=remainingToJump && actualTime<remainingToJump+actualTime)
+        if(actualTime!=remainingToJump && actualTime<remainingToJump+actualTime && actualTime+1!=remainingToJump+actualTime || actualTime==0)
             remainingToJump = 0;
 
         for (var key in operatorJson.warehouse[index][actualTime+remainingToJump].inventory) {
