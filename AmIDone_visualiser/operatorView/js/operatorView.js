@@ -48,9 +48,12 @@ function generatesInfos(){
     else{
         if(detailsDroneIndex!=-1)
             displayDetailsDroneIndex(detailsDroneIndex);
+        if(detailsWarehousIndex!=-1)
+            displayDetailsWarehouseIndex(detailsWarehousIndex);
 
         generateDrones();
         generateWarehouses();
+        tick();
         actualTime++;
     }
 
@@ -106,11 +109,31 @@ function generateWarehouses(){
 }
 
 
+function generateOrders(){
+    var newContent;
+    var nbOrders = operatorJson.context.deliveryPoints.length;
+
+    newContent="<thead><tr><th>Id</th><th>Coordinates</th><th>Status</th></tr></thead><tbody>";
+}
+
+function unsetFocus(){
+    for(var i=0; i < operatorJson.context.nbDrone; i++){
+        unsetFocusDrone(i);
+    }
+    for(var i=0; i < operatorJson.context.warehouses.length; i++){
+        unsetFocusWarehouse(i);
+    }
+}
+
+
 function displayDetailsWarehouse(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(9, 10));
 
+    unsetFocus();
+
     displayDetailsWarehouseIndex(index);
+    setFocusWarehouse(index);
 
     detailsWarehousIndex = index;
     detailsDroneIndex = -1;
@@ -121,13 +144,10 @@ function displayDetailsDrone(evt) {
     var id = evt.target.parentElement.id;
     var index = parseInt(id.substring(5, 6));
 
-    for(var i=0; i < operatorJson.context.nbDrone; i++){
-        unsetFocus(i);
-    }
-
+    unsetFocus()
 
     displayDetailsDroneIndex(index);
-    setFocus(index);
+    setFocusDrone(index);
 
     detailsDroneIndex = index;
     detailsWarehousIndex = -1;
@@ -139,18 +159,39 @@ function displayDetailsWarehouseIndex(index) {
 
     newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Drone'></span>";
 
-    for (var key in operatorJson.warehouse[index].inventory) {
-        if (operatorJson.warehouse[index].inventory.hasOwnProperty(key)) {
-            var val = operatorJson.warehouse[index].inventory[key];
-            inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+    if(operatorJson.warehouse[index][actualTime]!=undefined) {
+        var remainingToJump = operatorJson.warehouse[index][actualTime].remaining;
+
+        if(actualTime!=remainingToJump && actualTime<remainingToJump+actualTime && actualTime+1!=remainingToJump+actualTime || actualTime==0)
+            remainingToJump = 0;
+
+        for (var key in operatorJson.warehouse[index][actualTime+remainingToJump].inventory) {
+            if (operatorJson.warehouse[index][actualTime+remainingToJump].inventory.hasOwnProperty(key)) {
+                var val = operatorJson.warehouse[index][actualTime+remainingToJump].inventory[key];
+                inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+            }
         }
+
+        newContent += "<div class='table-responsive'><table class='table'>" +
+            "<tr><th>ID</th><td>" + index + "</td></tr>" +
+            "<tr><th>Coordinates</th><td>(" + operatorJson.context.warehouses[index].x + " ; " + operatorJson.context.warehouses[index].y + ")</td></tr>" +
+            "<tr><th>Inventory</th><td>" + inventory + "</td></tr>" +
+            "<tr></tr></table></div>";
+    }else{
+        var lastChangeIndex = operatorJson.warehouse[index].length-1;
+        for (var key in operatorJson.warehouse[index][lastChangeIndex].inventory) {
+            if (operatorJson.warehouse[index][lastChangeIndex].inventory.hasOwnProperty(key)) {
+                var val = operatorJson.warehouse[index][lastChangeIndex].inventory[key];
+                inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+            }
+        }
+        newContent += "<div class='table-responsive'><table class='table'>" +
+            "<tr><th>ID</th><td>"+index+"</td></tr>" +
+            "<tr><th>Coordinates</th><td>("+operatorJson.context.warehouses[index].x+" ; "+operatorJson.context.warehouses[index].y+")</td></tr>" +
+            "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
+            "<tr></tr></table></div>";
     }
 
-    newContent += "<div class='table-responsive'><table class='table'>" +
-        "<tr><th>ID</th><td>"+index+"</td></tr>" +
-        "<tr><th>Coordinates</th><td>("+operatorJson.context.warehouses[index].x+" ; "+operatorJson.context.warehouses[index].y+")</td></tr>" +
-        "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
-        "<tr></tr></table></div>";
 
     document.getElementById("detailsContent").innerHTML = newContent;
 }
@@ -200,7 +241,7 @@ function startSimulation() {
 
     initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
-    setTimeout(function(){ startMap()}, 2000);
+    startMap();
 
 }
 
