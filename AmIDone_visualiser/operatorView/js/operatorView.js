@@ -5,6 +5,10 @@ var interval;
 var lastTime;
 var detailsDroneIndex;
 var detailsWarehousIndex;
+var detailsOrderIndex;
+var ordersRemain;
+
+const TICK = 2000;
 
 function init() {
     initValues();
@@ -16,6 +20,8 @@ function initValues(){
     lastTime=0;
     detailsDroneIndex=-1;
     detailsWarehousIndex=-1;
+    detailsOrderIndex=-1;
+    ordersRemain = [];
 }
 
 
@@ -27,6 +33,7 @@ function getJson(event) {
         operatorJson = JSON.parse(reader.result);
         generateDrones(operatorJson);
         generateWarehouses(operatorJson);
+        generateOrders(operatorJson);
 
         var nbDrone = operatorJson.context.nbDrone;
 
@@ -50,9 +57,12 @@ function generatesInfos(){
             displayDetailsDroneIndex(detailsDroneIndex);
         if(detailsWarehousIndex!=-1)
             displayDetailsWarehouseIndex(detailsWarehousIndex);
+        if(detailsOrderIndex!=-1)
+            displayDetailsOrderIndex(detailsOrderIndex);
 
         generateDrones();
         generateWarehouses();
+        generateOrders();
         tick();
         actualTime++;
     }
@@ -98,7 +108,7 @@ function generateWarehouses(){
 
     newContent="<thead><tr><th>Id</th><th>Coordinates</th></tr></thead><tbody>";
     for(var i=0;i<nbWarehouse;i++){
-        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td><td>("+operatorJson.context.warehouses[i].x+" ; "+operatorJson.context.warehouses[i].y+")</td>";
+        newContent += "<tr style='cursor:  pointer;' id='warehouse"+i+"'><td>"+i+"</td><td>("+operatorJson.context.warehouses[i].x+" ; "+operatorJson.context.warehouses[i].y+")</td></tr>";
     }
 
     newContent += "</tbody>";
@@ -109,11 +119,46 @@ function generateWarehouses(){
 }
 
 
+function lastTickForAnOrder(index){
+    var max=0;
+    for(var i=0;i<operatorJson.deliveries[index].length;i++){
+        if(operatorJson.deliveries[index][i].remaining > max){
+            max = operatorJson.deliveries[index][i].remaining;
+        }
+    }
+    return max;
+}
+
 function generateOrders(){
     var newContent;
     var nbOrders = operatorJson.context.deliveryPoints.length;
 
     newContent="<thead><tr><th>Id</th><th>Coordinates</th><th>Status</th></tr></thead><tbody>";
+    for(var i=0; i< nbOrders; i++){
+        var status = "In progress";
+        var orderDone = "";
+
+        if(lastTickForAnOrder(i)<=actualTime){
+            status = "Completed"
+            orderDone = "class='done'";
+        }
+
+        if(actualTime == 0)
+            ordersRemain[i] = operatorJson.deliveries[i][actualTime].remaining;
+        else if(operatorJson.deliveries[i][actualTime]!=undefined
+                && operatorJson.deliveries[i][actualTime+1]!=undefined
+                && operatorJson.deliveries[i][actualTime].remaining == 0){
+            ordersRemain[i] = operatorJson.deliveries[i][actualTime+1].remaining;
+        }
+
+        newContent += "<tr style='cursor:  pointer;' "+orderDone+" id='order"+i+"'><td>"+i+"</td><td>("+operatorJson.context.deliveryPoints[i].x+" ; "+operatorJson.context.deliveryPoints[i].y+")</td><td>"+status+"</td></tr>";
+    }
+
+    newContent += "</tbody>";
+    document.getElementById("ordersTable").innerHTML = newContent;
+
+    for(var i=0;i<nbOrders;i++)
+        document.getElementById("order" + i).addEventListener("click", displayDetailsOrder);
 }
 
 function unsetFocus(){
@@ -123,8 +168,25 @@ function unsetFocus(){
     for(var i=0; i < operatorJson.context.warehouses.length; i++){
         unsetFocusWarehouse(i);
     }
+    for(var i=0; i < operatorJson.context.deliveryPoints.length; i++){
+        unsetFocusOrder(i);
+    }
 }
 
+
+function displayDetailsOrder(evt) {
+    var id = evt.target.parentElement.id;
+    var index = parseInt(id.substring(5, 6));
+
+    unsetFocus();
+
+    displayDetailsOrderIndex(index);
+    setFocusOrder(index);
+
+    detailsOrderIndex = index;
+    detailsWarehousIndex = -1;
+    detailsDroneIndex = -1;
+}
 
 function displayDetailsWarehouse(evt) {
     var id = evt.target.parentElement.id;
@@ -136,6 +198,7 @@ function displayDetailsWarehouse(evt) {
     setFocusWarehouse(index);
 
     detailsWarehousIndex = index;
+    detailsOrderIndex = -1;
     detailsDroneIndex = -1;
 }
 
@@ -150,14 +213,48 @@ function displayDetailsDrone(evt) {
     setFocusDrone(index);
 
     detailsDroneIndex = index;
+    detailsOrderIndex = -1;
     detailsWarehousIndex = -1;
 }
+
+function displayDetailsOrderIndex(index) {
+    var newContent = "";
+    var inventory="";
+
+    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/order.png' alt='Order'></span>";
+
+    if(operatorJson.deliveries[index][actualTime]!=undefined) {
+        var decalage = 0;
+        if(ordersRemain[index]<=actualTime)
+            decalage = ordersRemain[index];
+
+        if(operatorJson.deliveries[index][actualTime+decalage]!=undefined)
+            for (var key in operatorJson.deliveries[index][actualTime+decalage].inventory) {
+                if (operatorJson.deliveries[index][actualTime+decalage].inventory.hasOwnProperty(key)) {
+                    var val = operatorJson.deliveries[index][actualTime+decalage].inventory[key];
+                    inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
+                }
+            }
+        else
+            inventory = "COMPLETED";
+    }else
+        inventory = "COMPLETED";
+
+    newContent += "<div class='table-responsive'><table class='table'>" +
+        "<tr><th>ID</th><td>" + index + "</td></tr>" +
+        "<tr><th>Coordinates</th><td>(" + operatorJson.context.deliveryPoints[index].x + " ; " + operatorJson.context.deliveryPoints[index].y + ")</td></tr>" +
+        "<tr><th>Products list</th><td>" + inventory + "</td></tr>" +
+        "<tr></tr></table></div>";
+
+    document.getElementById("detailsContent").innerHTML = newContent;
+}
+
 
 function displayDetailsWarehouseIndex(index) {
     var newContent = "";
     var inventory="";
 
-    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Drone'></span>";
+    newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Warehouse'></span>";
 
     if(operatorJson.warehouse[index][actualTime]!=undefined) {
         var remainingToJump = operatorJson.warehouse[index][actualTime].remaining;
@@ -191,7 +288,6 @@ function displayDetailsWarehouseIndex(index) {
             "<tr><th>Inventory</th><td>"+inventory+"</td></tr>" +
             "<tr></tr></table></div>";
     }
-
 
     document.getElementById("detailsContent").innerHTML = newContent;
 }
@@ -240,7 +336,7 @@ function startSimulation() {
     document.getElementById("mainContent").classList.remove("hidden");
 
     initMap(operatorJson);
-    interval = setInterval(generatesInfos, 2000);
+    interval = setInterval(generatesInfos, TICK);
     startMap();
 
 }
