@@ -111,11 +111,12 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-.idea/
+.idea
 target/
 *.iml
 *.out
 *.csv
+*.json
 src/main/java/fr/unice/polytech/si3/dda/MainALArrache.java
 visualiser/.gitignore
 benchmark/.gitignore
