@@ -34,6 +34,7 @@ public class PoiList {
         boolean first = true;
         stringBuilder.append("[");
         for (int i = 1; i < orderSteps.size(); i++) {
+//            orderSteps.get(i).decrRemaining();
             if (first) first = false;
             else stringBuilder.append(",");
             boolean firstTab = true;
