@@ -6,10 +6,6 @@ body {
     padding-top: 50px;
 }
 
-.vertical-offset-20 {
-    padding-top: 20px;
-}
-
 .input-group {
     padding-top: 10px !important;
 }
@@ -23,6 +19,6 @@ h1.panel-title {
     font-size: 18px !important;
 }
 
-.panel-default>.panel-heading {
+.panel-default > .panel-heading {
     background-color: rgba(165, 165, 165, 0.39) !important;
 }

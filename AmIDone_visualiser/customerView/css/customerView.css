@@ -16,6 +16,11 @@ html, body, .container {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    -webkit-transition: width 2s ease !important;
+    -moz-transition: width 2s ease !important;
+    -o-transition: width 2s ease !important;
+    transition: width 2s ease !important;
+
 }
 
 .droneCursor {
