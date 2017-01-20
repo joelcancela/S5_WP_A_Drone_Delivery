@@ -116,6 +116,7 @@ target/
 *.iml
 *.out
 *.csv
+*.json
 src/main/java/fr/unice/polytech/si3/dda/MainALArrache.java
 visualiser/.gitignore
 benchmark/.gitignore
