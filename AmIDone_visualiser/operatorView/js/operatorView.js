@@ -153,9 +153,21 @@ function displayDetailsWarehouseIndex(index) {
     newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/warehouse.png' alt='Drone'></span>";
 
     if(operatorJson.warehouse[index][actualTime]!=undefined) {
-        for (var key in operatorJson.warehouse[index][actualTime].inventory) {
-            if (operatorJson.warehouse[index][actualTime].inventory.hasOwnProperty(key)) {
-                var val = operatorJson.warehouse[index][actualTime].inventory[key];
+        var remainingToJump = operatorJson.warehouse[index][actualTime].remaining;
+
+        console.log("Tick : "+actualTime);
+        console.log("Remaining : "+remainingToJump);
+        console.log(actualTime==remainingToJump+actualTime);
+
+        if(actualTime!=remainingToJump && actualTime<remainingToJump+actualTime)
+            remainingToJump = 0;
+
+        console.log(remainingToJump+actualTime);
+        console.log("---------------------");
+
+        for (var key in operatorJson.warehouse[index][actualTime+remainingToJump].inventory) {
+            if (operatorJson.warehouse[index][actualTime+remainingToJump].inventory.hasOwnProperty(key)) {
+                var val = operatorJson.warehouse[index][actualTime+remainingToJump].inventory[key];
                 inventory += "<b>Product " + key + " </b>: " + val + "<br/>";
             }
         }
@@ -229,7 +241,7 @@ function startSimulation() {
 
     initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
-    setTimeout(function(){ startMap()}, 2000);
+    setTimeout(function(){ startMap()}, 400);
 
 }
 
