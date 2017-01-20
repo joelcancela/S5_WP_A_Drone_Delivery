@@ -51,7 +51,7 @@ public class VisualiserTest {
 		instructionsList = new ScheduleParser(schedule.getAbsolutePath()).parse();
 	}
 
-	@Test
+	@Ignore
 	public void testDisplay() throws Exception {
 		new Visualiser(ctx, instructionsList).display();
 	}
