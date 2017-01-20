@@ -101,4 +101,8 @@ public class LoadInstruction extends Instruction {
 		return true;
 	}
 
+	@Override
+	public String getType() {
+		return "load";
+	}
 }

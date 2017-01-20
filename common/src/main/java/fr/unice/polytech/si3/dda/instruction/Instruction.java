@@ -61,4 +61,8 @@ public abstract class Instruction {
     public boolean isWaitInstruction() {
         return false;
     }
+
+    public String getType(){
+        return null;
+    }
 }
