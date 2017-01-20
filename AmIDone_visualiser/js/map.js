@@ -2,7 +2,7 @@
  * Created by Jeremy on 18/01/2017.
  */
 
-const COLOR = {"BACKGROUND": "#FFFFFF", "PATH": "#00B3FD"};
+const COLOR = {"BACKGROUND": "#FFFFFF", "PATH": "#00B3FD", "FOCUS": "#FF0000"};
 
 const SIZE_IMG = {"DRONE": 1, "POI": 0.8};
 
