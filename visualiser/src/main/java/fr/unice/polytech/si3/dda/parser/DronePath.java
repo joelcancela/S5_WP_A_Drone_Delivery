@@ -78,7 +78,6 @@ public class DronePath {
 
     public String toJson() {
         StringBuilder stringBuilder = new StringBuilder();
-        System.out.println("+=============================+");
         stringBuilder.append("[");
         boolean first = true;
         for (int j = 0; j < path.size(); j++) {
@@ -88,7 +87,8 @@ public class DronePath {
                 else stringBuilder.append(",");
                 stringBuilder.append(moveToJson(j));
             }
-            if (!first) stringBuilder.append(",");
+            if (first) first = false;
+            else stringBuilder.append(",");
             stringBuilder.append("{ \"type\" : \"" + move.type + "\"");
             stringBuilder.append(",\"departure\" : ");
             stringBuilder.append("{\"x\" : " + move.start.getCoordinates().getX());
@@ -102,9 +102,6 @@ public class DronePath {
 
             stringBuilder.append(",\"inventory\" :{");
             boolean firstInv = true;
-            System.out.println(move.type);
-            System.out.println(move.remaining);
-            System.out.println(move.inventory);
             for (Integer i : move.inventory.keySet()) {
                 if (firstInv) firstInv = false;
                 else stringBuilder.append(",");
@@ -179,11 +176,7 @@ public class DronePath {
                 inventory.put(instruction.getProductType(), inventory.get(instruction.getProductType()) - instruction.getNumberOfProducts());
             } else
                 remaining = context.getTurns();
-            System.out.println("-------------------");
-            System.out.println(remaining);
-            remaining += end.distance(start) + 1;
-            System.out.println("start : " + start +" end : " + end);
-            System.out.println(remaining);
+            remaining += end.distance(start);
         }
     }
 }
