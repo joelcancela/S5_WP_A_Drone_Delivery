@@ -200,7 +200,7 @@ function startSimulation() {
 
     initMap(operatorJson);
     interval = setInterval(generatesInfos, 2000);
-    startMap();
+    setTimeout(function(){ startMap()}, 2000);
 
 }
 
