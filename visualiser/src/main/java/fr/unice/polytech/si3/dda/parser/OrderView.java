@@ -3,7 +3,6 @@ package fr.unice.polytech.si3.dda.parser;
 import fr.unice.polytech.si3.dda.ContextParser;
 import fr.unice.polytech.si3.dda.ScheduleParser;
 import fr.unice.polytech.si3.dda.common.Context;
-import fr.unice.polytech.si3.dda.common.Fleet;
 import fr.unice.polytech.si3.dda.exception.OverLoadException;
 import fr.unice.polytech.si3.dda.exception.ProductNotFoundException;
 import fr.unice.polytech.si3.dda.exception.WrongIdException;
@@ -27,7 +26,6 @@ public class OrderView {
     private List<Instruction> instructions;
     private List<DronePath> dronePaths;
     private Context context;
-    private Fleet fleet;
     private List<PoiList> warehouseList;
     private List<PoiList> deliveryPointList;
 
@@ -39,7 +37,6 @@ public class OrderView {
         Map<Integer, List<Instruction>> droneInstruction = new HashMap<>();
 
 
-        fleet = context.getFleet();
         for (Instruction instruction : instructions) {
             int droneId = instruction.getDroneNumber();
             if (droneInstruction.containsKey(droneId)) {
@@ -57,7 +54,6 @@ public class OrderView {
         for (Integer i : droneInstruction.keySet()) {
             DronePath dronePath = new DronePath(i, context);
             for (Instruction instruction : droneInstruction.get(i)) {
-                System.out.println(instruction);
                 dronePath.addMove(instruction);
             }
             dronePaths.add(dronePath);

@@ -171,10 +171,9 @@ function drawDrones() {
     }
 
     paths.forEach(function (path) {
-        /*var x = path.departure.x + ((path.total - path.remaining) / path.total) * (path.arrival.x - path.departure.x);
-        var y = path.departure.y + ((path.total - path.remaining) / path.total) * (path.arrival.y - path.departure.y);*/
-        var control = getControlPoint(path.departure.x, path.departure.y, path.arrival.x, path.arrival.y);
+        var control = getControlPoint(path.departure.x, path.departure.y, path.arrival.x, path.arrival.y, 1);
         var end = getQuadraticBezierXYatPercent(path.departure, control, path.arrival, (path.total - path.remaining) / path.total);
+
         drawDrone(end.x, end.y, document.getElementById('img_flying'));
     });
 
@@ -182,18 +181,6 @@ function drawDrones() {
         if (d[ticks] == undefined)
             return;
         if (d[ticks].remaining == 0) {
-            //drawDrone(d[ticks].arrival.x, d[ticks].arrival.y);
-            //var changes = 0;
-            /*d[ticks].inventory.forEach(function (item) {
-                changes = d[ticks+1].inventory.item - d[ticks].inventory.item;
-            });*/
-            /*if (d[ticks-1] == undefined) {
-                changes = 1;
-            } else {
-                $.each(d[ticks].inventory, function (index, value) {
-                    changes = d[ticks - 1].inventory[index] - value;
-                });
-            }*/
             if (d[ticks].type == "unload" || d[ticks].type == "deliver")
                 drawDrone(d[ticks].arrival.x, d[ticks].arrival.y, document.getElementById('img_unloading'));
             else if (d[ticks].type == "load")
@@ -229,31 +216,25 @@ function drawObject(img, x, y, size) {
 
 function drawPath(dx, dy, ax, ay) {
     //TODO: Pour le moment, en ligne droite
-    var control = getControlPoint(dx, dy, ax, ay);
     var dxPx = dx * xCase + xCase / 2;
     var dyPx = dy * yCase + yCase / 2;
     var axPx = ax * xCase + xCase / 2;
     var ayPx = ay * yCase + yCase / 2;
+    var control = getControlPoint(dxPx, dyPx, axPx, ayPx, xCase);
     ctx.lineWidth = "5";
-    ctx.beginPath();
-    ctx.arc(control.x * xCase, control.y * yCase, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'red';
-    ctx.fill();
     ctx.beginPath();
     ctx.strokeStyle = COLOR.PATH;
     ctx.moveTo(dxPx, dyPx);
     //ctx.lineTo(ax * xCase + xCase / 2, ay * yCase + yCase / 2);
-    ctx.quadraticCurveTo(control.x * xCase, control.y * yCase, axPx, ayPx);
+    ctx.quadraticCurveTo(control.x, control.y, axPx, ayPx);
     ctx.stroke();
 }
 
-function getControlPoint(dx, dy, ax, ay) {
+function getControlPoint(dx, dy, ax, ay, roModifier) {
     var teta = Math.atan((ax - dx) / (ay - dy));
-    var middle = {"x": (dx + ax) / 2, "y": (dy + ay) / 2};
-    //console.log(middle);
-    var ro = (Math.sqrt(2))/2;
+    var middle = {"x": (dx + ax) / 2, "y": (ay + dy) / 2};
+    var ro = roModifier * ((Math.sqrt(2))/2);
     var control = {"x": ro * Math.cos(teta) + middle.x, "y": middle.y - ro * Math.sin(teta)};
-    //console.log(control);
     return control;
 }
 
