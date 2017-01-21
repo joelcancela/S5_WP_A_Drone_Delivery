@@ -31,3 +31,8 @@ If this doesn't happen, go to the ``AmIDone_visualiser`` folder and open ``index
 
 * For both views, you'll have to load the ``log.json`` generated, to load the context for the simulation.
 * Just press start and that's it !
+
+Notes :
+-
+
+* All the modules in this project have a dependency with the ```common module```, so if you want to execute them separately don't forget to use the ```common module``` too.
