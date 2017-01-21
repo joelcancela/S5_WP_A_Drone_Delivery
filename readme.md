@@ -18,6 +18,22 @@ mvn clean install
 ./chainExec.sh [pathToFile.in]
 ```
 
+<<<<<<< HEAD
+=======
+Simulation (Visualisation) :
+-
+
+* If you launch one of the scripts, the visualiser will generate a ``log.json`` at the root of the project, and automatically open a webpage in your web browser.
+If this doesn't happen, go to the ``AmIDone_visualiser`` folder and open ``index.html``.
+
+* When arriving at the index, you'll have to choose between two views :
+    * The client view
+        - Just enter the order number (for the simulation, we considered that the client number is the same as the order number)
+    * The operator view
+
+* For both views, you'll have to load the ``log.json`` generated, to load the context for the simulation.
+* Just press start and that's it !
+>>>>>>> feature/algo
 
 Notes :
 -

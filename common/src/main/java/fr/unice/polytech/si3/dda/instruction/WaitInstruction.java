@@ -38,11 +38,15 @@ public class WaitInstruction extends Instruction {
 		return turns;
 	}
 
+	public int getTurns() {
+		return turns;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return droneNumber + " " + "W" + " " + turns;
@@ -67,5 +71,14 @@ public class WaitInstruction extends Instruction {
 		int result = droneNumber;
 		result = 31 * result + turns;
 		return result;
+	}
+
+	public boolean isWaitInstruction(){
+		return true;
+	}
+
+	@Override
+	public String getType() {
+		return "wait";
 	}
 }

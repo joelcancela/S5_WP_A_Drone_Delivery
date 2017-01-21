@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>AmIDone Customer View</title>
+    <link rel="icon" href="../favicon.ico"/>
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/customerView.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="inputContainer" id="inputs">
+    <div class="panel panel-default">
+        <div class="panel-heading">Load context simulation</div>
+        <div class="panel-body">
+            <label class="btn btn-default btn-file">JSON file (log.json)
+                <input id="input_json" type="file" onchange="getJson(event)" class="hidden">
+            </label>
+            <br/>
+            <button onclick="startSimulation()" class="btn btn-warning" style="margin-top: 4px">Start</button>
+        </div>
+    </div>
+</div>
+<div class="container hidden" id="mainContent">
+    <div class="row">
+        <h2>Customer #<span id="clientNumber">x</span></h2>
+    </div>
+    <div class="row vertical-offset-50">
+        <div class="col-md-6 col-centered">
+            <div>
+                <div class="progress progressDrone">
+                    <div class="progress-bar progress-bar-warning progress-bar-striped progressbarDrone active"
+                         role="progressbar"
+                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0" id="progressBar">
+                        <span id="progressSpan">0%</span>
+                    </div>
+                    <div class="droneDiv">
+                        <img src="../media/flying.png" class="droneCursor" alt="drone">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row vertical-offset-100">
+        <div class="panel panel-default">
+            <div class="panel-heading"><span>Order #<span id="orderNumber">x</span> status</span></div>
+            <div class="table-responsive">
+                <!-- Table -->
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Turns left before delivery</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+            <span class="glyphicon glyphicon-copyright-mark"></span><span> AmIDone 2017</span>
+        </p>
+    </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/customerView.js"></script>
+</body>
+</html>

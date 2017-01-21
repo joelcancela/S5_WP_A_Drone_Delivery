@@ -52,7 +52,6 @@ public class VisualiserTest {
 	}
 
 	@Ignore
-	@Test
 	public void testDisplay() throws Exception {
 		new Visualiser(ctx, instructionsList).display();
 	}
