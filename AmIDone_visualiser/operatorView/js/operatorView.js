@@ -50,7 +50,7 @@ function getJson(event) {
 }
 
 function generatesInfos(){
-    if(actualTime>lastTime)
+    if(actualTime>=lastTime)
         clearInterval(interval);
     else{
         if(detailsDroneIndex!=-1)
@@ -60,6 +60,7 @@ function generatesInfos(){
         if(detailsOrderIndex!=-1)
             displayDetailsOrderIndex(detailsOrderIndex);
 
+        updateTimer();
         generateDrones();
         generateWarehouses();
         generateOrders();
@@ -67,6 +68,11 @@ function generatesInfos(){
         actualTime++;
     }
 
+}
+
+function updateTimer(){
+    var newContent =  "Details - Current turn : "+actualTime;
+    document.getElementById("detailsTitle").innerHTML = newContent;
 }
 
 function generateDrones(){
@@ -223,11 +229,11 @@ function displayDetailsOrderIndex(index) {
 
     newContent += "<span style='text-align: :center;'><img class='img-responsive' src='../media/order.png' alt='Order'></span>";
 
-    if(operatorJson.deliveries[index][actualTime]!=undefined) {
-        var decalage = 0;
-        if(ordersRemain[index]<=actualTime)
-            decalage = ordersRemain[index];
+    var decalage = 0;
+    if(ordersRemain[index]<=actualTime)
+        decalage = ordersRemain[index];
 
+    if(operatorJson.deliveries[index][actualTime]!=undefined) {
         if(operatorJson.deliveries[index][actualTime+decalage]!=undefined)
             for (var key in operatorJson.deliveries[index][actualTime+decalage].inventory) {
                 if (operatorJson.deliveries[index][actualTime+decalage].inventory.hasOwnProperty(key)) {
@@ -240,11 +246,39 @@ function displayDetailsOrderIndex(index) {
     }else
         inventory = "COMPLETED";
 
+    var toDeliver = 0;
+    var delievered = 0;
+    var pourcent;
+    if(inventory=="COMPLETED")
+        pourcent = 100;
+    else{
+        for (var key in operatorJson.deliveries[index][actualTime+decalage].inventory) {
+            if (operatorJson.deliveries[index][actualTime+decalage].inventory.hasOwnProperty(key)) {
+                var val = operatorJson.deliveries[index][actualTime+decalage].inventory[key];
+                toDeliver++;
+                if(val==0)
+                    delievered++;
+            }
+        }
+        pourcent = Math.round((delievered*100)/toDeliver);
+    }
+
+    var colorBarre = "progress-bar-warning";
+    if(pourcent==100)
+        colorBarre = "progress-bar-success";
+
     newContent += "<div class='table-responsive'><table class='table'>" +
         "<tr><th>ID</th><td>" + index + "</td></tr>" +
         "<tr><th>Coordinates</th><td>(" + operatorJson.context.deliveryPoints[index].x + " ; " + operatorJson.context.deliveryPoints[index].y + ")</td></tr>" +
         "<tr><th>Products list</th><td>" + inventory + "</td></tr>" +
-        "<tr></tr></table></div>";
+        "<tr><th>Progression</th><td>" +
+            "<div class='progress'>"+
+                "<div class='progress-bar progress-bar-striped "+colorBarre+"' role='progressbar'"+
+                "aria-valuenow='"+delievered+"' aria-valuemin='0' aria-valuemax='"+toDeliver+"' style='width:"+pourcent+"%'>"+
+                pourcent+" %</div></div>"+
+        "</td></tr></table></div>";
+
+
 
     document.getElementById("detailsContent").innerHTML = newContent;
 }

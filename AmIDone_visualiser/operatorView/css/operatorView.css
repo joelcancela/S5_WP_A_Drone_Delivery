@@ -9,6 +9,15 @@ body {
     background-color: #dcdcdc;
 }
 
+.inputCont {
+    text-align: center;
+    position: fixed;
+    top: 30%;
+    right: 15%;
+    left: 15%;
+    border-radius: 4px;
+}
+
 .done {
     font-weight: bold;
     color: #47c515;
