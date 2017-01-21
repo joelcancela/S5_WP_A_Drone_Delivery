@@ -17,3 +17,9 @@ Scripts :
 mvn clean install
 ./chainExec.sh [pathToFile.in]
 ```
+
+
+Notes :
+-
+
+* All the modules in this project have a dependency with the ```common module```, so if you want to execute them separately don't forget to use the ```common module``` too.
