@@ -1,5 +1,12 @@
 ### DroneDelivery Team A
 
+Output files :
+-
+All outputs files are generated at the project root
+* Scheduler.out
+* map.csv
+* log.json
+
 Scripts :
 -
 
@@ -18,8 +25,6 @@ mvn clean install
 ./chainExec.sh [pathToFile.in]
 ```
 
-<<<<<<< HEAD
-=======
 Simulation (Visualisation) :
 -
 
@@ -33,7 +38,6 @@ If this doesn't happen, go to the ``AmIDone_visualiser`` folder and open ``index
 
 * For both views, you'll have to load the ``log.json`` generated, to load the context for the simulation.
 * Just press start and that's it !
->>>>>>> feature/algo
 
 Notes :
 -
