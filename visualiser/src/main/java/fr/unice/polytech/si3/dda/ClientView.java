@@ -27,7 +27,7 @@ public class ClientView extends View {
 	public void display(Scanner sc) throws InterruptedException, WrongIdException, OverLoadException, ProductNotFoundException {
 		int clientNumber;
 		do {
-			System.out.println("Entrez votre numéro client: ");
+			System.out.println("Please enter your customer number: ");
 			try {
 				clientNumber = sc.nextInt();
 			} catch (InputMismatchException e) {
@@ -81,7 +81,7 @@ public class ClientView extends View {
 		int percentage = (int) ((productsToDeliver - productsLeft) / (productsToDeliver) * 100);
 		drawHorizontalLine(10);
 		System.out.print("\n");
-		System.out.println("N° client: " + clientNumber);
+		System.out.println("Customer number: #" + clientNumber);
 		System.out.printf("Order: %d %% (%d turns remaining)%n%n", percentage, remainingTurns);
 
 		for (Pair<Integer, Integer> pair : remainingMap) {

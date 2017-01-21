@@ -34,7 +34,7 @@ public class Visualiser {
 		View view = null;
 		Scanner sc = new Scanner(System.in);
 		do {
-			System.out.println("Client (C) or Operator (O) ?");
+			System.out.println("Customer (C) or Operator (O) ?");
 			switch (sc.nextLine()) {
 				case "C":
 					view = new ClientView(ctx, instructions);
