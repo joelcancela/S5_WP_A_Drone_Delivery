@@ -50,7 +50,7 @@ function getJson(event) {
 }
 
 function generatesInfos(){
-    if(actualTime>=lastTime)
+    if(actualTime>lastTime)
         clearInterval(interval);
     else{
         if(detailsDroneIndex!=-1)
